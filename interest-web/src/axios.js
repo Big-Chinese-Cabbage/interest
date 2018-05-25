@@ -6,7 +6,7 @@ import router from './router'
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
-axios.defaults.baseURL = '/bishe';
+axios.defaults.baseURL = '/interest';
 
 // http request 拦截器
 /*axios.interceptors.request.use(

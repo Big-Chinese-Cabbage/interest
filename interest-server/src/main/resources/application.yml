@@ -1,11 +1,11 @@
 server:
   port: 8090
   servlet:
-    context-path: /bishe
+    context-path: /interest
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/beshi?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
     username: root
     password: wanghuan
 #  redis:
