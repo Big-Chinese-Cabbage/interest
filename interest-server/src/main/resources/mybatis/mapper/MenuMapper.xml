@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanghuan.dao.MenuDao">
+	<resultMap id="menuMap" type="com.wanghuan.model.sys.MenuEntity">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="url" property="url" />
+		<result column="parent_id" property="parentId" />
+		<result column="sort" property="sort" />
+		<result column="remark" property="remark" />
+		<result column="icon" property="icon" />
+	</resultMap>
+
+	<!-- 获取menu列表 -->
+	<select id="menusList" resultMap="menuMap">
+	<![CDATA[select * from sys_menu]]>
+		<where>
+			<if test="menuId != null and menuId != ''">
+				id = #{menuId} or parent_id = #{menuId}
+			</if>
+		</where>
+	    <![CDATA[ order by parent_id,id ]]>
+		<if test="pageSize != null and start != null ">
+			limit #{start},#{pageSize}
+		</if>
+	</select>
+	<!-- 获取user列表的总量 -->
+	<select id="menusSize" resultType="Integer">  
+	    <![CDATA[select count(*) from sys_menu]]>
+	    <where>
+			<if test="menuId != null and menuId != ''">
+				id = #{menuId} or parent_id = #{menuId}
+			</if>
+		</where>
+	</select>
+	<!-- 新建用户信息 -->
+	<insert id="insertMenu">
+		insert into sys_menu
+		(name,url,parent_id,sort,remark,icon)
+		values
+		(#{menuEntity.name},#{menuEntity.url},#{menuEntity.parentId},#{menuEntity.sort},#{menuEntity.remark},#{menuEntity.icon})
+	</insert>
+	<!-- 更新用户信息 -->
+	<update id="updateMenu">
+		update sys_menu set
+		name = #{menuEntity.name},
+		url = #{menuEntity.url},
+		parent_id = #{menuEntity.parentId},
+		sort = #{menuEntity.sort},
+		remark =
+		#{menuEntity.remark},
+		icon = #{menuEntity.icon}
+		<where>
+			id = #{menuEntity.id}
+		</where>
+	</update>
+	<!-- 删除用户信息 -->
+	<delete id="deleteMenus">
+		delete from sys_menu
+		<where>
+			<if test="groupId !=null">
+				id in
+				<foreach collection="groupId" item="item" index="index"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</delete>
+	<!-- 通过parentId得到menus列表 -->
+	<select id="menusByParentId" resultMap="menuMap">
+		select * from sys_menu
+		<where>
+			<if test="parentId != null">
+				parent_id = #{parentId}
+			</if>
+		</where>
+	</select>
+
+	<select id="getParentMenuListById" resultMap="menuMap">
+		select * from sys_menu
+		<where>
+			id in (select distinct parent_id from sys_menu
+			<where>
+				id in
+				<foreach collection="ids" item="item" index="index" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</where>
+			)
+		</where>
+		order by sort
+	</select>
+	<select id="getMenuListById" resultMap="menuMap">
+		select * from sys_menu
+		<where>
+			id in
+			<foreach collection="ids" item="item" index="index" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+		order by sort
+	</select>
+	<!-- 获取二级菜单 -->
+	<select id="getSubmenus" resultMap="menuMap">
+		select * from sys_menu
+		<where>
+			url is not null
+		</where>
+	</select>
+</mapper>

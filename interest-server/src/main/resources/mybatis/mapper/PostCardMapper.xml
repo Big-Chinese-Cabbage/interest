@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanghuan.dao.PostCardDao">
+	<resultMap id="postCardMap"
+		type="com.wanghuan.model.sys.PostCardEntity">
+		<id column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="interestid" property="interestid" />
+		<result column="createtime" property="createtime" />
+		<result column="replytime" property="replytime" />
+	</resultMap>
+
+	<select id="postcardList" resultMap="postCardMap">
+	<![CDATA[select * from post_card]]>
+		<where>
+			<if test="interestid != null and interestid != ''">
+				interestid = #{interestid}
+			</if>
+		</where>
+	    <![CDATA[ order by replytime desc ]]>
+		<if test="pageSize != null and start != null ">
+			limit #{start},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="postcardSize" resultType="Integer">  
+	    <![CDATA[select count(*) from post_card]]>
+		<where>
+			<if test="interestid != null and interestid != ''">
+				interestid = #{interestid}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertEntity" parameterType="PostCardEntity">
+		insert into post_card (username,title,content,interestid,createtime,replytime)
+		values (#{username},#{title},#{content},#{interestid},#{createtime},#{replytime})
+	</insert>
+
+	<select id="getPostcard" resultMap ="postCardMap">
+		select * from post_card
+		<where>
+			id = #{id}
+		</where>
+	</select>
+
+	<update id="updateCreatetiem">
+		update post_card set replytime = #{replytime}
+		<where>
+			id = #{id}
+		</where>
+	</update>	
+
+	<delete id="deletePostcards">
+		delete from post_card
+		<where>
+			<if test="groupId !=null">
+				id in
+				<foreach collection="groupId" item="item" index="index"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</delete>
+
+</mapper>

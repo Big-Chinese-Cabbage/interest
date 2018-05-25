@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanghuan.dao.RelationDao">
+	<resultMap id="relationMap" type="com.wanghuan.model.sys.RelationEntity">
+		<result column="user_id" property="userId" />
+		<result column="role_id" property="roleId" />
+	</resultMap>
+	<!-- 通过userId得到关系List -->
+	<select id="getRelationByUserId" resultMap="relationMap">
+		select * from r_user_role
+		<where>
+			user_id = #{userId}
+		</where>
+	</select>
+	<!-- 通过userId删除关系 -->
+	<delete id="delById">
+		delete from r_user_role
+		<where>
+			user_id = #{userId}
+		</where>
+	</delete>
+	<!-- 批量插入关系数据 -->
+	<insert id="insertRelations">
+		insert into r_user_role(user_id,role_id) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.userId},#{item.roleId})
+		</foreach>
+	</insert>
+</mapper>

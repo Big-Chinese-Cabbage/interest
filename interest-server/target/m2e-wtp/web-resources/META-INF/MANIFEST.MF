@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: wh-spring-boot
+Implementation-Version: 1.0.2-SNAPSHOT
+Built-By: peter
+Implementation-Vendor-Id: com.wanghuan
+Build-Jdk: 1.8.0_121
+Implementation-URL: http://projects.spring.io/spring-boot/spring-boot-
+ starter-parent/wh-spring-boot/
+Created-By: Maven Integration for Eclipse
+

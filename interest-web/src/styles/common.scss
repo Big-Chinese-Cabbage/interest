@@ -1,0 +1,487 @@
+$DirectionList:top,left,right,bottom;
+/*a*/
+a{text-decoration: none;color:#333;}
+a:link, a:visited{text-decoration: none;border:0;}
+/*font-size*/
+$font-size-list:7,8,9,10,12,16,18,20,22,26,30,40,50;
+@each $fonts in $font-size-list{
+	.font-size-#{$fonts}{font-size:#{$fonts*10%};}
+}
+div{box-sizing:border-box;-webkit-tap-highlight-color:rgba(255,255,255,0)}
+/*text-align*/
+.text-align-center{text-align: center;}
+.text-align-left{text-align: left;}
+.text-align-right{text-align: right;}
+/*text-overflow*/
+.text-overflow{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+/*overflow-hidden*/
+.overflow-hide{overflow: hidden;}
+/*float*/
+.float-left{float: left;}
+.float-right{float:right;}
+.clear{clear: both;}
+/*zindex*/
+.zindex-10{z-index: 10;}
+.zindex-9{z-index: 9;}
+.zindex-100{z-index: 100;}
+.zindex-d10{z-index: -10;}
+/*border_radius*/
+$animal-list:3,6,9;
+@each $animal in $animal-list{
+	.border-radius-#{$animal}{border-radius:#{$animal}px;}
+}
+/*border_all*/
+.border-all{border:1px solid;}
+@each $direction in $DirectionList{
+	.border-#{$direction}{border-#{$direction}:1px solid;}
+}
+.border-dashed{border: 1px dashed;}
+.border-dashed-bottom{border-bottom:1px dashed #ccc;}
+.border-none{border:none;}
+/*form input*/
+@mixin input-top {float: left;border:0;background: transparent;}
+.input-all{@include input-top;min-height: 40px;outline:none;}
+.input-all-30{@include input-top;min-height: 30px;outline:none;}
+.input-all-50{@include input-top;min-height: 50px;outline:none;}
+.inputs-textarea{width: 100%;min-height: 100px;}
+.scheckbox{width: 15px;height:15px;position: relative;top: 7px;}
+.whiteinput::-webkit-input-placeholder{color: #fff;}
+.greyinput::-webkit-input-placeholder{color: #999;}
+/*images*/
+.images-allhei{height:100vh;}
+.images-height100{height: 100%;}
+.images-con{width: 100%;}
+.images-half{width: 50%;}
+.images-33{width: 33.33%;}
+.images-all{width: 100%;float: left;}
+.images-large{width: 130%;float: left;}
+.images-small{width: 60%;float: left;}
+.images-midel{width: 70%;float: left;}
+/*icons*/ 
+.images-iocn{width: 30px;}
+/*tabsel*/
+.tabsel{display: block;}
+.tabsel-active{background: #e8f5fa;color:#1cb1f6; }
+/*home*/
+.home{width: 100%;height: auto;}
+.height{height: 100%;}
+.slidebox-height{height: 160px}
+/*center*/
+.center-padding{width: 100%;height: auto;padding: 3%;float: left;}
+/*contents*/
+.contents{width: 100%;height: auto;float: left;padding: 3%;}
+/*contents_left*/
+.contents-left{min-width: 30%; height: auto;float: left;}
+.contents-left-20{width: 20%;height: auto;float: left;min-height: 20px;}
+/*contents_right*/
+.contents-right{min-width: 30%; height: auto;float: right;}
+.contents-right-80{width: 80%;height: auto;float: left;min-height: 20px;}
+/*tirtles*/
+.tirtles{width: 100%;line-height: 30px;float: left;text-align: left;}
+.tirtles-left{float: left;min-width: 30%;max-width: 50%;}
+.tirtles-right{float: right;min-width: 30%;max-width: 50%;}
+/*list*/
+.list-all{width: 100%;height: auto;margin:0;padding:0;float: left;list-style: none;position: relative;}
+.list-all li{width: 100%;height: auto;float: left;position: relative;}
+.list-all li:hover{background: #272727}
+.list-cell{float: left;width: 100%;}
+.list{margin-bottom: 10px;}
+/*line-height*/
+$lineheight-list:10,12,14,18,20,22,25,30,35,40,42,50,65,62;
+@each $lineheight in $lineheight-list{
+	.line-height-#{$lineheight}{line-height:#{$lineheight}px;}
+}
+.nomargin{margin: 0;}
+.margin-auto{margin: 0 auto;}
+/*min-width*/
+$minwidth-list:30,40,50,60,90;
+@each $minwidth in $minwidth-list{
+	.minwidth-#{$minwidth}{min-width:#{$minwidth*1%};}
+}
+/*max-width*/
+$maxwidth-list:30,40,50,60,65,70;
+@each $maxwidth in $maxwidth-list{
+	.maxwidth-#{$maxwidth}{max-width:#{$maxwidth*1%};}
+}
+/*width*/
+$width-list:30,40,50,60,65,70,80,90,100;
+@each $width in $width-list{
+	.width-#{$width}{width:#{$width*1%};}
+}
+/*height*/
+$height-list:10,20,25,30,35,40,50,65,100,120,200,300;
+@each $height in $height-list{
+	.height-#{$height}{height:#{$height}px;}
+}
+$heightp-list:10,20,25,30,35,40,50,65,100;
+@each $heightp in $heightp-list{
+	.heightp-#{$heightp}{height:#{$heightp*1%};}
+}
+/*margin*/
+.padding-all{padding: 3%;}
+.padding-all-5x{padding: 5px;}
+.padding-all-10x{padding: 10px;}
+.padding-all-15x{padding: 15px;}
+$breakpoint-map: (
+    left-1: (p: left,v:1%),left-3: (p: left, v:3%), left-5: (p: left,v:5%),left-d-5: (p: left,v:5px),left-10: (p: left,v:10%),left-20x: (p: left,v:20px),left-30x: (p: left,v:30px),
+    top-1: (p: top,v:1%),top-2: (p: top, v:3%), top-5: (p: top,v:5%),top-5x: (p: top,v:5px),top-10: (p: top,v:10%),top-d-10:(p: top,v:-10px),top-60x:(p: top,v:60px),top-120x:(p: top,v:120px),top-300x:(p: top,v:300px),
+    right-1: (p: right,v:1%),right-3: (p: right, v:3%), right-5: (p: right,v:5%),right-d-5: (p: right,v:5px),right-10: (p: right,v:10%),right-20x: (p: right,v:20px),right-30x: (p: right,v:30px),
+    bottom-1: (p: bottom,v:1%),bottom-3: (p: bottom, v:3%), bottom-5: (p: bottom,v:5%),bottom-5x: (p: bottom,v:5px),bottom-10: (p: bottom,v:10%),bottom-60x: (p: bottom,v:60px),bottom-80x: (p: bottom,v:80px),bottom-110x: (p: bottom,v:110px)
+);
+@each $label , $map in $breakpoint-map {
+        .margin-#{$label}{
+           margin-#{ map-get($map, p)} : map-get($map, v);
+        }
+}
+/*padding*/
+@each $label , $map in $breakpoint-map {
+        .padding-#{$label}{
+           padding-#{ map-get($map, p)} : map-get($map, v);
+        }
+}
+@each $label , $map in $breakpoint-map {
+        .#{$label}{
+           #{ map-get($map, p)} : map-get($map, v);
+        }
+}
+.nopadding{padding: 0;}
+/*position_absolute*/
+.absolute{position: absolute;}
+.absolute-left{position: absolute;left:0; top: 0;}
+.absolute-right{position: absolute;right: 0;top: 0;}
+/*position_relative*/
+.relative{position: relative;}
+.fixed{position: fixed;}
+$position-map: (
+    left-0: (p: left,v:0%),left-1: (p: left,v:1%),left-3: (p: left, v:3%),
+    top-0: (p: top,v:0%),top-1: (p: top,v:25%),top-2: (p: top, v:30%), top-4x: (p: top,v:4px),top-d-10:(p: top,v:-10px),
+    right-3: (p: right, v:3%),
+    bottom-0: (p: bottom,v:0%),bottom-1: (p: bottom,v:1%),bottom-3: (p: bottom, v:3%),bottom-10: (p: bottom,v:10%),
+);
+@each $label , $map in $position-map {
+        .#{$label}{
+           #{ map-get($map, p)} : map-get($map, v);
+        }
+}
+
+/*text-color*/
+@each $textname,$color in (textclolor-red,#fd5023),(textclolor-black,#000),(textclolor-black-low,#999),(textclolor-333,#333),(textclolor-white,#fff),(textclolor-gray,#ccc),(textclolor-gray-red,#fc9378),(textclolor-blue-white,#66ccf5),(textclolor-blue,#9db9c5),(textclolor-green,#38c49f),(textclolor-666,#666),(textclolor-333,#333),(textclolor-alink,#2391e5),(textcolor-bg,#50afd6),(textcolor-yellow,#ffe082),(textcolor-quan-red,#f1483a),(textcolor-quan-gold,#ffa439),(textcolor-quan-brown,#dbb181),(textcolor-quan-detail,#8b501a),(textcolor-407b99,#407b99),(textcolor-be8116,#be8116),(textcolor-51b0d6,#51b0d6),(textcolor-ea3a3a,#ea3a3a),(textcolor-ff9b27,#ff9b27),(textcolor-2d2d2d,#2d2d2d),(textcolor-aeaeae,#aeaeae){
+  .#{$textname}{color: $color;}
+}
+/*backgound-color*/
+@each $bgname,$color in (bg-home,#e8f5fa),(bg-bar,#51b0d6),(bg-show,#fff),(bg-del,#ff5757),(bg-top-bf,#fff0f0),(bg-bar-deep, #51afd6),(bg-top-rig,#38c49f),(bg-green,#33cd75),(bg-list-index,#fff7f8),(bg-gray,#d9d9d9),(bg-button-red,#f95b0f),(bg-yellow,#f7d173),(bg-f8b55e,#f8b55e),(bg-f6b45a,#f6b45a),(bg-7ecef4,#7ecef4),(bg-e9f5fa,#e9f5fa),(bg-e3f9ff,#e3f9ff),(bg-eee,#eee),(bg-button-green,#34cf75),(bg-button-gray, #999),(bg-activity,#ee4a41),(bg-activity-status,#ea3f21),
+(bg-efeff4,#f5f5f5),(bg-51b0d6,#51b0d6),(bg-ea3a3a,#ea3a3a),(bg-ccc,#ccc),(bg-333,#333),(bg-69cb89,#69cb89){
+ .#{$bgname}{background-color: $color;}
+}
+/*border-color*/
+@each $colorname,$color in (fff,#fff),(999,#999),(e5e5e5,#e5e5e5),(ddd,#ddd),(f4e6e3,#f4e6e3),(d9d8d8,#d9d8d8),(bfbfbf,#bfbfbf),(ff8e70,#ff8e70),(6ad1fa,#6ad1fa),(51b0d6,#51b0d6),(e5e5e5,#e5e5e5),(ea3a3a,#ea3a3a){
+ .border-color-#{$colorname}{border-color: $color;}
+}
+.text-indent{text-indent: 1em;}
+
+/*flex-length （即项目的排列方向*/
+$length-list:1,2,3,4,5,6,7,8,9;
+@each $direction in $length-list{
+	.flex-#{$direction}{flex:#{$direction};}
+}
+
+/*flex-direction 属性决定主轴的方向（即项目的排列方向*/
+$direction-list:row,row-reverse,column,column-reverse;
+@each $direction in $direction-list{
+	.flex-direction-#{$direction}{flex-direction:#{$direction};}
+}
+/*flex-wrap*/
+$wrap-list:nowrap,wrap,wrap-reverse;
+@each $wrap in $wrap-list{
+	.flex-#{$wrap}{flex-wrap:#{$wrap};}
+}
+/*justify-content 属性定义了项目在主轴上的对齐方式*/
+$justify-content:flex-start,flex-end,center,space-between,space-around;
+@each $justify in $justify-content{
+	.flex-justify-#{$justify}{justify-content:#{$justify};}
+}
+/*align-items 属性定义项目在交叉轴上如何对齐*/
+$align-items:flex-start,flex-end,center,baseline,stretch;
+@each $align in $align-items{
+	.flex-items-#{$align}{align-items:#{$align};}
+}
+/*align-content 属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用*/
+$align-content:flex-start,flex-end,center,space-between,space-around,stretch;
+@each $aligns in $align-content{
+	.flex-content-#{$aligns}{align-content:#{$aligns};}
+}
+/*align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性*/
+$align-self: auto,flex-start,flex-end,center,baseline,stretch;
+@each $alignf in $align-self{
+	.flex-self-#{$alignf}{align-self:#{$alignf};}
+}
+
+.unselect {
+	-moz-user-select:none;
+      -webkit-user-select:none;
+      user-select:none; 
+}
+//animation
+.example-enter {
+  opacity: 0.01;
+  transition: opacity 0.1s ease-in;
+}
+.example-enter.example-enter-active {
+  opacity: 1;
+}
+.example-leave {
+  opacity: 1;
+  transition: opacity 0.1s ease-in;
+}
+.example-leave.example-leave-active {
+  opacity: 0;
+}
+
+/*music*/
+.modulepop{
+	width: 100%;height: 100%;left: 0px;
+  background: rgba(0,0,0,0.9);z-index: 1000;
+}
+.modulepopbk{
+	width: 100%;height: 100%;left: 0px;
+  background: rgba(0,0,0,0.5);z-index: -100;top:0px;
+}
+
+.play-litle{
+	color:#333;
+}
+.play-round{
+	color:#fff;
+	padding: 10px 25px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+	font-size: 300%;
+}
+.pre-round{
+	padding: 10px 18px;
+  border-radius: 50%;
+	font-size: 200%;
+}
+.carousel-enter {
+  top: 100%;
+}
+.carousel-enter.carousel-enter-active {
+  top: 0%;
+  transition: top 400ms ease-in;
+}
+.carousel-leave {
+  top: 0%;
+}
+.carousel-leave.carousel-leave-active {
+  top: 100%;
+  transition: top 400ms ease-in;
+}
+
+/*progress bar*/
+.barbody{
+	width: 100%;
+  height: 2px;
+  float: left;
+  background: #333;
+	position: relative;
+}
+.barbody .barcont{
+	width: 0%;
+  height: 2px;
+  background: #fff;
+	float: left;
+	top: 0px;
+	left: 0px;
+}
+.barbody .barround{
+	background: #fff;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	position: relative;
+	float: left;
+	top: -6px;
+	left: -10px;
+}
+.link-active {
+  color: #bbbbbb;
+  text-decoration: none;
+}
+.detailContent{width: 100%}
+.detailContent div{width: 100%!important}
+.detailContent img{width: 100%}
+/* box1 */
+.box{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	display: -webkit-flex; /* Safari */
+	flex-direction:row; /* 主轴方向 */
+	justify-content:center;
+	flex-wrap:wrap;
+	align-items:flex-start;
+}
+.box-flex{
+	display: flex;
+	display: -webkit-flex; /* Safari */
+}
+
+.item {
+	order: 0;
+	flex-grow:1;
+	flex: 1;
+}
+
+	.Grid-cell {flex: 1;}
+	.Grid-cell.u-full {flex: 0 0 100%;}
+	.Grid-cell.u-1of2 {flex: 0 0 50%;}
+	.Grid-cell.u-1of3 {flex: 0 0 33.3333%;}
+	.Grid-cell.u-1of4 {flex: 0 0 25%;}
+
+	.Media {
+		display: flex;
+		align-items: flex-start;
+		align-content: flex-start;
+		flex-direction:row-reverse; 
+	}
+	.Media-figure {margin-right: 1em;}
+	.Media-body {flex: 1;}
+
+	@mixin keyframes($animationName) {
+		@-webkit-keyframes #{$animationName} {
+		  @content;
+		}
+		@-moz-keyframes #{$animationName} {
+		  @content;
+		}
+		@-o-keyframes #{$animationName} {
+		  @content;
+		}
+		@keyframes #{$animationName} {
+		  @content;
+		}
+	}
+
+	.music-round{
+		background: #333;
+		border:5px solid rgba(0,0,0,0.4);
+		border-radius: 50%;
+		background-clip: padding-box;
+		animation: move-the-object 10s linear infinite;
+		@include keyframes(move-the-object) {
+		  0%   {
+	      transform: rotate(0deg);
+	  }
+		50%   {
+			transform: rotate(180deg);
+		}
+		  100% {
+	      transform: rotate(360deg);
+	  }
+	}
+	}
+
+	.foot{
+		width: 100%;
+	  display: flex;
+	  display: -webkit-flex; /* Safari */
+	  justify-content:center;
+	  flex-wrap:wrap;
+		align-items: center;
+		align-content: space-between;
+	}
+	.img_bg{
+		background-size:240%!important;
+		background-position: 12% 10% !important;
+		-webkit-filter: blur(10px)!important;
+	}
+	.item2{
+		 background: #8f83ff;
+		 border:1px solid #fff;
+		flex:0 1 40%;
+		height: 50%;
+	}
+.bar-footer{height: 60px}
+.display_none{display: none;}
+.scroll-content .content{padding: 0px!important;height: 100%;}
+.detailContent img{width:100%}
+.imground{
+	width:150px;height:150px;
+	border-radius:200px;
+}
+@media only screen and (min-width: 900px){
+   .bannerHeight,.bannerHeight .el-carousel__container{
+		 height:550px
+	 }
+	 .iconFont{
+		 font-size: 120%;
+	 }
+	 .tirtleFont{
+		 font-size: 140%;
+	 }
+	 .contentFont{
+		 font-size: 100%;
+	 }
+	 .charts {
+			width:600px;
+			height:400px;
+		}
+		.img-right{margin-top:1%}
+	.perenContent{flex-direction: row}
+	.images-allhei{width:100%;height: auto}
+}
+@media only screen and (min-width: 600px) and (max-width: 900px){
+   .bannerHeight,.bannerHeight .el-carousel__container{
+		 height:450px
+	 }
+	 .iconFont{
+		 font-size: 120%;
+	 }
+	 .tirtleFont{
+		 font-size: 140%;
+	 }
+	 .contentFont{
+		 font-size: 100%;
+	 }
+	 .charts {
+			width:600px;
+			height:400px;
+		}
+		.img-right{margin-top:3%}
+		.perenContent{flex-direction: row}
+}
+@media only screen and (min-width: 300px) and (max-width: 600px){
+   .bannerHeight,.bannerHeight .el-carousel__container{
+		 height:250px
+	 }
+	 .iconFont{
+		 font-size: 100%;
+	 }
+	 .tirtleFont{
+		 font-size: 120%;height: 40px;line-height: 40px;overflow: hidden;
+		 text-overflow:ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+	 }
+	 .contentFont{
+		 font-size: 90%;
+		 height: 50px;line-height: 25px;
+		 overflow: hidden;text-overflow: ellipsis;
+		 text-overflow:ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+	 }
+	 .box-flex .el-progress-circle{
+			width: 80px!important;
+	 }
+	 .charts {
+			width:350px;
+			height:220px;
+		}
+	.images-half{width: 100%;}
+	.img-right{margin-top:5%}
+	.perenContent{flex-direction: column}
+}
+
