@@ -5,7 +5,8 @@
 	<groupId>com.wanghuan</groupId>
 	<artifactId>wh-spring-boot</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<!--<packaging>war</packaging>-->
+	<packaging>j</packaging>
 
 	<name>wh-spring-boot</name>
 	<description>Demo project for Spring Boot</description>
@@ -52,11 +53,20 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
+
+		<!--打war配置-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.tomcat</groupId>-->
+			<!--<artifactId>tomcat-servlet-api</artifactId>-->
+			<!--<version>7.0.42</version>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
