@@ -33,7 +33,7 @@
                     <ul>
                         <li style="border-bottom: 1px solid #e9eaec;">
                             <div class="content">
-                                <img src="../images/图标.jpg" style="width: 40px;height: 40px;" align="absmiddle">
+                                <img src="../images/logo.jpg" style="width: 40px;height: 40px;" align="absmiddle">
                                 <span style="float:right;font-size: 15px"><Icon type="log-out"></Icon>欢迎登录</span>
                                 </img>
                             </div>

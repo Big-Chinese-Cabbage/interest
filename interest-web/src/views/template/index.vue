@@ -43,7 +43,7 @@
                     <div style="width: 95%;margin: 0 auto">
                         <div class="layout-logo">
                             <a @click="backHome()">
-                                <img src="../../images/图标.jpg" style="width: 50px;height: 50px;" align="absmiddle">
+                                <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle">
                                 </img>
                             </a>
                         </div>

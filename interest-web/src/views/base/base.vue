@@ -87,7 +87,7 @@
                 <div class="layout-logo-left">
                         <!-- <img src="../../images/logo.jpg"></img> -->
                         <a @click="backHome()">
-                            <img src="../../images/圆图标.png" style="width: 50px;height: 50px;" align="absmiddle">
+                            <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle">
                             </img>
                         </a>
                         <!-- <img src="../../images/圆图标.png" style="width: 50px;height: 50px;" align="absmiddle"> -->
