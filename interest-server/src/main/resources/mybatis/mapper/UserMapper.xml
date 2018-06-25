@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wanghuan.dao.UserDao">
-	<resultMap id="userMap" type="com.wanghuan.model.sys.UserEntity">
+	<resultMap id="userMap" type="com.wanghuan.model.UserEntity">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
 		<result column="login_name" property="loginName" />
 		<result column="password" property="password" />
-		<result column="sex" property="sex" />
-		<result column="age" property="age" />
-		<result column="college" property="college" />
-		<result column="info" property="info" />
+		<result column="email" property="email" />
 		<result column="usertype" property="usertype" />
+		<result column="headimg" property="headimg" />
+		<result column="url" property="url" />
 	</resultMap>
 	<!-- 获取user列表 -->
 	<select id="usersList" resultMap="userMap">
@@ -72,9 +71,13 @@
 	</select>
 	<!-- 新建用户信息 -->
 	<insert id="insertUser" parameterType="UserEntity">
-		insert into sys_user (name,login_name,password,sex,age,college,info)
+		<selectKey keyProperty="id" resultType="java.lang.Integer"
+				   order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_user (login_name,email,usertype,headimg,url)
 		values
-		(#{name},#{loginName},#{password},#{sex},#{age},#{college},#{info})
+		(#{loginName},#{email},#{usertype},#{headimg},#{url})
 	</insert>
 	<!-- 更新用户信息 -->
 	<update id="updateUser" parameterType="UserEntity">
@@ -109,4 +112,10 @@
 			</if>
 		</where>
 	</delete>
+	<select id="getUserEntityById" resultMap="userMap">
+		SELECT * FROM sys_user
+		<where>
+			id = #{id}
+		</where>
+	</select>
 </mapper>

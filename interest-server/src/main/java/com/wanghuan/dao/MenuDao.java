@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.wanghuan.model.sys.MenuEntity;
+import com.wanghuan.model.MenuEntity;
 
 @Mapper
 public interface MenuDao {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.wanghuan.model.sys.ReplyCardEntity;
+import com.wanghuan.model.ReplyCardEntity;
 
 @Mapper
 public interface ReplyCardDao {

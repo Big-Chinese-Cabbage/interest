@@ -8,39 +8,45 @@
 </style>
 <template>
     <div class="test">
-        <Button type="warning" @click="click()">test</Button>
-        <Button type="warning" @click="click2()">测试</Button>
-        <Input v-model="value" type="textarea" :rows="4" placeholder="Enter something..."></Input>
+        <a href="https://github.com/login/oauth/authorize?client_id=bbb5cc2034eb62484c1c">
+            <Button type="warning">login</Button>
+        </a>
     </div>
 </template>
 <script>
     export default {
         data(){
             return {
-                value: null
+                code: null
+            }
+        },
+        mounted(){
+            this.code = this.$route.query.code;
+            console.log(this.$route.query);
+            if(this.code !=null && this.code != ''){
+                this.axios({
+                    method: 'post',
+                    url: '/authentication/github',
+                    params:{
+                        "code": this.code
+                    },
+                    auth: {
+                        username: 'client',
+                        password: 'secret'
+                    }
+                }).then(function (response) {
+                    console.log(response.data);
+                    localStorage.setItem("currentUser_token",response.data.access_token);
+                    localStorage.setItem("currentUser_refresh_token",response.data.refresh_token);
+                    this.axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
+                    this.$router.push({ path: '/page/home' }) ;
+                }.bind(this)).catch(function (error) {
+                    alter(error);
+                }.bind(this));
             }
         },
         methods: {
-            click(){
-                this.$store.dispatch('userLogin',{"user_name":"test1","user_password":"123","router":this.$router});
-                this.$router.push({ path: 'base' }) 
-               
-            },
-            click2(){
-                this.axios({
-                    /*headers: {'Authorization': 'bearer '+this.$store.state.users.currentUser.UserToken},*/
-                    method: 'post',
-                    url: '/test',
-                    data: {
-                        "test": "123456"
-                    }
-                }).then(function(response){
-                    /*console.log(response);*/
-                    this.value = response.data;
-                }.bind(this)).catch(function(error){
-                    console.log(error);
-                });
-            }
+            
         }   
     };
 </script>

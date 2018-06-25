@@ -53,8 +53,8 @@
                                 <FormItem>
                                     <Button type="primary" @click="login('formLogin')" style="width: 250px">登录</Button>
                                     <div style="width: 250px">
-                                        <a @click="register()" style="{right: 26px;color: #2e82ff;}">
-                                            <h5>立即注册</h5>
+                                        <a href="https://github.com/login/oauth/authorize?client_id=bbb5cc2034eb62484c1c" style="{right: 26px;}">
+                                            <Icon  style="color: rebeccapurple;" size="40" type="social-github"></Icon>
                                         </a>
                                     </div>
                                 </FormItem>
@@ -70,6 +70,7 @@
     export default {
         data(){
             return {
+                code: null,
                 formLogin:{
                     userName: null,
                     password: null
@@ -82,6 +83,29 @@
                             { required: true, message: '请填写密码', trigger: 'blur' },
                         ]
                 }
+            }
+        },
+        mounted(){
+            this.code = this.$route.query.code;
+            if(this.code !=null && this.code != ''){
+                this.axios({
+                    method: 'post',
+                    url: '/authentication/github',
+                    params:{
+                        "code": this.code
+                    },
+                    auth: {
+                        username: 'client',
+                        password: 'secret'
+                    }
+                }).then(function (response) {
+                    localStorage.setItem("currentUser_token",response.data.access_token);
+                    localStorage.setItem("currentUser_refresh_token",response.data.refresh_token);
+                    this.axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
+                    this.$router.push({ path: '/page/home' }) ;
+                }.bind(this)).catch(function (error) {
+                    alter(error);
+                }.bind(this));
             }
         },
         methods: {

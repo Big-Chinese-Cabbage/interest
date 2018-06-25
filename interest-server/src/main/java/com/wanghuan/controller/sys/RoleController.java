@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wanghuan.model.sys.PageResult;
-import com.wanghuan.model.sys.RoleEntity;
-import com.wanghuan.service.sys.RoleService;
+import com.wanghuan.model.PageResult;
+import com.wanghuan.model.RoleEntity;
+import com.wanghuan.service.RoleService;
 
 @RestController
 public class RoleController {

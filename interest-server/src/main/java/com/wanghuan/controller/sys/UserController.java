@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wanghuan.model.sys.PageResult;
-import com.wanghuan.model.sys.UserEntity;
-import com.wanghuan.service.sys.UserService;
+import com.wanghuan.model.PageResult;
+import com.wanghuan.model.UserEntity;
+import com.wanghuan.service.UserService;
 import com.wanghuan.utils.SecurityAuthenUtil;
 
 @RestController

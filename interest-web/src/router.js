@@ -15,6 +15,13 @@ const routers = [
 	    component: (resolve) => require(['./views/index.vue'], resolve)
 	},
 	{
+	    path: '/login/github',
+	    meta: {
+	        title: 'smallsnail-wh'
+	    },
+	    component: (resolve) => require(['./views/test.vue'], resolve)
+	},
+	{
 	    path: '/register',
 	    meta: {
 	        title: 'smallsnail-wh'

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wanghuan.dao.PostCardDao">
 	<resultMap id="postCardMap"
-		type="com.wanghuan.model.sys.PostCardEntity">
+		type="com.wanghuan.model.PostCardEntity">
 		<id column="id" property="id" />
 		<result column="username" property="username" />
 		<result column="title" property="title" />

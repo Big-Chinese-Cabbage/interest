@@ -23,7 +23,7 @@ module.exports = merge(webpackBaseConfig, {
                 secure: false  
             }
         },
-        port: 8099
+        port: 8088
     },
     output: {
         publicPath: '/dist/',

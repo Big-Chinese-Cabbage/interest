@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wanghuan.model.sys.RelationEntity;
-import com.wanghuan.service.sys.RelationService;
+import com.wanghuan.model.RelationEntity;
+import com.wanghuan.service.RelationService;
 
 @RestController
 public class RelationController {

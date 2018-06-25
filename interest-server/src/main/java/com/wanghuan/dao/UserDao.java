@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.wanghuan.model.sys.UserEntity;
+import com.wanghuan.model.UserEntity;
 
 @Mapper
 public interface UserDao {
@@ -62,5 +62,6 @@ public interface UserDao {
 	public void deleteUsers(@Param("groupId") List<String> groupId);
 
 	public void updateUsertype(@Param("loginName")String loginName,@Param("usertype") Integer usertype);
-	
+
+    public UserEntity getUserEntityById(@Param("id")Integer id);
 }
