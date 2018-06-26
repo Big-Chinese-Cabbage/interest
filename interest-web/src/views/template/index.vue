@@ -52,8 +52,7 @@
                         </div>
                         <div class="layout-nav">
                             <MenuItem name="1">
-                                <Icon type="ios-person"></Icon>
-                                {{user.name}}
+                                {{user.loginName}}
                             </MenuItem>
                             <MenuItem name="2">
                                 <Icon type="ios-email"></Icon>
@@ -68,6 +67,7 @@
                                 控制台
                             </MenuItem>
                         </div>
+                        <img style="width: 30px;height: 30px;float: right; margin-top: 16px;border-radius: 100%;" :src="user.headimg">
                     </div>
                 </Menu>
             </Header>
@@ -76,70 +76,6 @@
             </Content>
             <Footer class="layout-footer-center">2018-2020 &copy; hello</Footer>
         </Layout>
-
-        <Modal :mask-closable="false" :visible.sync="modifyModal" :loading = "loading" v-model="modifyModal" width="600" title="修改" @on-ok="modifyOk('userModify')" @on-cancel="cancel()">
-             <Form ref="userModify" :rules="ruleValidate" :model="userModify"  :label-width="80" >
-                <FormItem label="登录名" prop="loginName">
-                    <Input v-model="userModify.loginName" disabled="disabled"  placeholder="请输入登录名，必须为12位数字"></Input>
-                </FormItem>
-                <FormItem label="密码" prop="password">
-                    <Input v-model="userModify.password" type="password" placeholder="请输入密码"></Input>
-                </FormItem>
-                <FormItem label="确认密码" prop="passwordAgain">
-                    <Input v-model="userModify.passwordAgain" type="password" placeholder="请输入密码"></Input>
-                </FormItem>
-                <FormItem label="姓名" prop="name">
-                    <Input v-model="userModify.name" placeholder="请输入姓名"></Input>
-                </FormItem>
-                <FormItem label="性别" prop="sex">
-                    <RadioGroup v-model="userModify.sex">
-                        <Radio label="man">男</Radio>
-                        <Radio label="woman">女</Radio>
-                    </RadioGroup>
-                </FormItem>
-                <FormItem label="年龄" prop="age">
-                    <Input v-model="userModify.age" placeholder="请输入年龄"></Input>
-                </FormItem>
-                <FormItem label="学院" prop="college">
-                    <Input v-model="userModify.college" placeholder="请输入学院"></Input>
-                </FormItem>
-                <FormItem label="个人简介" prop="info">
-                    <Input v-model="userModify.info" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
-                </FormItem>
-            </Form>
-        </Modal>
-
-        <Modal :mask-closable="false" :visible.sync="modifyModal" :loading = "loading" v-model="modifyModal" width="600" title="修改" @on-ok="modifyOk('userModify')" @on-cancel="cancel()">
-             <Form ref="userModify" :rules="ruleValidate" :model="userModify"  :label-width="80" >
-                <FormItem label="登录名" prop="loginName">
-                    <Input v-model="userModify.loginName" disabled="disabled"  placeholder="请输入登录名，必须为12位数字"></Input>
-                </FormItem>
-                <FormItem label="密码" prop="password">
-                    <Input v-model="userModify.password" type="password" placeholder="请输入密码"></Input>
-                </FormItem>
-                <FormItem label="确认密码" prop="passwordAgain">
-                    <Input v-model="userModify.passwordAgain" type="password" placeholder="请输入密码"></Input>
-                </FormItem>
-                <FormItem label="姓名" prop="name">
-                    <Input v-model="userModify.name" placeholder="请输入姓名"></Input>
-                </FormItem>
-                <FormItem label="性别" prop="sex">
-                    <RadioGroup v-model="userModify.sex">
-                        <Radio label="man">男</Radio>
-                        <Radio label="woman">女</Radio>
-                    </RadioGroup>
-                </FormItem>
-                <FormItem label="年龄" prop="age">
-                    <Input v-model="userModify.age" placeholder="请输入年龄"></Input>
-                </FormItem>
-                <FormItem label="学院" prop="college">
-                    <Input v-model="userModify.college" placeholder="请输入学院"></Input>
-                </FormItem>
-                <FormItem label="个人简介" prop="info">
-                    <Input v-model="userModify.info" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
-                </FormItem>
-            </Form>
-        </Modal>
 
         <Modal :mask-closable="false" :visible.sync="emailModal" :loading = "loading" v-model="emailModal" width="600" title="联系管理员" @on-ok="emailOk('email')" @on-cancel="cancel()">
              <Form ref="email" :rules="emailRule" :model="email"  :label-width="80" >
@@ -175,59 +111,55 @@
                 },
                 user: {
                     loginName: '',
-                    password: '',
-                    name: '',
-                    sex: '',
-                    age: '',
-                    college: '',
-                    info: ''
+                    email: '',
+                    headimg: ''
                 },
-                userModify: {
-                    id:'',
-                    loginName: '',
-                    password: '',
-                    passwordAgain:'',
-                    name: '',
-                    sex: '',
-                    age: '',
-                    college: '',
-                    info: ''
-                },
-                modifyModal: false,
-                ruleValidate: {
-                    loginName: [
-                        { type:'string', required: true, message: '请输入登录名，必须为12位数字', trigger: 'blur' },
-                        {validator(rule, value, callback) {
-                            if (!Number.isInteger(+value) || value.length!=12) {
-                                callback(new Error('必须为12位数字'));
-                            } else {
-                                callback();
-                            }
+                // userModify: {
+                //     id:'',
+                //     loginName: '',
+                //     password: '',
+                //     passwordAgain:'',
+                //     name: '',
+                //     sex: '',
+                //     age: '',
+                //     college: '',
+                //     info: ''
+                // },
+                //modifyModal: false,
+                // ruleValidate: {
+                //     loginName: [
+                //         { type:'string', required: true, message: '请输入登录名，必须为12位数字', trigger: 'blur' },
+                //         {validator(rule, value, callback) {
+                //             if (!Number.isInteger(+value) || value.length!=12) {
+                //                 callback(new Error('必须为12位数字'));
+                //             } else {
+                //                 callback();
+                //             }
                           
-                        }, trigger: 'blur'}
-                    ],
-                    password: [
-                        { type:'string', required: true, message: '请输入密码', trigger: 'blur' }
-                    ],
-                    passwordAgain: [
-                        { type:'string', required: true, message: '请输入再次输入密码', trigger: 'blur' }
-                    ],
-                    name: [
-                        { type:'string', required: true, message: '请输入姓名', trigger: 'blur' }
-                    ],
-                    sex: [
-                        { required: true, message: '请选择性别', trigger: 'change' }
-                    ],
-                    age: [
-                        { type:'string', required: true, message: '请输入年龄', trigger: 'blur' }
-                    ],
-                    college: [
-                        { type:'string', required: true, message: '请输入学院', trigger: 'blur' }
-                    ],
-                    info: [
-                        { type:'string', required: true, message: '请输入个人简介', trigger: 'blur' }
-                    ]
-                },
+                //         }, trigger: 'blur'}
+                //     ],
+                //     password: [
+                //         { type:'string', required: true, message: '请输入密码', trigger: 'blur' }
+                //     ],
+                //     passwordAgain: [
+                //         { type:'string', required: true, message: '请输入再次输入密码', trigger: 'blur' }
+                //     ],
+                //     name: [
+                //         { type:'string', required: true, message: '请输入姓名', trigger: 'blur' }
+                //     ],
+                //     sex: [
+                //         { required: true, message: '请选择性别', trigger: 'change' }
+                //     ],
+                //     age: [
+                //         { type:'string', required: true, message: '请输入年龄', trigger: 'blur' }
+                //     ],
+                //     college: [
+                //         { type:'string', required: true, message: '请输入学院', trigger: 'blur' }
+                //     ],
+                //     info: [
+                //         { type:'string', required: true, message: '请输入个人简介', trigger: 'blur' }
+                //     ]
+                // },
                 emailRule: {
                     title: [
                         { type:'string', required: true, message: '请输入密码', trigger: 'blur' }
@@ -266,23 +198,19 @@
         methods:{
             userSet(e){
                 this.user.loginName = e.loginName;
-                this.user.password = e.password;
-                this.user.name = e.name;
-                this.user.sex = e.sex;
-                this.user.age = e.age;
-                this.user.college = e.college;
-                this.user.info = e.info;
+                this.user.email = e.email;
+                this.user.headimg = e.headimg;
             },
-            userModifySet(e){
-                this.userModify.loginName = e.loginName;
-                this.userModify.password = e.password;
-                this.userModify.passwordAgain = e.password;
-                this.userModify.name = e.name;
-                this.userModify.sex = e.sex;
-                this.userModify.age = e.age;
-                this.userModify.college = e.college;
-                this.userModify.info = e.info;
-            },
+            // userModifySet(e){
+            //     this.userModify.loginName = e.loginName;
+            //     this.userModify.password = e.password;
+            //     this.userModify.passwordAgain = e.password;
+            //     this.userModify.name = e.name;
+            //     this.userModify.sex = e.sex;
+            //     this.userModify.age = e.age;
+            //     this.userModify.college = e.college;
+            //     this.userModify.info = e.info;
+            // },
             search(){
                 if(this.searchValue != null && this.searchValue != ''){
                     this.$router.push("/page/home/"+this.searchValue);
@@ -290,8 +218,8 @@
             },
             menuSelect(e){
                 if(e==1){
-                    this.modifyModal = true;
-                    this.userModifySet(this.user);
+                    // this.modifyModal = true;
+                    // this.userModifySet(this.user);
                 }else if (e==2) {
                     this.emailModal = true;
                 }else if (e==3) {
@@ -306,38 +234,38 @@
             cancel () {
                 this.$Message.info('点击了取消');
             },
-            modifyOk(userModify){
-                this.$refs[userModify].validate((valid) => {
-                    if (valid) {
-                        if(this.userModify.password == this.userModify.passwordAgain){
-                            if(this.userModify.password == this.user.password){
-                                this.userModify.id = 8888;
-                            }
-                            this.axios({
-                              method: 'put',
-                              url: '/user',
-                              data: this.userModify
-                            }).then(function (response) {
-                                this.userSet(response.data)
-                                this.$Message.info('修改成功');
-                            }.bind(this)).catch(function (error) {
-                              alert(error);
-                            });  
-                            this.modifyModal = false;
-                        }else{
-                            this.$Message.error('两次输入的密码不相同!');
-                        }
-                    }else {
-                        this.$Message.error('表单验证失败!');
-                        setTimeout(() => {
-                            this.loading = false;
-                            this.$nextTick(() => {
-                                this.loading = true;
-                            });
-                        }, 1000);
-                    }
-                })
-            },
+            // modifyOk(userModify){
+            //     this.$refs[userModify].validate((valid) => {
+            //         if (valid) {
+            //             if(this.userModify.password == this.userModify.passwordAgain){
+            //                 if(this.userModify.password == this.user.password){
+            //                     this.userModify.id = 8888;
+            //                 }
+            //                 this.axios({
+            //                   method: 'put',
+            //                   url: '/user',
+            //                   data: this.userModify
+            //                 }).then(function (response) {
+            //                     this.userSet(response.data)
+            //                     this.$Message.info('修改成功');
+            //                 }.bind(this)).catch(function (error) {
+            //                   alert(error);
+            //                 });  
+            //                 this.modifyModal = false;
+            //             }else{
+            //                 this.$Message.error('两次输入的密码不相同!');
+            //             }
+            //         }else {
+            //             this.$Message.error('表单验证失败!');
+            //             setTimeout(() => {
+            //                 this.loading = false;
+            //                 this.$nextTick(() => {
+            //                     this.loading = true;
+            //                 });
+            //             }, 1000);
+            //         }
+            //     })
+            // },
             emailOk(email){
                 this.$refs[email].validate((valid) => {
                     if (valid) {

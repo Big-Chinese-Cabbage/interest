@@ -70,7 +70,7 @@ public class GitHubAuthentication implements MyAuthentication {
             if (userEntity == null) {
                 return insertUser(githubUserInfo);
             } else {
-                return String.valueOf(userEntity.getId());
+                return userEntity.getLoginName();
             }
 
         } catch (Exception e) {
@@ -92,6 +92,6 @@ public class GitHubAuthentication implements MyAuthentication {
         userDao.insertUser(userEntity);
 
 
-        return String.valueOf(userEntity.getId());
+        return userEntity.getLoginName();
     }
 }

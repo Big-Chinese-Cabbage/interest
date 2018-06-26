@@ -35,11 +35,13 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		UserEntity userEntity = null;
 
-		if(MyStringUtil.isInteger(id)) {
-			userEntity = userDao.getUserEntityById(Integer.valueOf(id));
-		}else {
-			userEntity = userDao.getUserEntityByLoginName(id);
-		}
+//		if(MyStringUtil.isInteger(id)) {
+//			userEntity = userDao.getUserEntityById(Integer.valueOf(id));
+//		}else {
+//			userEntity = userDao.getUserEntityByLoginName(id);
+//		}
+
+		userEntity = userDao.getUserEntityByLoginName(id);
 
 		if(userEntity == null) {
 			throw new UsernameNotFoundException("用户:"+ id + "不存在！");
