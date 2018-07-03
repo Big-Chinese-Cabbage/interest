@@ -6,7 +6,7 @@
 	<artifactId>wh-spring-boot</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 	<!--<packaging>war</packaging>-->
-	<packaging>j</packaging>
+	<packaging>jar</packaging>
 
 	<name>wh-spring-boot</name>
 	<description>Demo project for Spring Boot</description>

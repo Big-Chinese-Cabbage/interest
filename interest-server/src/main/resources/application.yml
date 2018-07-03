@@ -15,10 +15,10 @@ spring:
 #    password: null
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
-  type-aliases-package: com.wanghuan.model
+  type-aliases-package: com.interest.model
 
 logging:
   level:
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
-    com.wanghuan: DEBUG
+    com.interest: DEBUG

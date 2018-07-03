@@ -71,16 +71,16 @@
                 if(this.$route.params.title == null){
                     this.axios({
                         method: 'get',
-                        url: '/insterests'
+                        url: '/public/interests'
                     }).then(function (response) {
                         this.homeArticle = response.data;
                     }.bind(this)).catch(function (error) {
-                        alter(error);
+                        this.$Message.error('无权限');
                     }.bind(this));
                 }else{
                     this.axios({
                         method: 'get',
-                        url: '/insterests',
+                        url: '/public/interests',
                         params:{
                             "title":this.$route.params.title
                         }
@@ -95,18 +95,18 @@
                         //     this.flage = true;
                         // }
                     }.bind(this)).catch(function (error) {
-                        alter(error);
+                        this.$Message.error('无权限');
                     }.bind(this));
                 }
                 
             },
-            login(formLogin){
-                this.$refs[formLogin].validate((valid) => {
-                    if(valid){
-                        this.$store.dispatch('users/userLogin',{"user_name":this.formLogin.userName,"user_password":this.formLogin.password,"router":this.$router});
-                    }
-                })
-            }
+            // login(formLogin){
+            //     this.$refs[formLogin].validate((valid) => {
+            //         if(valid){
+            //             this.$store.dispatch('users/userLogin',{"user_name":this.formLogin.userName,"user_password":this.formLogin.password,"router":this.$router});
+            //         }
+            //     })
+            // }
         }
     };
 </script>

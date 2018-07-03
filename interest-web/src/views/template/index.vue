@@ -50,7 +50,7 @@
                         <div class="layout-search">
                             <Input v-model="searchValue" icon="android-search" placeholder="Enter something..." @on-enter="search()"></Input>
                         </div>
-                        <div class="layout-nav">
+                        <div v-if="loginFlag" class="layout-nav">
                             <MenuItem name="1">
                                 {{user.loginName}}
                             </MenuItem>
@@ -67,7 +67,13 @@
                                 控制台
                             </MenuItem>
                         </div>
-                        <img style="width: 30px;height: 30px;float: right; margin-top: 16px;border-radius: 100%;" :src="user.headimg">
+                        <img v-if="loginFlag" style="width: 30px;height: 30px;float: right; margin-top: 16px;border-radius: 100%;" :src="user.headimg">
+                        <div v-if="!loginFlag" class="layout-nav">
+                            <MenuItem name="5">
+                                <Icon type="log-in"></Icon>
+                                登陆
+                            </MenuItem>
+                        </div>
                     </div>
                 </Menu>
             </Header>
@@ -99,6 +105,7 @@
     export default {
         data(){
             return {
+                loginFlag: false,
                 consoleFlag: false,
                 loading: true,
                 searchValue:'',
@@ -114,52 +121,6 @@
                     email: '',
                     headimg: ''
                 },
-                // userModify: {
-                //     id:'',
-                //     loginName: '',
-                //     password: '',
-                //     passwordAgain:'',
-                //     name: '',
-                //     sex: '',
-                //     age: '',
-                //     college: '',
-                //     info: ''
-                // },
-                //modifyModal: false,
-                // ruleValidate: {
-                //     loginName: [
-                //         { type:'string', required: true, message: '请输入登录名，必须为12位数字', trigger: 'blur' },
-                //         {validator(rule, value, callback) {
-                //             if (!Number.isInteger(+value) || value.length!=12) {
-                //                 callback(new Error('必须为12位数字'));
-                //             } else {
-                //                 callback();
-                //             }
-                          
-                //         }, trigger: 'blur'}
-                //     ],
-                //     password: [
-                //         { type:'string', required: true, message: '请输入密码', trigger: 'blur' }
-                //     ],
-                //     passwordAgain: [
-                //         { type:'string', required: true, message: '请输入再次输入密码', trigger: 'blur' }
-                //     ],
-                //     name: [
-                //         { type:'string', required: true, message: '请输入姓名', trigger: 'blur' }
-                //     ],
-                //     sex: [
-                //         { required: true, message: '请选择性别', trigger: 'change' }
-                //     ],
-                //     age: [
-                //         { type:'string', required: true, message: '请输入年龄', trigger: 'blur' }
-                //     ],
-                //     college: [
-                //         { type:'string', required: true, message: '请输入学院', trigger: 'blur' }
-                //     ],
-                //     info: [
-                //         { type:'string', required: true, message: '请输入个人简介', trigger: 'blur' }
-                //     ]
-                // },
                 emailRule: {
                     title: [
                         { type:'string', required: true, message: '请输入密码', trigger: 'blur' }
@@ -185,8 +146,14 @@
             // this.$router.push("/page/home");
             this.axios({
                 method: 'get',
-                url: '/user'
+                url: '/public/user'
             }).then(function (response) {
+                if(response.data != null && response.data != ''){
+                    console.log(response.data);
+                    this.axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
+                    this.loginFlag = true;
+                    console.log(true);
+                }
                 this.userSet(response.data);
                 if(response.data.usertype == 1){
                     this.consoleFlag = true;
