@@ -86,27 +86,7 @@
             }
         },
         mounted(){
-            this.code = this.$route.query.code;
-            if(this.code !=null && this.code != ''){
-                this.axios({
-                    method: 'post',
-                    url: '/authentication/github',
-                    params:{
-                        "code": this.code
-                    },
-                    auth: {
-                        username: 'client',
-                        password: 'secret'
-                    }
-                }).then(function (response) {
-                    localStorage.setItem("currentUser_token",response.data.access_token);
-                    localStorage.setItem("currentUser_refresh_token",response.data.refresh_token);
-                    this.axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
-                    this.$router.push({ path: '/page/home' }) ;
-                }.bind(this)).catch(function (error) {
-                    alter(error);
-                }.bind(this));
-            }
+            
         },
         methods: {
             login(formLogin){

@@ -56,6 +56,7 @@ export default {
         },
         loginOUt(context,{router}){
             router.push({ path: '/' }) ;
+            location.reload();
             context.commit('clearUser');
         }
     }

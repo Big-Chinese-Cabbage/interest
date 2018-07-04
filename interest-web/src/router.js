@@ -6,9 +6,25 @@ import Util from './libs/util';
 Vue.use(VueRouter);
 
 const routers = [
-	
 	{
-	    path: '/',
+		path: '/',
+	    meta: {
+	        title: 'smallsnail-wh'
+	    },
+	    component: (resolve) => require(['./views/template/index.vue'], resolve),
+	    children: [
+	    	{
+	    		path: '',
+                name: 'home',
+                component: (resolve) => require(['./views/template/home.vue'], resolve),
+                meta: {
+                    title:"home"
+                }
+	    	}
+	    ]
+	},
+	{
+	    path: '/login',
 	    meta: {
 	        title: 'smallsnail-wh'
 	    },

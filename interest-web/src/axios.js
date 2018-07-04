@@ -5,7 +5,11 @@ import router from './router'
 // axios 配置
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-// axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
+if(localStorage.getItem("currentUser_token") == null || localStorage.getItem("currentUser_token") == ''){
+    axios.defaults.headers.common['Authorization'] ='';
+}else{
+    axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
+}
 axios.defaults.baseURL = '/interest';
 
 // http request 拦截器
