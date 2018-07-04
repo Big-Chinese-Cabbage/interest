@@ -97,7 +97,7 @@
             getArticle(e){
                 this.axios({
                     method: 'get',
-                    url: '/insterests/insterest',
+                    url: '/public/interests/interest',
                     params:{
                         "id": e
                     }
@@ -119,7 +119,7 @@
             getPostCard(e){
                 this.axios({
                   method: 'get',
-                  url: '/postcards',
+                  url: '/public/postcards',
                   params: {
                     'page':e.pageInfo.page,
                     'pageSize':e.pageInfo.pageSize,
@@ -149,26 +149,30 @@
             },
             sendCard(){
                 if(this.title != null && this.textarea != null && this.title != '' && this.textarea != ''){
-                    this.axios({
-                        method: 'post',
-                        url: '/postcards/postcard',
-                        data:{
-                            "interestid": this.interestid,
-                            "title": this.title,
-                            "content":this.textarea
-                        }
-                    }).then(function (response) {
-                        this.$Message.info('发帖成功');
-                        this.title = '';
-                        this.textarea = '';
-                        this.pageInfo.page = 0;
-                        this.getPostCard({
-                            "pageInfo":this.pageInfo,
-                            "interestid":this.interestid
-                        });
-                    }.bind(this)).catch(function (error) {
-                        alter(error);
-                    }.bind(this));
+                    if(this.axios.defaults.headers.common['Authorization'] != null && this.axios.defaults.headers.common['Authorization'] != ''){
+                        this.axios({
+                            method: 'post',
+                            url: '/postcards/postcard',
+                            data:{
+                                "interestid": this.interestid,
+                                "title": this.title,
+                                "content":this.textarea
+                            }
+                        }).then(function (response) {
+                            this.$Message.info('发帖成功');
+                            this.title = '';
+                            this.textarea = '';
+                            this.pageInfo.page = 0;
+                            this.getPostCard({
+                                "pageInfo":this.pageInfo,
+                                "interestid":this.interestid
+                            });
+                        }.bind(this)).catch(function (error) {
+                            alter(error);
+                        }.bind(this));
+                    }else{
+                        this.$Message.error('登录后，才能发帖！');
+                    }
                 }else{
                     this.$Message.error('请填写标题和内容');
                 }

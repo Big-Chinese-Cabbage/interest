@@ -8,7 +8,7 @@ import axios from './axios';
 import VueAxios from 'vue-axios';
 import store from './store/store';
 
-import './styles/common.scss'
+import './styles/common.css';
 
 Vue.use(VueAxios,axios);
 

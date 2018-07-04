@@ -21,7 +21,7 @@ public class InterestController {
 		return interestService.getInsterest(title);
 	}
 	
-	@GetMapping("/insterests/interest")
+	@GetMapping("/public/interests/interest")
 	public InterestEntity insterestGetById(@RequestParam(value="id") int id){
 		return interestService.getInsterestById(id);
 	}

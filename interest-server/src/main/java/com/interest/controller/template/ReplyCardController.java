@@ -17,7 +17,7 @@ public class ReplyCardController {
 	@Autowired
 	private ReplyCardService replyCardService;
 
-	@GetMapping("/replycards")
+	@GetMapping("/public/replycards")
 	public PageResult replycardList(@RequestParam("postcardid") int postcardid,
                                     @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
 		PageResult pageResult = new PageResult();

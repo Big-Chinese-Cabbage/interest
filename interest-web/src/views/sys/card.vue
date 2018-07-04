@@ -135,7 +135,7 @@
             });
             this.axios({
                 method: 'get',
-                url: '/insterests'
+                url: '/public/interests'
             }).then(function (response) {
                 this.interestList = response.data;
             }.bind(this)).catch(function (error) {
@@ -170,7 +170,7 @@
             getTable(e) {
                 this.axios({
                   method: 'get',
-                  url: '/postcards',
+                  url: '/public/postcards',
                   params: {
                     'page':e.pageInfo.page,
                     'pageSize':e.pageInfo.pageSize,

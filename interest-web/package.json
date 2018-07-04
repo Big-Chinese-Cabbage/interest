@@ -1,5 +1,5 @@
 {
-  "name": "wh-web",
+  "name": "interest-web",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,7 +18,6 @@
   "dependencies": {
     "axios": "^0.16.2",
     "iview": "^2.0.0-rc.13",
-    "npm": "^6.0.1",
     "vue": "^2.2.6",
     "vue-axios": "^2.0.2",
     "vue-resource": "^1.5.1",

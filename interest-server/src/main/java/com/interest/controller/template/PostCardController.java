@@ -20,7 +20,7 @@ public class PostCardController {
 	@Autowired
 	private PostCardService postCardService;
 
-	@GetMapping("/postcards")
+	@GetMapping("/public/postcards")
 	public PageResult postcardList(@RequestParam(value="interestid",required=false) String interestid,
                                    @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
 		PageResult pageResult = new PageResult();
@@ -29,7 +29,7 @@ public class PostCardController {
 		return pageResult;
 	}
 	
-	@GetMapping("/postcards/postcard")
+	@GetMapping("/public/postcards/postcard")
 	public PostCardEntity postcardGet(@RequestParam("id") int id) {
 		return postCardService.getPostcard(id);
 	}

@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -30,8 +31,8 @@ public class MyAuthorizationServerConfigurerAdapter extends AuthorizationServerC
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-//	@Autowired
-//	private RedisConnectionFactory redisConnection;
+	@Autowired
+	private RedisConnectionFactory redisConnection;
 	
 	@Autowired
     private DataSource dataSource;
@@ -54,10 +55,10 @@ public class MyAuthorizationServerConfigurerAdapter extends AuthorizationServerC
 		/*endpoints.accessTokenConverter(jwtAccessTokenConverter());
 		endpoints.authenticationManager(authenticationManager).tokenStore(new JwtTokenStore(jwtAccessTokenConverter()));*/
 		/*jwt方式+redis存储token*/
-//		endpoints.accessTokenConverter(jwtAccessTokenConverter());
-//		endpoints.authenticationManager(authenticationManager).tokenStore(new MyRedisTokenStore(redisConnection));
+		endpoints.accessTokenConverter(jwtAccessTokenConverter());
+		endpoints.authenticationManager(authenticationManager).tokenStore(new MyRedisTokenStore(redisConnection));
 		/*普通*/
-		endpoints.authenticationManager(authenticationManager);
+//		endpoints.authenticationManager(authenticationManager);
 	}
 
 	@Override

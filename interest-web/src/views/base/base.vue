@@ -170,7 +170,7 @@
             /*this.userName = window.localStorage.getItem("currentUser_name");*/
             this.axios({
                 method: 'get',
-                url: '/user'
+                url: '/public/user'
             }).then(function(response){
                 this.userName = response.data.name;
             }.bind(this)).catch(function(error){

@@ -104,7 +104,7 @@
             this.postcardid = this.$route.params.id;
             this.axios({
                 method: 'get',
-                url: '/postcards/postcard',
+                url: '/public/postcards/postcard',
                 params:{
                     "id": this.postcardid
                 }
@@ -122,7 +122,7 @@
             replyCardListGet(e){
                 this.axios({
                   method: 'get',
-                  url: '/replycards',
+                  url: '/public/replycards',
                   params: {
                     'page':e.pageInfo.page,
                     'pageSize':e.pageInfo.pageSize,
@@ -163,24 +163,29 @@
             },
             sendCard(){
                 if(this.textarea != null && this.textarea != ''){
-                    this.axios({
-                        method: 'post',
-                        url: '/replycards/replycard',
-                        data:{
-                            "postcardid": this.postcardid,
-                            "content":this.textarea
-                        }
-                    }).then(function (response) {
-                        this.$Message.info('回复成功');
-                        this.textarea = '';
-                        // this.pageInfo.page = 0;
-                        this.replyCardListGet({
-                            "pageInfo":this.pageInfo,
-                            "postcardid":this.postcardid
-                        });
-                    }.bind(this)).catch(function (error) {
-                        alter(error);
-                    }.bind(this));
+                    if(this.axios.defaults.headers.common['Authorization'] != null && this.axios.defaults.headers.common['Authorization'] != ''){
+                        this.axios({
+                            method: 'post',
+                            url: '/replycards/replycard',
+                            data:{
+                                "postcardid": this.postcardid,
+                                "content":this.textarea
+                            }
+                        }).then(function (response) {
+                            this.$Message.info('回复成功');
+                            this.textarea = '';
+                            // this.pageInfo.page = 0;
+                            this.replyCardListGet({
+                                "pageInfo":this.pageInfo,
+                                "postcardid":this.postcardid
+                            });
+                        }.bind(this)).catch(function (error) {
+                            this.$Message.error('请重新登录');
+                        }.bind(this));
+                    }else{
+                        this.$Message.error('登录后，才能回复！');
+                    }
+                    
                 }else{
                     this.$Message.error('请填写回复内容');
                 }
