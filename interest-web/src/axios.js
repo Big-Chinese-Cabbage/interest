@@ -3,7 +3,7 @@ import store from './store/store'
 import router from './router'
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 if(localStorage.getItem("currentUser_token") == null || localStorage.getItem("currentUser_token") == ''){
     axios.defaults.headers.common['Authorization'] ='';

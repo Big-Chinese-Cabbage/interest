@@ -34,6 +34,14 @@
     .layout-footer-center{
         text-align: center;
     }
+    .demo-spin-icon-load{
+        animation: ani-demo-spin 1s linear infinite;
+    }
+    @keyframes ani-demo-spin {
+        from { transform: rotate(0deg);}
+        50%  { transform: rotate(180deg);}
+        to   { transform: rotate(360deg);}
+    }
 </style>
 <template>
     <div class="layout">
@@ -143,8 +151,31 @@
             }
         },
         mounted(){
+
             this.code = this.$route.query.code;
             if(this.code !=null && this.code != ''){
+
+                // this.$Spin.show();
+                this.$Spin.show({
+                    render: (h) => {
+                        return h('div', [
+                            h('Icon', {
+                                // 'class': 'demo-spin-icon-load',
+                                style:{
+                                    animation: 'ani-demo-spin 1s linear infinite'
+                                },
+                                props: {
+                                    type: 'load-c',
+                                    size: 18
+                                }
+                            }),
+                            h('div', '正在登录，请等待...')
+                        ])
+                    }
+                });
+                setTimeout(() => {
+                    this.$Spin.hide();
+                }, 10000);
                 this.axios({
                     method: 'post',
                     url: '/authentication/github',
@@ -162,7 +193,7 @@
                     this.$router.push({ path: '/' }) ;
                     location.reload();
                 }.bind(this)).catch(function (error) {
-                    alter(error);
+                    this.$Message.error('登陆失败');
                 }.bind(this));
             }else{
                 this.userGet();

@@ -9,21 +9,12 @@ spring:
     url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
     username: root
     password: wanghuan
-    #服务器数据库
-#    url: jdbc:mysql://rm-2ze6st2m62b7x4631.mysql.rds.aliyuncs.com:3306/weiguang?useSSL=false&amp;characterEncoding=utf-8&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
-#    username: wanghuan
-#    password: WHolMTT3344
   redis:
     #本地redis
     database: 4
     host: 127.0.0.1
     port: 6379
     password: null
-    #服务redis
-#    database: 4
-#    host: r-2ze54d2c945f4c94.redis.rds.aliyuncs.com
-#    port: 6379
-#    password: WHolMTT3344
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.interest.model
