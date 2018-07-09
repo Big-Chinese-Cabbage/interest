@@ -46,7 +46,7 @@
 <template>
     <div class="layout">
     	<Layout>
-            <Header style="position: fixed;width: 100%;background:#fff;padding:0 0;z-index: 1000; ">
+            <Header style="position: relative;width: 100%;background:#fff;padding:0 0;z-index: 1000; ">
                 <Menu mode="horizontal" theme="light"  :style="{height:'65px',width:'100%'}" @on-select="m=>{menuSelect(m)}">
                     <div style="width: 95%;margin: 0 auto">
                         <div class="layout-logo">

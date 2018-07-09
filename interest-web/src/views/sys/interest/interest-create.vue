@@ -13,7 +13,7 @@
                 <Input v-model="entity.title" style="width: 204px"/>
             </Form-item>
             <Form-item label="简介：" prop="info">
-                <Input v-model="entity.info" style="width: 204px"/>
+                <Input v-model="entity.info" type="textarea" :autosize="{minRows: 4,maxRows: 5}"style="width: 50%"></Input>
             </Form-item>
             <Form-item label="图片：" prop="image">
                 <Upload 

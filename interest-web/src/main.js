@@ -8,9 +8,9 @@ import axios from './axios';
 import VueAxios from 'vue-axios';
 import store from './store/store';
 import VueQuillEditor from 'vue-quill-editor';
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.bubble.css';
+//import 'quill/dist/quill.core.css';
+//import 'quill/dist/quill.snow.css';
+//import 'quill/dist/quill.bubble.css';
 
 import './styles/common.css';
 
