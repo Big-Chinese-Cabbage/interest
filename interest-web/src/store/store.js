@@ -12,6 +12,9 @@ export default new Vuex.Store({
           { id: 1, text: '...', done: true },
           { id: 2, text: '...', done: false }
         ],
+        /*域名*/
+        // domainName: 'http://127.0.0.1:8088',
+        domainName: 'http://www.lovemtt.com',
         count: 0,
         /*登录界面判断是否显示错误提示*/
         ifSign: false

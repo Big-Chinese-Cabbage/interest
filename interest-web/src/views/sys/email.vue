@@ -3,6 +3,9 @@
         <div>
             <ul>
                 <li>
+                    <Button type="error" icon="trash-a" @click="del()">删除</Button>
+                </li>
+                <li>
                     <div style="padding: 10px 0;">
                     	<Table border :columns="columns1" :data="data1" :height="400" @on-selection-change="s=>{change(s)}" @on-row-dblclick="s=>{dblclick(s)}"></Table>
                     </div> 
@@ -56,6 +59,11 @@
                 },
             	/*表显示字段*/
             	columns1: [
+                    {
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
                     {
                         title: '姓名',
                         key: 'name'
@@ -163,7 +171,33 @@
             emailInfo(e){
             	this.emailSet(e);
             	this.modal = true;
-            }
+            },
+            del(){
+                if(this.groupId!=null && this.groupId!=""){
+                    this.axios({
+                      method: 'delete',
+                      url: '/admin/emails',
+                      data: this.groupId
+                    }).then(function (response) {
+                        this.getTable({
+                            "pageInfo":this.pageInfo
+                        });
+                        this.groupId=[];
+                        this.$Message.info('删除成功');
+                    }.bind(this)).catch(function (error) {
+                        alert(error);
+                    });
+                }
+            },
+            change(e){
+                this.setGroupId(e);              
+            },
+            setGroupId(e){
+                this.groupId=[];
+                for (var i = 0; i <= e.length - 1; i++) {
+                    this.groupId.push(e[i].id);
+                }
+            },
         }
     }
 </script>

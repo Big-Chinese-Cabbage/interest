@@ -10,14 +10,26 @@
 		<result column="createtime" property="createtime" />
 	</resultMap>
 
-	<select id="replycardList" resultMap="replyCardMap">
-	<![CDATA[select * from reply_card]]>
+	<resultMap id="replyCardModelMap"
+			   type="com.interest.model.view.ReplyCardModel">
+		<id column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="content" property="content" />
+		<result column="postcardid" property="postcardid" />
+		<result column="createtime" property="createtime" />
+		<result column="headimg" property="headimg" />
+		<result column="githuburl" property="githuburl" />
+	</resultMap>
+
+	<select id="replycardList" resultMap="replyCardModelMap">
+		select a.*, b.headimg headimg, b.url githuburl from reply_card a
+			left join sys_user b on a.username = b.login_name
 		<where>
 			<if test="postcardid != null and postcardid != ''">
-				postcardid = #{postcardid}
+				a.postcardid = #{postcardid}
 			</if>
 		</where>
-	    <![CDATA[ order by createtime asc ]]>
+	    <![CDATA[ order by a.createtime asc ]]>
 		<if test="pageSize != null and start != null ">
 			limit #{start},#{pageSize}
 		</if>

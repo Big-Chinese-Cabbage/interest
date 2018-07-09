@@ -1,23 +1,14 @@
 <template>
-	<div style="margin: 20px;">
-		<div>
-            <Row style="margin-bottom: 25px;">
-                <Col span="8">兴趣：
-                    <Select v-model="interestid" clearable style="width: 200px">
-                        <Option v-for="item in interestList" :value="item.id" :key="item.id">{{ item.title }}</Option>
-                    </Select>
-                </Col>
-                <Col span="8"><Button type="primary" shape="circle" icon="ios-search" @click="search()">搜索</Button></Col>
-            </Row>
-        </div>
+	<div style="margin: 40px;">
         <div>
             <ul>
             	<li>
-                    <Button type="error" icon="trash-a" @click="del()">删除</Button>
+            		<Button type="info" icon="trash-a" @click="setBanner()">轮播</Button>
+                    <Button type="error" icon="trash-a" @click="delBanner()">取消轮播</Button>
                 </li>
                 <li>
                     <div style="padding: 10px 0;">
-                    	<Table border :columns="columns1" :data="data1" :height="400" @on-selection-change="s=>{change(s)}" @on-row-dblclick="s=>{dblclick(s)}"></Table>
+                    	<Table border :columns="columns1" :data="data1" :height="400" @on-selection-change="s=>{change(s)}"></Table>
                     </div> 
                 </li>
                 <li>
@@ -49,9 +40,6 @@
         data () {
             return {
             	groupId:[],
-            	interestid:null,
-            	interestList:[],
-                /*修改modal的显示参数*/
                 modal:false,
             	/*分页total属性绑定值*/
                 total:0,
@@ -78,40 +66,54 @@
                         align: 'center'
                     },
                     {
-                        title: '登录名',
-                        key: 'username'
-                    },
-                    {
-                        title: '兴趣归属',
-                        key: 'interestid',
-                        render: (h, params) => {
-                        	for (var i = this.interestList.length - 1; i >= 0; i--) {
-                        		if(params.row.interestid == this.interestList[i].id){
-                        			return h('div', [
-	                                    h('strong', null,this.interestList[i].title)
-	                                ]);
-	                        		}
-                        	}
-                        }
+                        title: 'ID',
+                        key: 'id',
+                        width: 100
                     },
                     {
                         title: '标题',
-                        width: 500,
-                        key: 'title'
+                        key: 'title',
+                        width: 150
                     },
                     {
-                        title: '时间',
-                        key: 'createtime'
+                        title: '简介',
+                        key: 'info'
+                    },
+                    {
+                        title: '轮播',
+                        key: 'banner',
+                        width: 100,
+                        render: (h, params) => {
+                            if(params.row.banner == 1){
+                               return h('div', [
+                                    h('strong', {
+                                    	style:{
+                                    		color:'blue'
+                                    	}
+                                    },'轮播')
+                                ]); 
+                           }else if(params.row.banner == 0){
+                                return h('div', [
+                                    h('strong', {
+                                    	style:{
+                                    		color:'red'
+                                    	}
+                                    },'非轮播')
+                                ]); 
+                           }
+                            
+                        }
                     },
                     {
                         title: '操作',
                         align: 'center',
                         key: 'action',
+                        width: 100,
                         render: (h, params) => {
                             return h('a',
                                 {
                                     attrs:{
-                                        href:this.$store.state.domainName+'/page/card/'+params.row.id,
+                                        href:this.$store.state.domainName+'/page/detail/'+params.row.id,
                                         target:'_blank'
                                     }
                                 }
@@ -132,8 +134,7 @@
         mounted(){
         	/*页面初始化调用方法*/
             this.getTable({
-                "pageInfo":this.pageInfo,
-                "interestid":this.interestid
+                "pageInfo":this.pageInfo
             });
             this.axios({
                 method: 'get',
@@ -172,33 +173,24 @@
             getTable(e) {
                 this.axios({
                   method: 'get',
-                  url: '/public/postcards',
+                  url: '/admin/interests',
                   params: {
                     'page':e.pageInfo.page,
-                    'pageSize':e.pageInfo.pageSize,
-                    'interestid':e.interestid
+                    'pageSize':e.pageInfo.pageSize
                   }
                 }).then(function (response) {
                     this.data1=response.data.data;
-                    this.listDateSet(this.data1);
+                    // this.listDateSet(this.data1);
                     this.total=response.data.totalCount;
                 }.bind(this)).catch(function (error) {
                   alert(error);
                 });
             },
-            search(){
-                this.initPageInfo();
-                this.getTable({
-                    "pageInfo":this.pageInfo,
-                    'interestid':this.interestid
-                });   
-            },
             /*分页点击事件*/
             pageSearch(e){
                 this.pageInfo.page = e-1;
                 this.getTable({  
-                    "pageInfo":this.pageInfo,
-                    "interestid":this.interestid
+                    "pageInfo":this.pageInfo
                 });
             },
             /*modal的cancel点击事件*/
@@ -210,21 +202,32 @@
                 this.postcardSet(e);
             	this.modal = true;
             },
-            postcardInfo(e){
-            	console.log(e);
-            	this.postcardSet(e);
-            	this.modal = true;
-            },
-            del(){
-                if(this.groupId!=null && this.groupId!=""){
+            setBanner(){
+            	if(this.groupId!=null && this.groupId!=""){
                     this.axios({
-                      method: 'delete',
-                      url: '/postcards',
+                      method: 'put',
+                      url: '/admin/banners/set',
                       data: this.groupId
                     }).then(function (response) {
                         this.getTable({
-                            "pageInfo":this.pageInfo,
-                            "interestid":this.interestid
+                            "pageInfo":this.pageInfo
+                        });
+                        this.groupId=[];
+                        this.$Message.info('删除成功');
+                    }.bind(this)).catch(function (error) {
+                        alert(error);
+                    });
+                }
+            },
+            delBanner(){
+            	if(this.groupId!=null && this.groupId!=""){
+                    this.axios({
+                      method: 'put',
+                      url: '/admin/banners/del',
+                      data: this.groupId
+                    }).then(function (response) {
+                        this.getTable({
+                            "pageInfo":this.pageInfo
                         });
                         this.groupId=[];
                         this.$Message.info('删除成功');

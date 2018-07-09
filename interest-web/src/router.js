@@ -31,20 +31,6 @@ const routers = [
 	    component: (resolve) => require(['./views/index.vue'], resolve)
 	},
 	{
-	    path: '/login/github',
-	    meta: {
-	        title: 'smallsnail-wh'
-	    },
-	    component: (resolve) => require(['./views/test.vue'], resolve)
-	},
-	{
-	    path: '/register',
-	    meta: {
-	        title: 'smallsnail-wh'
-	    },
-	    component: (resolve) => require(['./views/template/register.vue'], resolve)
-	},
-	{
 	    path: '/page',
 	    meta: {
 	        title: 'smallsnail-wh'
@@ -53,7 +39,7 @@ const routers = [
 	    children: [
 	    	{
 	    		path: 'home',
-                name: 'home',
+                name: 'home2',
                 component: (resolve) => require(['./views/template/home.vue'], resolve),
                 meta: {
                     title:"home"
@@ -61,7 +47,7 @@ const routers = [
 	    	},
 	    	{
 	    		path: 'home/:title',
-                name: 'home2',
+                name: 'home3',
                 component: (resolve) => require(['./views/template/home.vue'], resolve),
                 meta: {
                     title:"home"
@@ -94,13 +80,37 @@ const routers = [
 	    component: (resolve) => require(['./views/base/base.vue'], resolve),
 	    children: [
 	    	{
-	    		path: 'welcome',
+	    		path: '',
                 name: 'welcome',
                 component: (resolve) => require(['./views/sys/welcome.vue'], resolve),
                 meta: {
                     title:"welcome"
                 }
 	    	},
+	    	{
+	    		path: 'menu',
+                name: 'menu',
+                component: (resolve) => require(['./views/sys/menu.vue'], resolve),
+                meta: {
+                    title:"menu"
+                }
+	    	},
+	    	{
+	    		path: 'role',
+                name: 'role',
+                component: (resolve) => require(['./views/sys/role.vue'], resolve),
+                meta: {
+                    title:"role"
+                }
+	    	},
+	    	/*{
+	    		path: 'user',
+                name: 'user',
+                component: (resolve) => require(['./views/sys/user2.vue'], resolve),
+                meta: {
+                    title:"user"
+                }
+	    	},*/
 	    	{
 	    		path: 'user',
                 name: 'user',
@@ -123,6 +133,38 @@ const routers = [
                 component: (resolve) => require(['./views/sys/card.vue'], resolve),
                 meta: {
                     title:"card"
+                }
+	    	},
+	    	{
+	    		path: 'interest-edit',
+                name: 'interest-edit',
+                component: (resolve) => require(['./views/sys/interest/interest-edit.vue'], resolve),
+                meta: {
+                    title:"interest"
+                }
+	    	},
+	    	{
+	    		path: 'interest-create',
+                name: 'interest-create',
+                component: (resolve) => require(['./views/sys/interest/interest-create.vue'], resolve),
+                meta: {
+                    title:"interest"
+                }
+	    	},
+	    	{
+	    		path: 'interest-delete',
+                name: 'interest-delete',
+                component: (resolve) => require(['./views/sys/interest/interest-delete.vue'], resolve),
+                meta: {
+                    title:"interest"
+                }
+	    	},
+	    	{
+	    		path: 'banner',
+                name: 'banner',
+                component: (resolve) => require(['./views/sys/banner.vue'], resolve),
+                meta: {
+                    title:"banner"
                 }
 	    	}
 	    ]

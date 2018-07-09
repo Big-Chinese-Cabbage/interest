@@ -5,6 +5,7 @@ import java.util.List;
 import com.interest.dao.PostCardDao;
 import com.interest.dao.ReplyCardDao;
 import com.interest.model.ReplyCardEntity;
+import com.interest.model.view.ReplyCardModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class ReplyCardServiceImpl implements ReplyCardService {
 	private PostCardDao postCardDao;
 
 	@Override
-	public List<ReplyCardEntity> replycardList(int postcardid, int pageSize, int start) {
+	public List<ReplyCardModel> replycardList(int postcardid, int pageSize, int start) {
 		return replyCardDao.replycardList(postcardid,pageSize,start);
 	}
 

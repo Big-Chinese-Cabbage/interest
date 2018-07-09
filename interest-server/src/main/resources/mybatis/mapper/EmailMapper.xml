@@ -27,5 +27,18 @@
 	<select id="emailsSize" resultType="Integer">  
 	    <![CDATA[select count(*) from email]]>
 	</select>
-	
+
+	<delete id="deleteEmails">
+		delete from email
+		<where>
+			<if test="groupId !=null">
+				id in
+				<foreach collection="groupId" item="item" index="index"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</delete>
+
 </mapper>

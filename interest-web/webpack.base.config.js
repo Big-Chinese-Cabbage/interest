@@ -10,6 +10,11 @@ module.exports = {
     output: {
         path: path.join(__dirname, './dist')
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+         'window.Quill': 'quill'
+      })
+    ],
     module: {
         rules: [{
                 test: /\.vue$/,

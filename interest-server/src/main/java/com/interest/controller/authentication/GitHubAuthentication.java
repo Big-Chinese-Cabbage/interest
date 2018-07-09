@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -21,15 +22,16 @@ public class GitHubAuthentication implements MyAuthentication {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    private static final String CLIENT_ID = "bbb5cc2034eb62484c1c";
+    private static final String CLIENT_ID = "";
 
-    private static final String CLIENT_SECRET = "75ea363df8765fcf4ea88f07eb7418ea23172b8b";
+    private static final String CLIENT_SECRET = "";
 
     private static final String GITHUB_ACCESSS_TOKEN_URL = "https://github.com/login/oauth/access_token";
 
     private static final String GITHUB_USER_URL = "https://api.github.com/user";
 
     @Override
+    @Transactional
     public String getUserId(String code) {
 
         MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();

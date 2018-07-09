@@ -3,14 +3,12 @@ package com.interest.controller.template;
 import com.interest.model.EmailEntity;
 import com.interest.model.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.interest.service.EmailService;
 import com.interest.utils.SecurityAuthenUtil;
+
+import java.util.List;
 
 @RestController
 public class EmailController {
@@ -31,6 +29,12 @@ public class EmailController {
 		emailEntity.setUsername(SecurityAuthenUtil.getLoginName());
 		emailService.insertEntity(emailEntity);
 		return emailEntity;
+	}
+
+	@DeleteMapping("/admin/emails")
+	public List<String> deleteEmails(@RequestBody List<String> groupId) {
+		emailService.deleteEmails(groupId);
+		return groupId;
 	}
 
 }

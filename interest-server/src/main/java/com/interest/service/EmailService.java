@@ -12,5 +12,5 @@ public interface EmailService {
 
 	public Integer emailsSize(int pageSize, int start);
 
-	
+    public void deleteEmails(List<String> groupId);
 }

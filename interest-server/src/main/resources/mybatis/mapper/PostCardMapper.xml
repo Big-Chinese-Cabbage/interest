@@ -12,14 +12,28 @@
 		<result column="replytime" property="replytime" />
 	</resultMap>
 
-	<select id="postcardList" resultMap="postCardMap">
-	<![CDATA[select * from post_card]]>
+	<resultMap id="postCardModelMap"
+			   type="com.interest.model.view.PostCardModel">
+		<id column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="interestid" property="interestid" />
+		<result column="createtime" property="createtime" />
+		<result column="replytime" property="replytime" />
+		<result column="headimg" property="headimg" />
+		<result column="githuburl" property="githuburl" />
+	</resultMap>
+
+	<select id="postcardList" resultMap="postCardModelMap">
+		select a.*, b.headimg headimg, b.url githuburl from post_card a
+			left join sys_user b on a.username = b.login_name
 		<where>
 			<if test="interestid != null and interestid != ''">
-				interestid = #{interestid}
+				a.interestid = #{interestid}
 			</if>
 		</where>
-	    <![CDATA[ order by replytime desc ]]>
+	    <![CDATA[ order by a.replytime desc ]]>
 		<if test="pageSize != null and start != null ">
 			limit #{start},#{pageSize}
 		</if>
@@ -39,10 +53,11 @@
 		values (#{username},#{title},#{content},#{interestid},#{createtime},#{replytime})
 	</insert>
 
-	<select id="getPostcard" resultMap ="postCardMap">
-		select * from post_card
+	<select id="getPostcard" resultMap ="postCardModelMap">
+		select a.*, b.headimg headimg, b.url githuburl from post_card a
+			left join sys_user b on a.username = b.login_name
 		<where>
-			id = #{id}
+			a.id = #{id}
 		</where>
 	</select>
 

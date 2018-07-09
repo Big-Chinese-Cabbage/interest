@@ -2,7 +2,12 @@
     <div class="home">
         <div >
             <Carousel autoplay v-model="value2" loop >
-                <CarouselItem>
+                <CarouselItem v-for="(item,index) in bannerList" :key="index">
+                    <router-link :to="('/page/detail/'+item.id)">
+                        <img :style="{height:'550px'}" class="images-con" v-bind:src="(item.image)">
+                    </router-link>
+                </CarouselItem>
+                <!-- <CarouselItem>
                     <img :style="{height:'550px'}" class="images-con" src="../../images/bg1.jpg">
                 </CarouselItem>
                 <CarouselItem>
@@ -13,7 +18,7 @@
                 </CarouselItem>
                 <CarouselItem>
                     <img :style="{height:'550px'}" class="images-con" src="../../images/view4.jpg">
-                </CarouselItem>
+                </CarouselItem> -->
             </Carousel>
         </div>
         <div v-if="flage" style="background: #f5f7f9;padding: 24px 50px;color: #495060;font-size: 14px;text-align: center;">
@@ -23,8 +28,9 @@
             <div class="box-flex width-80 margin-auto" v-for="(A,index) in homeArticle">
                <div class="box-flex width-100" v-if="index%2==0"> 
                 <div class="flex-1">
-                  <img class="images-con imgpic" v-bind:src="(A.image)" >
-                  <!-- <img class="images-con imgpic" src="../../images/滑板1.jpg" > -->
+                    <router-link :to="('/page/detail/'+A.id)">
+                        <img class="images-con imgpic" v-bind:src="(A.image)" >
+                    </router-link>
                 </div>
                 <div class="box-flex flex-1 padding-all flex-direction-column">
                     <router-link :to="('/page/detail/'+A.id)">
@@ -41,9 +47,9 @@
                     <span class="contentFont">{{A.info}}</span>
                 </div>
                 <div class="flex-1">
-                  <!-- <img class="images-con imgpic" v-vind:src="A.img_group[0].photopath" > -->
-                  <!-- <img class="images-con imgpic" src="../../images/吉他1.jpg" > -->
-                  <img class="images-con imgpic" v-bind:src="(A.image)" >
+                    <router-link :to="('/page/detail/'+A.id)">
+                        <img class="images-con imgpic" v-bind:src="(A.image)" >
+                    </router-link>
                 </div>
                </div>
             </div>
@@ -58,15 +64,27 @@
                 flage: false,
                 value2: 0,
                 homeArticle: [],
+                bannerList:[]
             }
         },
         mounted(){
             this.getHomeArticle();
+            this.getBanner();
         },
         watch: {
             '$route' : ['getHomeArticle']
         },
         methods: {
+            getBanner(){
+                this.axios({
+                    method: 'get',
+                    url: '/public/banners'
+                }).then(function (response) {
+                    this.bannerList = response.data;
+                }.bind(this)).catch(function (error) {
+                    this.$Message.error('无权限');
+                }.bind(this));
+            },
             getHomeArticle(){
                 if(this.$route.params.title == null){
                     this.axios({

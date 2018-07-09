@@ -15,4 +15,5 @@ public interface EmailDao {
 
 	public Integer emailsSize(@Param("pageSize") int pageSize, @Param("start") int start);
 
+    public void deleteEmails(@Param("groupId") List<String> groupId);
 }

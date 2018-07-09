@@ -2,8 +2,6 @@
     <div id="mywork">
 	    <div class="page-header-main">
 	      <div class="box-flex width-80 margin-auto margin-top-2 flex-direction-column flex-justify-center flex-items-center" >
-	        
-
             <div style="width: 100%;margin: 20px 0 20px 0">
                 <div class="ivu-card-head" style="background: #eceef2">
                     <!-- <p>各位小哥哥小姐姐，请问咱们学校本部研究生宿舍晚上断电断网吗？</p> -->
@@ -12,8 +10,12 @@
                 <Card>
                     <div slot="extra">
                     	<div>
-                    		<Icon type="ios-person"></Icon>
-                        	{{postcard.username}}
+                            <a :href="postcard.githuburl" target="_blank">
+                                <img :src="postcard.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
+                                {{postcard.username}}
+                            </a>
+                    		<!-- <Icon type="ios-person"></Icon>
+                        	{{postcard.username}} -->
                     	</div>
                     	<div style="background: #5cadff;text-align: center;color: #fff">
                     		楼主
@@ -30,8 +32,13 @@
 
                 <Card v-for="(item,index) in replyCardList" :key="index">
                     <div slot="extra">
-                        <Icon type="ios-person"></Icon>
-                        {{item.username}}
+                        <a :href="item.githuburl" target="_blank">
+                        <!-- <Icon type="ios-person"></Icon> -->
+                            <img :src="item.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
+                            {{item.username}}
+                        </a>
+                        <!-- <Icon type="ios-person"></Icon>
+                        {{item.username}} -->
                     </div>
                     <div>
                         <p>{{item.content}}</p>
@@ -41,19 +48,6 @@
                         </span>
                     </div>
                 </Card>
-                <!-- <Card>
-                    <div slot="extra">
-                        <Icon type="ios-person"></Icon>
-                        Change
-                    </div>
-                    <div>
-                        <p>5月1日到10月7日晚上不断电</p>
-                        <span>
-                            <Icon type="ios-time"></Icon>
-                            2018-5-23 13:41:30
-                        </span>
-                    </div>
-                </Card> -->
                 <div style="margin-top: 20px">
                     <Page :total="total" :page-size="pageInfo.pageSize" show-elevator show-total @on-change="e=>{pageSearch(e)}"></Page>
                 </div>
@@ -95,7 +89,9 @@
                     title:'',
                     content:'',
                     interestid:'',
-                    createtime:''
+                    createtime:'',
+                    headimg:'',
+                    githuburl:''
                 },
                 replyCardList:[]
             }
@@ -153,6 +149,8 @@
                 this.postcard.interestid = e.interestid;
                 // this.postcard.createtime = e.createtime;
                 this.postcard.createtime = this.dateGet(e.createtime);
+                this.postcard.headimg = e.headimg;
+                this.postcard.githuburl = e.githuburl;
             },
             pageSearch(e){
                 this.pageInfo.page = e-1;

@@ -15,6 +15,10 @@ public class InterestEntity {
 	
 	private String image;
 
+	private Integer sort;
+
+	private Integer banner;
+
 	public Integer getId() {
 		return id;
 	}
@@ -53,5 +57,21 @@ public class InterestEntity {
 
 	public void setInfo(String info) {
 		this.info = info;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public Integer getBanner() {
+		return banner;
+	}
+
+	public void setBanner(Integer banner) {
+		this.banner = banner;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 }

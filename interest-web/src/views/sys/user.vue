@@ -27,42 +27,6 @@
                 </li>
             </ul>
         </div>
-        <!--添加modal-->  
-        <!-- <Modal :mask-closable="false" :visible.sync="newModal" :loading = "loading" v-model="newModal" width="600" title="新建" @on-ok="newOk('userNew')" @on-cancel="cancel()">
-            <Form ref="userNew" :model="userNew" :rules="ruleNew" :label-width="80" >
-                <Row>
-                    <Col span="12">
-                        <Form-item label="登录名:" prop="loginName">
-                            <Input v-model="userNew.loginName" style="width: 204px"/>
-                        </Form-item>
-                    </Col>
-                    <Col span="12">
-                        <Form-item label="用户名:" prop="name">
-                            <Input v-model="userNew.name" style="width: 204px"/>
-                        </Form-item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span="12">
-                        <Form-item label="密码:" prop="password">
-                            <Input v-model="userNew.password" type="password" style="width: 204px"/>
-                        </Form-item>
-                    </Col>
-                    <Col span="12">
-                        <Form-item label="确认密码:" prop="passwordAgain">
-                            <Input v-model="userNew.passwordAgain" type="password" style="width: 204px"/>
-                        </Form-item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span="12">
-                        <Form-item label="邮箱:" prop="email">
-                            <Input v-model="userNew.email" style="width: 204px"/>
-                        </Form-item>
-                    </Col>
-                </Row>
-            </Form>
-        </Modal> -->
         <!--修改modal-->  
         <Modal :mask-closable="false" :visible.sync="modifyModal" v-model="modifyModal" width="600" title="修改" @on-ok="modifyOk()" @on-cancel="cancel()">
              <Form :label-width="80" >
@@ -72,19 +36,7 @@
                             <Input v-model="userModify.loginName" style="width: 204px" disabled="disabled" />
                         </Form-item>
                     </Col>
-                    <!-- <Col span="12">
-                        <Form-item label="用户名:" prop="name">
-                            <Input v-model="userModify.name" style="width: 204px"/>
-                        </Form-item>
-                    </Col> -->
                 </Row>
-                <!-- <Row>
-                    <Col span="12">
-                        <Form-item label="密码:" prop="password">
-                            <Input v-model="userModify.password" type="password" style="width: 204px"/>
-                        </Form-item>
-                    </Col>
-                </Row> -->
                 <Row>
                     <Col span="12">
                         <Form-item label="用户类型:">
@@ -99,11 +51,11 @@
             </Form>
         </Modal>
         <!--配置角色modal-->  
-        <!-- <Modal v-model="roleModal" width="500" title="角色配置" @on-ok="roleOk()" @on-cancel="cancel()">
+        <Modal v-model="roleModal" width="500" title="角色配置" @on-ok="roleOk()" @on-cancel="cancel()">
             <div>
                 <Table border :columns="columns2" :data="data2" :height="260"  @on-selection-change="s=>{change2(s)}"></Table>
             </div>
-        </Modal> -->
+        </Modal>
     </div>
 </template>
 <script>
@@ -201,12 +153,23 @@
                         key: 'loginName'
                     },
                     {
-                        title: '用户名',
-                        key: 'name'
+                        title: '邮箱',
+                        key: 'email'
                     },
                     {
-                        title: '学院',
-                        key: 'college'
+                        title: 'Github',
+                        key: 'url',
+                        width:300,
+                        render: (h, params) => {
+                            return h('a',
+                                {
+                                    attrs:{
+                                        href:params.row.url,
+                                        target:'_blank'
+                                    }
+                                }
+                                , params.row.url);
+                        }
                     },
                     {
                         title: '用户类型',
@@ -223,6 +186,25 @@
                                 ]); 
                            }
                             
+                        }
+                    },
+                    {
+                        title: '操作',
+                        align: 'center',
+                        key: 'action',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'info',
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.relationSet(params.row);
+                                        }
+                                    }
+                                },'配置角色')
+                            ]);
                         }
                     },
                 ],

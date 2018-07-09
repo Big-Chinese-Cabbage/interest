@@ -8,7 +8,21 @@
 		<result column="info" property="info" />
 		<result column="content" property="content" />
 		<result column="image" property="image" />
+		<result column="sort" property="sort" />
+        <result column="banner" property="banner" />
 	</resultMap>
+
+	<select id="interestList" resultMap="interestMap">
+		<![CDATA[select * from interest]]>
+		<![CDATA[ order by sort asc ]]>
+		<if test="pageSize != null and start != null ">
+			limit #{start},#{pageSize}
+		</if>
+	</select>
+
+	<select id="interestSize" resultType="Integer">
+		<![CDATA[select count(*) from interest]]>
+	</select>
 
 	<select id="getInsterest" resultMap="interestMap">
 		select * from interest
@@ -17,6 +31,7 @@
 				title like CONCAT('%',#{title},'%')
 			</if>
 		</where>
+		order by sort asc
 	</select>
 
 	<select id="getInsterestById" resultMap="interestMap">
@@ -25,5 +40,51 @@
 			id = #{id}
 		</where>
 	</select>
+	
+	<insert id="insertEntity" parameterType="InterestEntity">
+		insert into interest (title,info,content,image)
+	  	values (#{title},#{info},#{content},#{image})
+	</insert>
+
+	<update id="updateEntity" parameterType="InterestEntity">
+		update interest set title = #{title},info = #{info},content = #{content},image = #{image},sort = #{sort}
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
+	<delete id="deleteInterests">
+		delete from interest
+		<where>
+			<if test="groupId !=null">
+				id in
+				<foreach collection="groupId" item="item" index="index"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</delete>
+
+	<select id="getBanners" resultMap="interestMap">
+		<![CDATA[select * from interest]]>
+		<where>
+			banner = 1
+		</where>
+		<![CDATA[ order by sort desc ]]>
+	</select>
+
+	<update id="updateBanners">
+		update interest set banner = #{banner}
+		<where>
+			<if test="groupId !=null">
+				id in
+				<foreach collection="groupId" item="item" index="index"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</update>
 
 </mapper>

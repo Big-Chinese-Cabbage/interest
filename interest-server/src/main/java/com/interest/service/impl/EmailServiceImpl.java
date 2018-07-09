@@ -32,5 +32,10 @@ public class EmailServiceImpl implements EmailService {
 		return emailDao.emailsSize(pageSize,start);
 	}
 
+	@Override
+	public void deleteEmails(List<String> groupId) {
+		emailDao.deleteEmails(groupId);
+	}
+
 
 }

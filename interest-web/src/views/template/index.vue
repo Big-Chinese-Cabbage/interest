@@ -88,7 +88,14 @@
             <Content :style="{margin: '80px 0 0 0', background: '#fff'}">
                 <router-view></router-view>
             </Content>
-            <Footer class="layout-footer-center">2018-2020 &copy; hello</Footer>
+            <Footer class="layout-footer-center">
+                <div>
+                    <a href="https://github.com/smallsnail-wh" target="_blank">
+                        <Icon  style="color: rebeccapurple;" size="40" type="social-github"></Icon>
+                    </a>
+                </div>
+                <p>2018-2020 &copy; smallsail-wh</p>
+            </Footer>
         </Layout>
 
         <Modal :mask-closable="false" :visible.sync="emailModal" :loading = "loading" v-model="emailModal" width="600" title="联系管理员" @on-ok="emailOk('email')" @on-cancel="cancel()">
@@ -240,8 +247,6 @@
             },
             menuSelect(e){
                 if(e==1){
-                    // this.modifyModal = true;
-                    // this.userModifySet(this.user);
                 }else if (e==2) {
                     this.emailModal = true;
                 }else if (e==3) {
@@ -258,38 +263,6 @@
             cancel () {
                 this.$Message.info('点击了取消');
             },
-            // modifyOk(userModify){
-            //     this.$refs[userModify].validate((valid) => {
-            //         if (valid) {
-            //             if(this.userModify.password == this.userModify.passwordAgain){
-            //                 if(this.userModify.password == this.user.password){
-            //                     this.userModify.id = 8888;
-            //                 }
-            //                 this.axios({
-            //                   method: 'put',
-            //                   url: '/user',
-            //                   data: this.userModify
-            //                 }).then(function (response) {
-            //                     this.userSet(response.data)
-            //                     this.$Message.info('修改成功');
-            //                 }.bind(this)).catch(function (error) {
-            //                   alert(error);
-            //                 });  
-            //                 this.modifyModal = false;
-            //             }else{
-            //                 this.$Message.error('两次输入的密码不相同!');
-            //             }
-            //         }else {
-            //             this.$Message.error('表单验证失败!');
-            //             setTimeout(() => {
-            //                 this.loading = false;
-            //                 this.$nextTick(() => {
-            //                     this.loading = true;
-            //                 });
-            //             }, 1000);
-            //         }
-            //     })
-            // },
             emailOk(email){
                 this.$refs[email].validate((valid) => {
                     if (valid) {
@@ -298,7 +271,6 @@
                           url: '/email',
                           data: this.email
                         }).then(function (response) {
-                            this.userSet(response.data)
                             this.$Message.info('发送成功');
                         }.bind(this)).catch(function (error) {
                           alert(error);
