@@ -19,7 +19,7 @@ vue.js+node.js+webpack构建的前端项目，后端用的是我的另一个项�
  - vuex
  - vue-router
  - axios
- - [ivew](https://www.iviewui.com/)
+ - [iview](https://www.iviewui.com/)
  - webpack
 
 前后端通信：
