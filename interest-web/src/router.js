@@ -6,6 +6,10 @@ import Util from './libs/util';
 Vue.use(VueRouter);
 
 const routers = [
+	{ 
+		path: '*', 
+		component: (resolve) => require(['./views/error404.vue'], resolve) 
+	},
 	{
 		path: '/',
 	    meta: {
@@ -28,7 +32,7 @@ const routers = [
 	    meta: {
 	        title: 'smallsnail-wh'
 	    },
-	    component: (resolve) => require(['./views/index.vue'], resolve)
+	    component: (resolve) => require(['./views/login.vue'], resolve)
 	},
 	{
 	    path: '/page',
@@ -72,12 +76,60 @@ const routers = [
 	    ]
 	},
 	{
+	    path: '/mlogin',
+	    meta: {
+	        title: 'smallsnail-wh'
+	    },
+	    component: (resolve) => require(['./views/mlogin.vue'], resolve)
+	},
+	{
+	    path: '/mobile',
+	    meta: {
+	        title: 'smallsnail-wh'
+	    },
+	    component: (resolve) => require(['./views/mobile/index.vue'], resolve),
+	    children: [
+	    	{
+	    		path: '',
+                name: 'home2',
+                component: (resolve) => require(['./views/mobile/home.vue'], resolve),
+                meta: {
+                    title:"home"
+                }
+	    	},
+	    	{
+	    		path: 'home/:title',
+                name: 'home3',
+                component: (resolve) => require(['./views/mobile/home.vue'], resolve),
+                meta: {
+                    title:"home"
+                }
+	    	},
+	    	{
+	    		path: 'detail/:id',
+                name: 'detail',
+                component: (resolve) => require(['./views/mobile/detail.vue'], resolve),
+                meta: {
+                    title:"detail"
+                }
+	    	},
+	    	{
+	    		path: 'card/:id',
+                name: 'card',
+                component: (resolve) => require(['./views/mobile/card.vue'], resolve),
+                meta: {
+                    title:"card"
+                }
+	    	}
+	    ]
+	},
+	{
 	    path: '/base',
 	    meta: {
 	        title: 'base',
 	        requiresAuth: true
 	    },
-	    component: (resolve) => require(['./views/base/base.vue'], resolve),
+	    component: (resolve) => require(['./views/sys/base.vue'], resolve),
 	    children: [
 	    	{
 	    		path: '',
@@ -103,14 +155,6 @@ const routers = [
                     title:"role"
                 }
 	    	},
-	    	/*{
-	    		path: 'user',
-                name: 'user',
-                component: (resolve) => require(['./views/sys/user2.vue'], resolve),
-                meta: {
-                    title:"user"
-                }
-	    	},*/
 	    	{
 	    		path: 'user',
                 name: 'user',
@@ -170,99 +214,6 @@ const routers = [
 	    ]
 	}
 ];
-/*const routers = [
-	{ 
-		path: '*', 
-		component: (resolve) => require(['./views/error404.vue'], resolve) 
-	},
-	{
-	    path: '/',
-	    meta: {
-	        title: 'smallsnail-wh'
-	    },
-	    component: (resolve) => require(['./views/index.vue'], resolve)
-	},
-	{
-	    path: '/index',
-	    meta: {
-	        title: 'smallsnail-wh'
-	    },
-	    component: (resolve) => require(['./views/index.vue'], resolve)
-	},
-	{
-	    path: '/test',
-	    meta: {
-	        title: 'test'
-	    },
-	    component: (resolve) => require(['./views/test.vue'], resolve)
-	},
-	{
-	    path: '/base',
-	    meta: {
-	        title: 'base',
-	        requiresAuth: true
-	    },
-	    component: (resolve) => require(['./views/base/base.vue'], resolve),
-	    children: [
-	    	{
-	    		path: 'welcome',
-                name: 'welcome',
-                component: (resolve) => require(['./views/sys/welcome.vue'], resolve),
-                meta: {
-                    title:"welcome"
-                }
-	    	},
-	    	{
-	    		path: 'user',
-                name: 'user',
-                component: (resolve) => require(['./views/sys/user.vue'], resolve),
-                meta: {
-                    title:"user"
-                }
-	    	},
-	    	{
-	    		path: 'menu',
-                name: 'menu',
-                component: (resolve) => require(['./views/sys/menu.vue'], resolve),
-                meta: {
-                    title:"menu"
-                }
-	    	},
-	    	{
-	    		path: 'role',
-                name: 'role',
-                component: (resolve) => require(['./views/sys/role.vue'], resolve),
-                meta: {
-                    title:"role"
-                }
-	    	},
-	    	{
-	    		path: 'test4',
-                name: 'test4',
-                component: (resolve) => require(['./views/test/test4.vue'], resolve),
-                meta: {
-                    title:"test4"
-                }
-	    	},
-	    	{
-	    		path: 'test5',
-                name: 'test5',
-                component: (resolve) => require(['./views/test/test5.vue'], resolve),
-                meta: {
-                    title:"test5"
-                }
-	    	},
-	    	{
-	    		path: 'test6',
-                name: 'test6',
-                component: (resolve) => require(['./views/test/test6.vue'], resolve),
-                meta: {
-                    title:"test6"
-                }
-	    	},
-	    ]
-	}
-];*/
 
 // 路由配置
 const RouterConfig = {

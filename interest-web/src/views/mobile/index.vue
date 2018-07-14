@@ -1,12 +1,12 @@
 <style scoped>
-    .layout{
+    .mobild-layout{
         border: 1px solid #d7dde4;
         background: #f5f7f9;
         position: relative;
         border-radius: 4px;
         overflow: hidden;
     }
-    .layout-logo{
+    .mobild-layout .layout-logo{
         /*width: 100px;*/
         /*height: 30px;*/
         /*background: #5b6270;*/
@@ -15,8 +15,9 @@
         /*position: relative;*/
         /*top: 15px;
         left: 20px;*/
+        margin-top: 7px;
     }
-    .layout-search{
+    .mobild-layout .layout-search{
         height: 30px;
         border-radius: 3px;
         float: left;
@@ -24,17 +25,27 @@
         left: 80px;
         
     }
-    .layout-nav{
+    .mobild-layout .layout-nav{
         /*width: 315px;
         margin: 0 auto;
         margin-right: 20px;*/
         height: inherit;
         float: right;
+        font-size: 15px;
+	    margin-right: 5%;
+	    
     }
-    .layout-footer-center{
+    .dropdown-menu{
+    	text-align: center;
+    }
+    .mobild-layout .layout-nav span{
+    	font-size: 15px;
+    	color: #C92027;
+    }
+    .mobild-layout .layout-footer-center{
         text-align: center;
     }
-    .demo-spin-icon-load{
+    .mobild-layout .demo-spin-icon-load{
         animation: ani-demo-spin 1s linear infinite;
     }
     @keyframes ani-demo-spin {
@@ -42,48 +53,54 @@
         50%  { transform: rotate(180deg);}
         to   { transform: rotate(360deg);}
     }
+    .layout-title{
+        font-size: 20px;
+        font-weight: 400;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rebeccapurple;
+        left: 41%;
+    }
 </style>
 <template>
-    <div class="layout">
+    <div class="mobild-layout">
     	<Layout>
-            <Header style="position: fixed;width: 100%;background:#fff;padding:0 0;z-index: 1000; ">
-                <Menu mode="horizontal" theme="light"  :style="{height:'65px',width:'100%'}" @on-select="m=>{menuSelect(m)}">
-                    <div style="width: 95%;margin: 0 auto">
-                        <div class="layout-logo">
-                            <a @click="backHome()">
-                                <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle">
-                                </img>
-                            </a>
-                        </div>
-                        <div class="layout-search">
-                            <Input v-model="searchValue" icon="android-search" placeholder="Enter something..." @on-enter="search()"></Input>
-                        </div>
-                        <div v-if="loginFlag" class="layout-nav">
-                            <MenuItem name="1">
-                                {{user.loginName}}
-                            </MenuItem>
-                            <MenuItem name="2">
-                                <Icon type="ios-email"></Icon>
-                                邮件
-                            </MenuItem>
-                            <MenuItem name="3">
-                                <Icon type="log-out"></Icon>
-                                退出
-                            </MenuItem>
-                            <MenuItem name="4" v-if="consoleFlag">
-                                <Icon type="gear-b"></Icon>
-                                控制台
-                            </MenuItem>
-                        </div>
-                        <img v-if="loginFlag" style="width: 30px;height: 30px;float: right; margin-top: 16px;border-radius: 100%;" :src="user.headimg">
-                        <div v-if="!loginFlag" class="layout-nav">
-                            <MenuItem name="5">
-                                <Icon type="log-in"></Icon>
-                                登录
-                            </MenuItem>
-                        </div>
+            <Header style="position: fixed;width: 100%;background:#fff;padding:0 0;z-index: 1000; line-height:0;">
+            	<div style="width: 95%;margin: 0 auto">
+                    <div class="layout-logo">
+                        <a @click="backHome()">
+                            <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle">
+                            </img>
+                        </a>
                     </div>
-                </Menu>
+                    <!-- <div style="height: 64px;float: left;">
+                        <span class="layout-title">interest</span>
+                    </div> -->
+                    <Dropdown v-if="loginFlag" trigger="click" class="layout-nav" @on-click="m=>{dropdownClick(m)}">
+                        <img style="width: 40px;height: 40px; margin-top: 12px;border-radius: 100%;" :src="user.headimg"></img>
+                        <DropdownMenu class="dropdown-menu" slot="list">
+                        	<DropdownItem name="name">
+                            	<Icon type="person"></Icon>
+                               	{{user.loginName}}
+                            </DropdownItem>
+                            <DropdownItem name="email" divided>
+                            	<Icon type="ios-email"></Icon>
+                                邮件
+                            </DropdownItem>
+                            <DropdownItem name="loginOut" divided>
+                            	<Icon type="log-out"></Icon>
+                            	退出
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                    <div v-if="!loginFlag" class="layout-nav" style="margin-top: 14px;">
+                        <!-- <Icon type="log-in"></Icon> -->
+                        <Button type="ghost" shape="circle" @click="toLogin()">
+                        	<span>登录</span>
+                        </Button>
+                    </div>
+                </div>
             </Header>
             <Content :style="{margin: '80px 0 0 0', background: '#fff'}">
                 <router-view></router-view>
@@ -98,7 +115,7 @@
             </Footer>
         </Layout>
 
-        <Modal :mask-closable="false" :visible.sync="emailModal" :loading = "loading" v-model="emailModal" width="600" title="联系管理员" @on-ok="emailOk('email')" @on-cancel="cancel()">
+        <Modal :mask-closable="false" :visible.sync="emailModal" :loading = "loading" v-model="emailModal" title="联系管理员" @on-ok="emailOk('email')" @on-cancel="cancel()">
              <Form ref="email" :rules="emailRule" :model="email"  :label-width="80" >
                 <FormItem label="标题" prop="title">
                     <Input v-model="email.title" placeholder="请输入标题"></Input>
@@ -158,8 +175,8 @@
             }
         },
         mounted(){
-            if (this.$store.getters._isMobile) {
-                this.$router.replace('/mobile');
+            if (!this.$store.getters._isMobile) {
+                this.$router.replace('/');
             }
             this.code = this.$route.query.code;
             if(this.code !=null && this.code != ''){
@@ -211,6 +228,16 @@
             
         },
         methods:{
+            dropdownClick(m){
+                if(m == "email"){
+                    this.emailModal = true;
+                }else if(m == "loginOut"){
+                    this.$store.dispatch('users/loginOUt',{"router":this.$router});
+                }
+            },
+        	toLogin(){
+        		this.$router.push("/mlogin");
+        	},
             userGet(){
                 this.axios({
                     method: 'get',

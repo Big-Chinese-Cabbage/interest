@@ -6,6 +6,7 @@ module.exports = {
     externals: {
         // 'vue': 'Vue',
         // 'iview':'iview',
+        //prod
         'quill':'Quill',
         'vue-router': 'VueRouter',
         'vuex':'Vuex',

@@ -1,20 +1,22 @@
 <style scoped>
     .index {
-        width: 100%;
+    	width: 100%;
+        align-items: center;
+    	display: flex;
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         text-align: center;
-        background-image: url(../images/背景图片.jpg);
+        background-image: url(../images/login.jpg);
     }
     .index .ivu-row-flex {
         height: 100%;
     }
     #index_pc_bj{width:100%;height:auto;background-size:cover;overflow: hidden;background-position:center center;/*box-shadow: 0 0px 3px rgba(0,0,0,.5);*/text-align: center;}
     /*具体内容*/
-    .wrap_conter ul{position:relative;width:300px;/*border:5px solid rgba(255,255,255,0.3);*/border-radius:5px;background: #fff;/*box-shadow: 0 0px 5px rgba(0,0,0,.2);*/ margin-top: 20%; margin-left: 60%; text-align:center;}
-    .wrap_conter li{text-align:center;color:#fff;font-size:12px;line-height:30px; padding:0 25px 5px 25px;width: 100%;}
+    .wrap_conter ul{position:relative;width:300px;/*border:5px solid rgba(255,255,255,0.3);*/border-radius:5px;background: #fff; text-align:center; margin: 0 auto;}
+    .wrap_conter li{text-align:center;color:#fff;font-size:12px;line-height:30px; padding:0 25px 0px 25px;width: 100%;}
     .content{color:#1c2438;line-height:40px; display:block; text-align:left; padding:5px 0 0 0;margin: 0 80px 0 20px;}
     .pc-hign{height:75px;display: inline-table;}
     .wrap_conter li dl{width:100%;margin-top: 20px}
@@ -30,7 +32,7 @@
         <div id="index_pc_bj">
             <Form ref="formLogin" :model="formLogin" :rules="ruleLogin">
                 <div class="wrap_conter">
-                    <ul>
+                    <ul style="list-style: none; box-shadow:1px 1px 20px rgba(0,0,0,.5);">
                         <li style="border-bottom: 1px solid #e9eaec;">
                             <div class="content">
                                 <img src="../images/logo.jpg" style="width: 40px;height: 40px;" align="absmiddle">
@@ -86,7 +88,9 @@
             }
         },
         mounted(){
-            
+            if (!this.$store.getters._isMobile) {
+                this.$router.replace('/login');
+            }
         },
         methods: {
             login(formLogin){
@@ -101,4 +105,4 @@
             }
         }
     };
-</script>
+</script>s

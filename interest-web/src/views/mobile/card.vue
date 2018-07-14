@@ -7,54 +7,58 @@
                     <p>{{postcard.title}}</p>
                 </div>
                 <Card>
-                    <div slot="extra">
-                    	<div>
+                    <div class="clearfix">
+                        <div class="layout-left" style="margin-top: 2px;">
                             <a :href="postcard.githuburl" target="_blank">
-                                <img :src="postcard.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
-                                {{postcard.username}}
+                                <img :src="postcard.headimg" style="width: 30px;height: 30px;border-radius: 100%;margin-top: 6px;">
                             </a>
-                    		<!-- <Icon type="ios-person"></Icon>
-                        	{{postcard.username}} -->
-                    	</div>
-                    	<div style="background: #5cadff;text-align: center;color: #fff;border-radius: 10px;">
-                    		楼主
-                    	</div>
+                        </div>
+                        <div class="layout-left" style="margin-left: 7px">
+                            <p style="font-size: 17px;">
+                                <a :href="postcard.githuburl" target="_blank">
+                                    {{postcard.username}}
+                                </a>
+                            </p>
+                            <p style="font-size: 1px;">
+                                {{postcard.createtime}}
+                            </p>
+                        </div>
                     </div>
-                    <div>
+                    <div style="margin-top: 10px;">
                         <p>{{postcard.content}}</p>
-                        <span>
-                            <Icon type="ios-time"></Icon>
-                            {{postcard.createtime}}
-                        </span>
                     </div>
                 </Card>
 
                 <Card v-for="(item,index) in replyCardList" :key="index">
-                    <div slot="extra">
-                        <a :href="item.githuburl" target="_blank">
-                        <!-- <Icon type="ios-person"></Icon> -->
-                            <img :src="item.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
-                            {{item.username}}
-                        </a>
-                        <!-- <Icon type="ios-person"></Icon>
-                        {{item.username}} -->
+                    <div class="clearfix">
+                        <div class="layout-left" style="margin-top: 2px;">
+                            <a :href="item.githuburl" target="_blank">
+                                <img :src="item.headimg" style="width: 30px;height: 30px;border-radius: 100%;margin-top: 6px;">
+                            </a>
+                        </div>
+                        <div class="layout-left" style="margin-left: 7px">
+                            <p style="font-size: 17px;">
+                                <a :href="item.githuburl" target="_blank">
+                                    {{item.username}}
+                                </a>
+                            </p>
+                            <p style="font-size: 1px;">
+                                {{item.createtime}}
+                            </p>
+                        </div>
                     </div>
-                    <div>
+                    <div style="margin-top: 10px;">
                         <p>{{item.content}}</p>
-                        <span>
-                            <Icon type="ios-time"></Icon>
-                            {{item.createtime}}
-                        </span>
                     </div>
                 </Card>
                 <div style="margin-top: 20px">
-                    <Page :total="total" :page-size="pageInfo.pageSize" show-elevator show-total @on-change="e=>{pageSearch(e)}"></Page>
+                    <Page :total="total" :page-size="pageInfo.pageSize" show-total @on-change="e=>{pageSearch(e)}"></Page>
                 </div>
             </div>
 
             <div class="box-flex width-100 margin-auto margin-top-2 border-top border-color-bfbfbf"></div>
 
-            <div class="box-flex margin-auto margin-top-2 flex-direction-column flex-justify-center flex-items-center" style="width: 100%">
+            <div class="box-flex margin-auto margin-top-2 flex-direction-column flex-justify-center flex-items-center" style="width: 100%;margin-bottom: 30px;">
                 <div class=" width-100 flex-direction-row">
                   <div class="box-flex flex-1 padding-all-5x">
                     <span><Icon type="edit"></Icon>发表回复</span>

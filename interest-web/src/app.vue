@@ -11,7 +11,7 @@
             };
         },
         mounted() {
-
+            
         },
         beforeDestroy() {
 
