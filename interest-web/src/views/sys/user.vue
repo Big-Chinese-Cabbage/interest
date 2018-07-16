@@ -189,6 +189,10 @@
                         }
                     },
                     {
+                        title: '注册时间',
+                        key: 'createTime'
+                    },
+                    {
                         title: '操作',
                         align: 'center',
                         key: 'action',
@@ -304,6 +308,15 @@
                 this.userModify.loginName = e.loginName;
                 this.userModify.usertype = e.usertype;
             },
+            dateGet(e){
+                var time = new Date(parseInt(e));
+                return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate()+" "+time.getHours()+":"+time.getMinutes(); 
+            },
+            listDateSet(e){
+                for (var i = e.length - 1; i >= 0; i--) {
+                    e[i].createTime = this.dateGet(e[i].createTime);
+                }
+            },
             /*得到表数据*/
             getTable(e) {
                 this.axios({
@@ -316,6 +329,7 @@
                   }
                 }).then(function (response) {
                     this.data1=response.data.data;
+                    this.listDateSet(this.data1);
                     this.total=response.data.totalCount;
                 }.bind(this)).catch(function (error) {
                   alert(error);

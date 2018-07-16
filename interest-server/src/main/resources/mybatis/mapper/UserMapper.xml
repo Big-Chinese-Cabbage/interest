@@ -10,6 +10,7 @@
 		<result column="usertype" property="usertype" />
 		<result column="headimg" property="headimg" />
 		<result column="url" property="url" />
+		<result column="create_time" property="createTime" />
 	</resultMap>
 	<!-- 获取user列表 -->
 	<select id="usersList" resultMap="userMap">
@@ -75,9 +76,9 @@
 				   order="AFTER">
 			select LAST_INSERT_ID()
 		</selectKey>
-		insert into sys_user (login_name,email,usertype,headimg,url)
+		insert into sys_user (login_name,email,usertype,headimg,url,create_time)
 		values
-		(#{loginName},#{email},#{usertype},#{headimg},#{url})
+		(#{loginName},#{email},#{usertype},#{headimg},#{url},#{createTime})
 	</insert>
 	<!-- 更新用户信息 -->
 	<update id="updateUser" parameterType="UserEntity">

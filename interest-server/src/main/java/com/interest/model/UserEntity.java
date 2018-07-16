@@ -37,6 +37,10 @@ public class UserEntity {
 	 * GitHub主页
 	 */
 	private String url;
+	/**
+	 * 注册时间
+	 */
+	private String createTime;
 
 	public int getId() {
 		return id;
@@ -100,5 +104,13 @@ public class UserEntity {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 }
