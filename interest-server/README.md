@@ -19,6 +19,29 @@ spring boot项目,与我的另外一个前端项目[interest-web](https://github
 可使用github登录
 （第一次打开可能会有点慢）
 
+项目目录结构
+--
+```shell
+.
+└── src
+    ├── main  
+    │	├── java  
+    │	│   └── com.interest 
+    │	│	├── controller  controller类
+    │	│	├── dao  dao类
+    │	│	├── model  entity类
+    │	│	├── oauth2  spring security oauth2配置类
+    │	│	├── properties  项目配置类
+    │	│	├── security  spring security配置类
+    │	│	├── service  service类
+    │	│	└── utils  工具类
+    │	└── resource  
+    │	    ├── createTable 表数结构及表数据
+    │	    ├── mybatis.mapper mybatis的mapper.xml
+    │	    └── application.yml 项目配置文件
+    └── test  测试
+```
+
 ## 技术栈
 
  - spring boot
