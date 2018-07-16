@@ -258,9 +258,10 @@ CREATE TABLE `sys_user` (
   `usertype` int(1) NOT NULL DEFAULT '0' COMMENT '用户类型（0:普通用户，1:管理员）',
   `headimg` varchar(225) DEFAULT NULL COMMENT '头像url',
   `url` varchar(225) DEFAULT NULL COMMENT 'GitHub主页',
+  `create_time` varchar(225) DEFAULT NULL COMMENT '注册时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login_name` (`login_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='用户';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,7 +270,7 @@ CREATE TABLE `sys_user` (
 
 LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
-INSERT INTO `sys_user` VALUES (1,'管理员','admin','{bcrypt}$2a$10$D8E4cuanLviCCe/ASqBC7OZ84JYOH8IT4/y4JLAV/Pm/AdhzPcy2.','123456@qq.com',1,'/dist/aef5b502e8e3c8956e0495c725cd6f9a.jpg','http://www.lovemtt.com'),(9,NULL,'smallsnail-wh',NULL,'null',0,'https://avatars2.githubusercontent.com/u/30545965?v=4','https://github.com/smallsnail-wh');
+INSERT INTO `sys_user` VALUES (1,'管理员','admin','{bcrypt}$2a$10$D8E4cuanLviCCe/ASqBC7OZ84JYOH8IT4/y4JLAV/Pm/AdhzPcy2.','123456@qq.com',1,'https://avatars2.githubusercontent.com/u/30545965?v=4','http://www.lovemtt.com','1531704654140'),(10,NULL,'smallsnail-wh',NULL,'null',0,'https://avatars2.githubusercontent.com/u/30545965?v=4','https://github.com/smallsnail-wh','1531704654140');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -282,4 +283,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-10 21:44:13
+-- Dump completed on 2018-07-16 15:49:13
