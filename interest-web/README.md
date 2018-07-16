@@ -105,7 +105,8 @@ Http状态码
 --
 1. 项目启动报错，请试一下用管理员权限输入命令。
 
-**下面是主要功能截图:**
+下面是主要功能截图
+--
 
 **pc首页**
 ![这里写图片描述](https://github.com/smallsnail-wh/images/blob/master/home%20-%20Home.jpg)
