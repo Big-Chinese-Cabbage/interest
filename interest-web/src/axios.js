@@ -43,7 +43,7 @@ axios.interceptors.response.use(
                 case 403:
                     // 403 无权限，跳转到首页
                     router.replace({
-                        path: '/page',
+                        path: '/',
                         query: {redirect: router.currentRoute.fullPath}
                     });
                     break;

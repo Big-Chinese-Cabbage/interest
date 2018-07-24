@@ -5,7 +5,7 @@
 	        <div class="line-height-50 font-size-22">{{insterest.title}}</div>
 	        <div class="text-align-center margin-top-2">
 	        </div>
-            <div class="detailContent" v-html="insterest.content" style="width: 80%;margin-top: 20px"></div>
+            <div class="detailContent ql-editor" v-html="insterest.content" style="width: 80%;margin-top: 20px"></div>
 
             <div style="width: 100%;margin: 10% 0 20px 0">
                 <div class="ivu-card-head" style="background: #eceef2">
