@@ -94,6 +94,11 @@ UI 组件库：
 	 4. 运行npm run dev启动前端工程
 - 打包命令：
 	运行npm run build
+
+打包发布
+--
+1. 运行npm run build后，得到 dist文件+index_prod.html。（index_prod.html为项目的入口html）
+2. 使用nginx发布。（[nginx配置参考文件](https://github.com/smallsnail-wh/interest/blob/master/nginx.conf)）
 	
 Http状态码
 --
