@@ -16,8 +16,8 @@ public class MyResourceServerConfigurerAdapter extends ResourceServerConfigurerA
 		.antMatchers("/public/**").permitAll()
 		.antMatchers("/authentication/github").permitAll()
 		.antMatchers("/register").permitAll()
-		.antMatchers("/**/*.jpg","/**/*.png").permitAll()
-		.antMatchers("/users/**","/menus/**","/roles/**").hasRole("ADMIN")
+		.antMatchers("/**/*.jpg","/**/*.png","/**/*.jpeg").permitAll()
+		.antMatchers("/users/**","/menus/**","/roles/**","/admin/**").hasRole("ADMIN")
 		.anyRequest()
 		.authenticated();
 	}
