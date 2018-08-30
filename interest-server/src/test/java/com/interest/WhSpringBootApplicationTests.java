@@ -10,7 +10,7 @@ public class WhSpringBootApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		System.out.println(new BCryptPasswordEncoder().encode("WHOLMTT3344"));
+		System.out.println(new BCryptPasswordEncoder().encode("admin"));
 	}
 
 }
