@@ -11,7 +11,7 @@
 5. oauth2授权与认证。
   
 ## 项展示
-  项目展示地址为我的网站：http://www.lovemtt.com/ （服务器配置低，首次加载会有点慢，登录请用github第三方登录。）
+  项目展示地址为我的网站：http://123.206.215.203/ （服务器配置低，首次加载会有点慢，登录请用github第三方登录。）
 
 ## 项目结构
 - 前端源码是该目录下的interest-web，前端详细介绍地址：https://github.com/smallsnail-wh/interest/tree/master/interest-web
