@@ -17,4 +17,3 @@
 - 前端源码是该目录下的interest-web，前端详细介绍地址：https://github.com/smallsnail-wh/interest/tree/master/interest-web
 - 后端源码是该目录下的interest-server，后端详细介绍地址：https://github.com/smallsnail-wh/interest/tree/master/interest-server
 
-## 如果该项目对你有帮助，记得给我star呀
