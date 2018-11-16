@@ -8,6 +8,8 @@ public class PostCardModel extends PostCardEntity {
 
     private String githuburl;
 
+    private String username;
+
     public String getHeadimg() {
         return headimg;
     }
@@ -22,5 +24,13 @@ public class PostCardModel extends PostCardEntity {
 
     public void setGithuburl(String githuburl) {
         this.githuburl = githuburl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.UserGithubDao">
+	<resultMap id="userMap" type="com.interest.model.UserGithubEntity">
+		<id column="login" property="login" />
+		<result column="avatar_url" property="avatarUrl" />
+		<result column="html_url" property="htmlUrl" />
+		<result column="email" property="email" />
+		<result column="userid" property="userid" />
+	</resultMap>
+
+	<insert id="insertEntity" parameterType="UserGithubEntity">
+		insert into user_github (login,avatar_url,html_url,email,userid)
+		values (#{login},#{avatarUrl},#{htmlUrl},#{email},#{userid})
+	</insert>
+
+</mapper>

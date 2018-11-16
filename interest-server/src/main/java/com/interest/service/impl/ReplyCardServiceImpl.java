@@ -40,9 +40,15 @@ public class ReplyCardServiceImpl implements ReplyCardService {
 
 	@Override
 	public void insertEntity(ReplyCardEntity replyCardEntity) {
-		User user = SecurityAuthenUtil.getAuthenticationUser();
-		replyCardEntity.setUsername(user.getUsername());
+
+		//User user = SecurityAuthenUtil.getAuthenticationUser();
+		//replyCardEntity.setUsername(user.getUsername());
 		//replyCardEntity.setUserid(user.);
+
+		int userid = SecurityAuthenUtil.getId();
+		replyCardEntity.setUsername(SecurityAuthenUtil.getLoginName());
+		replyCardEntity.setUserid(userid);
+
 		replyCardEntity.setCreatetime(DateUtil.currentTimestamp());
 		
 		postCardDao.updateCreatetiem(replyCardEntity.getPostcardid(),replyCardEntity.getCreatetime());

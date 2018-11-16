@@ -42,6 +42,8 @@ public class UserEntity {
 	 */
 	private String createTime;
 
+	private String githubid;
+
 	public int getId() {
 		return id;
 	}
@@ -112,5 +114,13 @@ public class UserEntity {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getGithubid() {
+		return githubid;
+	}
+
+	public void setGithubid(String githubid) {
+		this.githubid = githubid;
 	}
 }

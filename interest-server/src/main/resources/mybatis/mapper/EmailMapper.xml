@@ -3,17 +3,17 @@
 <mapper namespace="com.interest.dao.EmailDao">
 	<resultMap id="emailMap" type="com.interest.model.EmailEntity">
 		<id column="id" property="id" />
-		<result column="username" property="username" />
 		<result column="title" property="title" />
 		<result column="email" property="email" />
 		<result column="name" property="name" />
 		<result column="content" property="content" />
 		<result column="createtime" property="createtime" />
+		<result column="userid" property="userid" />
 	</resultMap>
 	
 	<insert id="insertEntity" parameterType="EmailEntity">
-		insert into email(username,title,email,name,content,createtime)
-		values (#{username},#{title},#{email},#{name},#{content},#{createtime})
+		insert into email(userid,title,email,name,content,createtime)
+		values (#{userid},#{title},#{email},#{name},#{content},#{createtime})
 	</insert>
 	
 	<select id="emailsList" resultMap="emailMap">

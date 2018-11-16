@@ -4,12 +4,12 @@
 	<resultMap id="postCardMap"
 		type="com.interest.model.PostCardEntity">
 		<id column="id" property="id" />
-		<result column="username" property="username" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
 		<result column="interestid" property="interestid" />
 		<result column="createtime" property="createtime" />
 		<result column="replytime" property="replytime" />
+		<result column="userid" property="userid" />
 	</resultMap>
 
 	<resultMap id="postCardModelMap"
@@ -26,8 +26,8 @@
 	</resultMap>
 
 	<select id="postcardList" resultMap="postCardModelMap">
-		select a.*, b.headimg headimg, b.url githuburl from post_card a
-			left join sys_user b on a.username = b.login_name
+		select a.*,b.name username, b.headimg headimg, b.url githuburl from post_card a
+			left join sys_user b on a.userid = b.id
 		<where>
 			<if test="interestid != null and interestid != ''">
 				a.interestid = #{interestid}
@@ -49,13 +49,13 @@
 	</select>
 	
 	<insert id="insertEntity" parameterType="PostCardEntity">
-		insert into post_card (username,title,content,interestid,createtime,replytime)
-		values (#{username},#{title},#{content},#{interestid},#{createtime},#{replytime})
+		insert into post_card (userid,title,content,interestid,createtime,replytime)
+		values (#{userid},#{title},#{content},#{interestid},#{createtime},#{replytime})
 	</insert>
 
 	<select id="getPostcard" resultMap ="postCardModelMap">
-		select a.*, b.headimg headimg, b.url githuburl from post_card a
-			left join sys_user b on a.username = b.login_name
+		select a.*,b.name username, b.headimg headimg, b.url githuburl from post_card a
+			left join sys_user b on a.userid = b.id
 		<where>
 			a.id = #{id}
 		</where>

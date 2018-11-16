@@ -7,8 +7,6 @@ package com.interest.model;
 public class ReplyCardEntity {
 	private Integer id;
 
-	private String username;
-
 	private String content;
 
 	private Integer postcardid;
@@ -23,14 +21,6 @@ public class ReplyCardEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getContent() {
