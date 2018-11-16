@@ -28,11 +28,11 @@ public class GitHubAuthentication implements MyAuthentication {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    private static final String CLIENT_ID = "";
-    private static final String CLIENT_ID_TEST = "";
+    private static final String CLIENT_ID = "bbb5cc2034eb62484c1c";
+    private static final String CLIENT_ID_TEST = "89e5885a3b1e527ef739";
 
-    private static final String CLIENT_SECRET = "";
-    private static final String CLIENT_SECRET_TEST = "";
+    private static final String CLIENT_SECRET = "75ea363df8765fcf4ea88f07eb7418ea23172b8b";
+    private static final String CLIENT_SECRET_TEST = "93a670a75ec971cc0b1f0339ac5a8a1ef6a405a0";
 
     private static final String GITHUB_ACCESSS_TOKEN_URL = "https://github.com/login/oauth/access_token";
 
