@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.interest.dao.PostCardDao;
 import com.interest.dao.ReplyCardDao;
+import com.interest.model.MsgRecordEntity;
 import com.interest.model.ReplyCardEntity;
 import com.interest.model.view.ReplyCardModel;
+import com.interest.service.MsgRecordsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.interest.service.ReplyCardService;
@@ -22,6 +25,9 @@ public class ReplyCardServiceImpl implements ReplyCardService {
 	@Autowired
 	private PostCardDao postCardDao;
 
+	@Autowired
+	private MsgRecordsService msgRecordsService;
+
 	@Override
 	public List<ReplyCardModel> replycardList(int postcardid, int pageSize, int start) {
 		return replyCardDao.replycardList(postcardid,pageSize,start);
@@ -34,11 +40,19 @@ public class ReplyCardServiceImpl implements ReplyCardService {
 
 	@Override
 	public void insertEntity(ReplyCardEntity replyCardEntity) {
-		replyCardEntity.setUsername(SecurityAuthenUtil.getLoginName());
+		User user = SecurityAuthenUtil.getAuthenticationUser();
+		replyCardEntity.setUsername(user.getUsername());
+		//replyCardEntity.setUserid(user.);
 		replyCardEntity.setCreatetime(DateUtil.currentTimestamp());
 		
 		postCardDao.updateCreatetiem(replyCardEntity.getPostcardid(),replyCardEntity.getCreatetime());
 		replyCardDao.insertEntity(replyCardEntity);
+
+//		MsgRecordEntity msgRecordEntity = new MsgRecordEntity();
+//		msgRecordEntity.setOwnerid();
+//
+//		msgRecordsService.addMsg(msgRecordEntity);
+
 	}
 	
 //	@Override

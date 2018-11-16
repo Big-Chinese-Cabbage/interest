@@ -15,6 +15,8 @@ public class ReplyCardEntity {
 
 	private String createtime;
 
+	private Integer userid;
+
 	public Integer getId() {
 		return id;
 	}
@@ -55,4 +57,11 @@ public class ReplyCardEntity {
 		this.createtime = createtime;
 	}
 
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 }

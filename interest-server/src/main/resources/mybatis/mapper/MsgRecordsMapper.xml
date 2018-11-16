@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.MsgRecordsDao">
+	<resultMap id="msgRecordMap"
+		type="com.interest.model.MsgRecordEntity">
+		<id column="id" property="id" />
+		<result column="ownerid" property="ownerid" />
+		<result column="replyid" property="replyid" />
+		<result column="cardid" property="cardid" />
+		<result column="replytime" property="cardid" />
+		<result column="isread" property="cardid" />
+	</resultMap>
+
+	<insert id="addMsg" parameterType="MsgRecordEntity">
+		insert into msg_records(ownerid, replyid, cardid, replytime, isread)
+			values(#{ownerid}, #{replyid}, #{cardid}, #{replytime}, #{isread});
+	</insert>
+
+</mapper>
