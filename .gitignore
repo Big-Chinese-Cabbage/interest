@@ -4,7 +4,5 @@
 interest-server/src/.DS_Store
 
 *.yml
-interest-server/src/main/resources/application.yml
-*.yml
 interest-server/src/main/java/com/interest/controller/authentication/GitHubAuthentication.java
-interest-server/src/main/java/com/interest/controller/authentication/GitHubAuthentication.java
+
