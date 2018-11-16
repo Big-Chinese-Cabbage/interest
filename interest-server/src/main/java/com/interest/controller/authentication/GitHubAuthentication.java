@@ -28,7 +28,7 @@ public class GitHubAuthentication implements MyAuthentication {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    private static final String CLIENT_ID = "";
+    private static final String CLIENT_ID = "123";
     private static final String CLIENT_ID_TEST = "";
 
     private static final String CLIENT_SECRET = "";
