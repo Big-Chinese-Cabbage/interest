@@ -46,7 +46,7 @@ public class ReplyCardServiceImpl implements ReplyCardService {
 		//replyCardEntity.setUserid(user.);
 
 		int userid = SecurityAuthenUtil.getId();
-		replyCardEntity.setUsername(SecurityAuthenUtil.getLoginName());
+//		replyCardEntity.setUsername(SecurityAuthenUtil.getLoginName());
 		replyCardEntity.setUserid(userid);
 
 		replyCardEntity.setCreatetime(DateUtil.currentTimestamp());
