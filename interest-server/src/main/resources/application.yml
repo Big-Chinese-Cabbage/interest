@@ -51,3 +51,6 @@ interest:
       image: D:/interest/file/image
 #      domain-name: http://www.lovemtt.com/interest
       domain-name: http://127.0.0.1:8080/interest
+github:
+  client-id: 你的注册的client id
+  client-secret: 你的注册的client secret

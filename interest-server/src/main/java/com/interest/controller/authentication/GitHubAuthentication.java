@@ -4,6 +4,7 @@ import com.interest.dao.UserDao;
 import com.interest.model.UserEntity;
 import com.interest.controller.login.LoginFailureExcepiton;
 import com.interest.model.UserGithubEntity;
+import com.interest.properties.GithubProperties;
 import com.interest.service.UserGithubService;
 import com.interest.utils.DateUtil;
 import org.json.JSONException;
@@ -26,13 +27,10 @@ public class GitHubAuthentication implements MyAuthentication {
     @Autowired
     private UserGithubService userGithubService;
 
+    @Autowired
+    private GithubProperties githubProperties;
+
     private RestTemplate restTemplate = new RestTemplate();
-
-    private static final String CLIENT_ID = "";
-    private static final String CLIENT_ID_TEST = "";
-
-    private static final String CLIENT_SECRET = "";
-    private static final String CLIENT_SECRET_TEST = "";
 
     private static final String GITHUB_ACCESSS_TOKEN_URL = "https://github.com/login/oauth/access_token";
 
@@ -43,10 +41,8 @@ public class GitHubAuthentication implements MyAuthentication {
     public String getUserId(String code) {
 
         MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
-//        requestEntity.add("client_id", CLIENT_ID);
-//        requestEntity.add("client_secret", CLIENT_SECRET);
-        requestEntity.add("client_id", CLIENT_ID_TEST);
-        requestEntity.add("client_secret", CLIENT_SECRET_TEST);
+        requestEntity.add("client_id", githubProperties.getClientId());
+        requestEntity.add("client_secret", githubProperties.getClientSecret());
         requestEntity.add("code", code);
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(GITHUB_ACCESSS_TOKEN_URL, requestEntity, String.class);
