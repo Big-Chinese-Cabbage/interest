@@ -7,6 +7,7 @@ import java.util.Iterator;
 import com.interest.dao.RoleDao;
 import com.interest.dao.UserDao;
 import com.interest.model.UserEntity;
+import com.interest.utils.MyStringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,11 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		UserEntity userEntity = null;
 
-//		if(MyStringUtil.isInteger(id)) {
-//			userEntity = userDao.getUserEntityById(Integer.valueOf(id));
-//		}else {
-//			userEntity = userDao.getUserEntityByLoginName(id);
-//		}
-
-		userEntity = userDao.getUserEntityByLoginName(id);
+		if(MyStringUtil.isInteger(id)) {
+			userEntity = userDao.getUserEntityById(Integer.valueOf(id));
+		}else {
+			userEntity = userDao.getUserEntityByLoginName(id);
+		}
 
 		if(userEntity == null) {
 			throw new UsernameNotFoundException("用户:"+ id + "不存在！");
@@ -50,7 +49,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		if(password == null) {
 			password = DEFAULT_PASSWORD;
 		}
-		/*log.info(password);*/
 
 		Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();
 
@@ -60,7 +58,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		}
 
 		User user = new User(id, password, collection);
-		/*return new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN"));*/
 		return user;
 	}
 

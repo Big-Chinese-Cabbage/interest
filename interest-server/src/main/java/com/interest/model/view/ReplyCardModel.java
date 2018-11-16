@@ -8,6 +8,8 @@ public class ReplyCardModel extends ReplyCardEntity {
 
     private String githuburl;
 
+    private String username;
+
     public String getHeadimg() {
         return headimg;
     }
@@ -22,5 +24,13 @@ public class ReplyCardModel extends ReplyCardEntity {
 
     public void setGithuburl(String githuburl) {
         this.githuburl = githuburl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

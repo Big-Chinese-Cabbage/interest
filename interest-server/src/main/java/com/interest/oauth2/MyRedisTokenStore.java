@@ -34,7 +34,7 @@ public class MyRedisTokenStore implements TokenStore{
 	private final RedisConnectionFactory connectionFactory;
 	private AuthenticationKeyGenerator authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();
 	private RedisTokenStoreSerializationStrategy serializationStrategy = new JdkSerializationStrategy();
-	
+
 	private String prefix = "";
 
 	public MyRedisTokenStore(RedisConnectionFactory connectionFactory) {
@@ -48,7 +48,7 @@ public class MyRedisTokenStore implements TokenStore{
 	public void setSerializationStrategy(RedisTokenStoreSerializationStrategy serializationStrategy) {
 		this.serializationStrategy = serializationStrategy;
 	}
-	
+
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}

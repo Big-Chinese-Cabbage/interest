@@ -16,10 +16,10 @@ spring:
       connection-timeout: 30000
       pool-name: DatebookHikariCP
   redis:
-    database: 4
-    host: 127.0.0.1
+    database: 6
+    host: 123.206.215.203
     port: 6379
-    password: null
+    password: WHolMTT3344
     timeout: 5000ms
     jedis:
       pool:

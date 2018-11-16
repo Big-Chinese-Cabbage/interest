@@ -35,7 +35,10 @@ public class PostCardServiceImpl implements PostCardService {
 
 	@Override
 	public void insertEntity(PostCardEntity postCardEntity) {
-		postCardEntity.setUsername(SecurityAuthenUtil.getLoginName());
+		int userid = SecurityAuthenUtil.getId();
+
+//		postCardEntity.setUsername(SecurityAuthenUtil.getLoginName());
+		postCardEntity.setUserid(userid);
 		postCardEntity.setCreatetime(DateUtil.currentTimestamp());
 		postCardEntity.setReplytime(postCardEntity.getCreatetime());
 		postCardDao.insertEntity(postCardEntity);

@@ -4,7 +4,7 @@
 	<resultMap id="replyCardMap"
 		type="com.interest.model.ReplyCardEntity">
 		<id column="id" property="id" />
-		<result column="username" property="username" />
+		<result column="userid" property="userid" />
 		<result column="content" property="content" />
 		<result column="postcardid" property="postcardid" />
 		<result column="createtime" property="createtime" />
@@ -22,8 +22,8 @@
 	</resultMap>
 
 	<select id="replycardList" resultMap="replyCardModelMap">
-		select a.*, b.headimg headimg, b.url githuburl from reply_card a
-			left join sys_user b on a.username = b.login_name
+		select a.*,b.name username, b.headimg headimg, b.url githuburl from reply_card a
+			left join sys_user b on a.userid = b.id
 		<where>
 			<if test="postcardid != null and postcardid != ''">
 				a.postcardid = #{postcardid}
@@ -45,8 +45,8 @@
 	</select>
 	
 	<insert id="insertEntity" parameterType="ReplyCardEntity">
-		insert into reply_card (username,content,postcardid,createtime)
-		values (#{username},#{content},#{postcardid},#{createtime})
+		insert into reply_card (userid,content,postcardid,createtime)
+		values (#{userid},#{content},#{postcardid},#{createtime})
 	</insert>
 
 	<!-- <select id="getPostcard" resultMap ="replyCardMap">

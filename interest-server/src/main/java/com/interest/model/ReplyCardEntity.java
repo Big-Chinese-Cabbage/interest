@@ -7,13 +7,13 @@ package com.interest.model;
 public class ReplyCardEntity {
 	private Integer id;
 
-	private String username;
-
 	private String content;
 
 	private Integer postcardid;
 
 	private String createtime;
+
+	private Integer userid;
 
 	public Integer getId() {
 		return id;
@@ -21,14 +21,6 @@ public class ReplyCardEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getContent() {
@@ -55,4 +47,11 @@ public class ReplyCardEntity {
 		this.createtime = createtime;
 	}
 
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 }

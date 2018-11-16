@@ -6,6 +6,13 @@ import Util from './libs/util';
 Vue.use(VueRouter);
 
 const routers = [
+	{
+	    path: '/test',
+	    meta: {
+	        title: 'smallsnail-wh'
+	    },
+	    component: (resolve) => require(['./views/test.vue'], resolve)
+	},
 	{ 
 		path: '*', 
 		component: (resolve) => require(['./views/error404.vue'], resolve) 

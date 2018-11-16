@@ -63,4 +63,6 @@ public interface UserDao {
 	public void updateUsertype(@Param("loginName")String loginName,@Param("usertype") Integer usertype);
 
     public UserEntity getUserEntityById(@Param("id")Integer id);
+
+    UserEntity getEntityByGithubid(@Param("githubid") String login);
 }
