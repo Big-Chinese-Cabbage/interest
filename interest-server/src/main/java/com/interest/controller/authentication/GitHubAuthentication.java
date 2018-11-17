@@ -18,7 +18,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 
-@Service
+@Service(value = "gitHubAuthentication")
 public class GitHubAuthentication implements MyAuthentication {
 
     @Autowired

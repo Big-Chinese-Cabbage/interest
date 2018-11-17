@@ -2,6 +2,7 @@ package com.interest.controller.login;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,27 +21,34 @@ public class LoginController {
 	@Autowired
 	private LoginSuccessHandler loginSuccessHandler;
 
-	@Autowired
+	@Resource(name = "gitHubAuthentication")
 	private MyAuthentication gitHubAuthentication;
 
-	public static final String WEIXIN_CODE = "code";
-
-	public static final String WEIGUANG_FORM_MOBILE_KEY = "mobile";
-
+	@Resource(name = "qQAuthentication")
+	private MyAuthentication qQAuthentication;
 
 	@PostMapping("/authentication/github")
 	public OAuth2AccessToken loginForGithHub(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code)
 			throws IOException {
 
-		// String code = request.getParameter(WEIXIN_CODE);
+		return login(request,response,code,gitHubAuthentication);
+	}
 
+	@PostMapping("/authentication/qq")
+	public OAuth2AccessToken loginForQQ(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code)
+			throws IOException {
+
+		return login(request,response,code,qQAuthentication);
+	}
+
+	public OAuth2AccessToken login(HttpServletRequest request, HttpServletResponse response,String code,MyAuthentication myAuthentication) throws IOException {
 		if (code == null) {
 			code = "";
 		}
 
 		code = code.trim();
 
-		String id = gitHubAuthentication.getUserId(code);
+		String id = myAuthentication.getUserId(code);
 
 		MyAuthenticationToken authRequest = new MyAuthenticationToken(id);
 
