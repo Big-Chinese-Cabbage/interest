@@ -43,6 +43,23 @@
         animation: ani-demo-spin 1s linear infinite;
     }
 
+    .avatar-badge-wrapper {
+        position: relative;
+        float: right;
+        cursor: pointer;
+    }
+
+    .avatar-badge-wrapper .msg-num {
+        position: absolute;
+        top: 9px;
+        right: -12px;
+        color: #fff;
+        background-color: #2db7f5;
+        border-radius: 50%;
+        padding: 2px 5px;
+        line-height: 1;
+    }
+
     @keyframes ani-demo-spin {
         from {
             transform: rotate(0deg);
@@ -75,10 +92,6 @@
                         <div v-if="loginFlag" class="layout-nav">
                             <MenuItem name="1">
                                 {{user.name}}
-                                <!--<a v-if="unreadMsgCount > 0">{{unreadMsgCount}}</a>-->
-                                <Badge :count="unreadMsgCount" type="info">
-                                    <a href="#" class="demo-badge"></a>
-                                </Badge>
 
                             </MenuItem>
                             <MenuItem name="2">
@@ -94,9 +107,16 @@
                                 控制台
                             </MenuItem>
                         </div>
-                        <img v-if="loginFlag"
-                             style="width: 30px;height: 30px;float: right; margin-top: 16px;border-radius: 100%;"
-                             :src="user.headimg">
+                        <div  type="success" class="avatar-badge-wrapper" @click="toMessages">
+
+                            <img v-if="loginFlag"
+                                 style="width: 30px;height: 30px; margin-top: 16px;border-radius: 100%;"
+                                 :src="user.headimg" />
+
+                            <span v-if="unreadMsgCount > 0"  class="msg-num">{{unreadMsgCount}}</span>
+
+                        </div>
+
                         <div v-if="!loginFlag" class="layout-nav">
                             <MenuItem name="5">
                                 <Icon type="log-in"></Icon>
@@ -354,6 +374,11 @@
                 }.bind(this)).catch(function (error) {
                     this.$Message.error('登陆失败');
                 }.bind(this));
+            },
+
+            toMessages() {
+                console.log('to messages page');
+                this.$router.push({path: '/page/messages'});
             }
         }
     };
