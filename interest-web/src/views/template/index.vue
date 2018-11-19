@@ -46,6 +46,7 @@
     .avatar-badge-wrapper {
         position: relative;
         float: right;
+        cursor: pointer;
     }
 
     .avatar-badge-wrapper .msg-num {
@@ -106,13 +107,13 @@
                                 控制台
                             </MenuItem>
                         </div>
-                        <div  type="success" class="avatar-badge-wrapper">
+                        <div  type="success" class="avatar-badge-wrapper" @click="toMessages">
 
                             <img v-if="loginFlag"
                                  style="width: 30px;height: 30px; margin-top: 16px;border-radius: 100%;"
                                  :src="user.headimg" />
 
-                            <span v-if="unreadMsgCount > 0" class="msg-num">{{unreadMsgCount}}</span>
+                            <span v-if="unreadMsgCount > 0"  class="msg-num">{{unreadMsgCount}}</span>
 
                         </div>
 
@@ -373,6 +374,11 @@
                 }.bind(this)).catch(function (error) {
                     this.$Message.error('登陆失败');
                 }.bind(this));
+            },
+
+            toMessages() {
+                console.log('to messages page');
+                this.$router.push({path: '/page/messages'});
             }
         }
     };

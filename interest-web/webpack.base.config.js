@@ -39,17 +39,21 @@ module.exports = {
                         css: ExtractTextPlugin.extract({
                             use: ['css-loader', 'autoprefixer-loader'],
                             fallback: 'vue-style-loader'
-                        })
+                        }),
+
+                        scss: 'style-loader!css-loader!sass-loader',
+                        sass: 'style-loader!css-loader!sass-loader?indentedSyntax',
                     }
                 }
             },
             {
                 test: /\.scss$/,
+                //loaders: ['style', 'css', 'sass'],
                 use: [
                   'vue-style-loader',
                   'css-loader',
                   'sass-loader'
-                ]
+                ],
             },
             {
                 test: /iview\/.*?js$/,
