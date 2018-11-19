@@ -29,14 +29,8 @@ public class UserController {
 
 	@GetMapping("/public/user")
 	public UserEntity userGet() {
-		String loginName = null;
-		try {
-			loginName = SecurityAuthenUtil.getLoginName();
-		}catch (Exception ex){
-			System.out.println("exception");
-			return null;
-		}
-		UserEntity userEntity = userService.getUserEntityByLoginName(loginName);
+		int userid = SecurityAuthenUtil.getIdWithoutException();
+		UserEntity userEntity = userService.getEntityById(userid);
 		log.debug("The method is ending");
 		return userEntity;
 	}

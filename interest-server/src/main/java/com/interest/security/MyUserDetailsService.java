@@ -57,7 +57,7 @@ public class MyUserDetailsService implements UserDetailsService {
 			collection.add(new SimpleGrantedAuthority(iterator.next()));
 		}
 
-		User user = new User(id, password, collection);
+		User user = new User(String.valueOf(userEntity.getId()), password, collection);
 		return user;
 	}
 

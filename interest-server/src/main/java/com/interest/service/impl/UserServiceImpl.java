@@ -90,4 +90,9 @@ public class UserServiceImpl implements UserService {
 		userDao.updateUsertype(userEntity.getLoginName(),userEntity.getUsertype());
 	}
 
+	@Override
+	public UserEntity getEntityById(int userid) {
+		return userDao.getUserEntityById(userid);
+	}
+
 }
