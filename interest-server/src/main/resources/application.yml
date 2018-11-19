@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
     username: root
-    password: 12345678
+    password: wanghuan
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
@@ -51,3 +51,9 @@ interest:
       image: D:/interest/file/image
 #      domain-name: http://www.lovemtt.com/interest
       domain-name: http://127.0.0.1:8080/interest
+github:
+  client-id: 你在github中注册的client id
+  client-secret: 你在github中注册的client secret
+qq:
+  aappid: 你在qq中注册的appid
+  appkey: 你在qq中注册的appkey

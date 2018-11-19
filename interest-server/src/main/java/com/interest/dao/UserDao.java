@@ -65,4 +65,8 @@ public interface UserDao {
     public UserEntity getUserEntityById(@Param("id")Integer id);
 
     UserEntity getEntityByGithubid(@Param("githubid") String login);
+
+    UserEntity getEntityByQqid(@Param("qqid") String openid);
+
+	void insertUserByQq(UserEntity userEntity);
 }

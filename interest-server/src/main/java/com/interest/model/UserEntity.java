@@ -44,6 +44,8 @@ public class UserEntity {
 
 	private String githubid;
 
+	private String qqid;
+
 	public int getId() {
 		return id;
 	}
@@ -122,5 +124,13 @@ public class UserEntity {
 
 	public void setGithubid(String githubid) {
 		this.githubid = githubid;
+	}
+
+	public String getQqid() {
+		return qqid;
+	}
+
+	public void setQqid(String qqid) {
+		this.qqid = qqid;
 	}
 }

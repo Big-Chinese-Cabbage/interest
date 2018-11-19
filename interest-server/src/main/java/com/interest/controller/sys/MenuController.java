@@ -35,14 +35,12 @@ public class MenuController {
 
 	/**
 	 * 获取该用户的菜单权限
-	 * 
-	 * @param loginName
 	 * @return
 	 */
 	@GetMapping("/manage/menu")
 	public List<MenuEntity> menuList() {
-		UserEntity userEntity = userService.getUserEntityByLoginName(SecurityAuthenUtil.getLoginName());
-		List<MenuEntity> menuList = menuService.menuList(userEntity.getId());
+//		UserEntity userEntity = userService.getUserEntityByLoginName(SecurityAuthenUtil.getLoginName());
+		List<MenuEntity> menuList = menuService.menuList(SecurityAuthenUtil.getId());
 		return menuList;
 	}
 

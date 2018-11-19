@@ -12,6 +12,7 @@
 		<result column="url" property="url" />
 		<result column="create_time" property="createTime" />
 		<result column="githubid" property="githubid" />
+		<result column="qqid" property="qqid" />
 	</resultMap>
 	<!-- 获取user列表 -->
 	<select id="usersList" resultMap="userMap">
@@ -127,5 +128,22 @@
 			githubid = #{githubid}
 		</where>
 	</select>
+
+	<select id="getEntityByQqid" resultMap="userMap">
+		select * from sys_user
+		<where>
+			qqid = #{qqid}
+		</where>
+	</select>
+
+	<insert id="insertUserByQq" parameterType="UserEntity">
+		<selectKey keyProperty="id" resultType="java.lang.Integer"
+				   order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_user (name,usertype,headimg,create_time,qqid)
+		values
+		(#{name},#{usertype},#{headimg},#{createTime},#{qqid})
+	</insert>
 
 </mapper>

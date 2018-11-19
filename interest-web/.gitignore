@@ -8,4 +8,3 @@ dist/*
 src/config/*.tmp
 src/config/env.js
 npm-debug.log
-src/router.js
