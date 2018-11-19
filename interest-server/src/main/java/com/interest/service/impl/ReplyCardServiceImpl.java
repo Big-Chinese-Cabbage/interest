@@ -56,7 +56,7 @@ public class ReplyCardServiceImpl implements ReplyCardService {
 
 
 		MsgRecordEntity msgRecordEntity = new MsgRecordEntity();
-		msgRecordEntity.setReplyid(userid);
+		msgRecordEntity.setReplyid(replyCardEntity.getId());
 
 		Integer cardId = replyCardEntity.getPostcardid();
 		msgRecordEntity.setCardid(cardId);

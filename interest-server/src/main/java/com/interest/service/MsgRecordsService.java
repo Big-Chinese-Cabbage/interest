@@ -1,6 +1,7 @@
 package com.interest.service;
 
 import com.interest.model.MsgRecordEntity;
+import com.interest.model.PageResult;
 
 public interface MsgRecordsService {
 
@@ -17,4 +18,12 @@ public interface MsgRecordsService {
      * @return
      */
     int getUnreadMsgCount(Integer userid);
+
+    /**
+     * 查用户消息
+     * @param pageSize
+     * @param start
+     * @return
+     */
+    PageResult getUserMegsResult(int pageSize, int start);
 }

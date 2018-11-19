@@ -2,9 +2,17 @@ package com.interest.model;
 
 public class MsgRecordEntity {
 
-    Integer id;
-    Integer ownerid;
-    Integer replyid;
+    private Integer id;
+
+    private Integer ownerid;
+
+    private Integer replyid;
+
+    private Integer cardid;
+
+    private String replytime;
+
+    private Integer isread;
 
     public Integer getId() {
         return id;
@@ -53,10 +61,5 @@ public class MsgRecordEntity {
     public void setIsread(Integer isread) {
         this.isread = isread;
     }
-
-    Integer cardid;
-    String replytime;
-    Integer isread;
-
 
 }

@@ -45,6 +45,10 @@
 	</select>
 	
 	<insert id="insertEntity" parameterType="ReplyCardEntity">
+		<selectKey keyProperty="id" resultType="java.lang.Integer"
+				   order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
 		insert into reply_card (userid,content,postcardid,createtime)
 		values (#{userid},#{content},#{postcardid},#{createtime})
 	</insert>
