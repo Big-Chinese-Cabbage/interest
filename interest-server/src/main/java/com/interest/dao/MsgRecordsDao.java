@@ -9,4 +9,6 @@ public interface MsgRecordsDao {
 
 
     void addMsg(MsgRecordEntity entity);
+
+    int getUnreadMsgCount(Integer userid);
 }

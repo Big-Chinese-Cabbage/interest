@@ -101,7 +101,7 @@
                     if(valid){
                         this.$store.dispatch('users/userLogin',{"user_name":this.formLogin.userName,"user_password":this.formLogin.password,"router":this.$router});
                     }
-                })
+                });
             },
             register(){
                 this.$router.push({path:'/register'});

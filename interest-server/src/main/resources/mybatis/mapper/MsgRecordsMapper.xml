@@ -16,4 +16,9 @@
 			values(#{ownerid}, #{replyid}, #{cardid}, #{replytime}, #{isread});
 	</insert>
 
+
+	<select id="getUnreadMsgCount" parameterType="Integer" resultType="int">
+		  select count(*) from msg_records where ownerid = #{userid}
+	</select>
+
 </mapper>

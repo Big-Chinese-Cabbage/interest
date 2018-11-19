@@ -1,5 +1,5 @@
-import Vuex from 'vuex'
-import Vue from 'vue'
+import Vuex from 'vuex';
+import Vue from 'vue';
 import UsersModule from './modules/UsersModule';
 
 Vue.use(Vuex);
@@ -18,6 +18,7 @@ export default new Vuex.Store({
         count: 0,
         /*登录界面判断是否显示错误提示*/
         ifSign: false
+
     },
     getters: {
         doneTodos: state =>{
@@ -35,7 +36,8 @@ export default new Vuex.Store({
         _isMobile() {
           let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
           return flag;
-        }
+        },
+
     },
     mutations: {
         add(state){
@@ -56,4 +58,4 @@ export default new Vuex.Store({
             context.commit('add');
         }
     }
-})
+});

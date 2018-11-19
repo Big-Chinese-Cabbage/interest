@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
     username: root
-    password: 1234
+    password: 12345678
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
@@ -17,9 +17,9 @@ spring:
       pool-name: DatebookHikariCP
   redis:
     database: 5
-    host: 123.206.215.203
+    host: 127.0.0.1
     port: 6379
-    password: 
+    password: null
     timeout: 5000ms
     jedis:
       pool:

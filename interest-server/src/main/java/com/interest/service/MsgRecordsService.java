@@ -11,4 +11,10 @@ public interface MsgRecordsService {
      */
     boolean addMsg(MsgRecordEntity entity);
 
+    /**
+     * 查询未读消息条数
+     * @param userid
+     * @return
+     */
+    int getUnreadMsgCount(Integer userid);
 }

@@ -17,4 +17,9 @@ public class MsgRecordsServiceImpl implements MsgRecordsService {
         msgRecordsDao.addMsg(entity);
         return false;
     }
+
+    @Override
+    public int getUnreadMsgCount(Integer userid) {
+        return msgRecordsDao.getUnreadMsgCount(userid);
+    }
 }

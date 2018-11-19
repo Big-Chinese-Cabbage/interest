@@ -54,10 +54,18 @@ public class ReplyCardServiceImpl implements ReplyCardService {
 		postCardDao.updateCreatetiem(replyCardEntity.getPostcardid(),replyCardEntity.getCreatetime());
 		replyCardDao.insertEntity(replyCardEntity);
 
-//		MsgRecordEntity msgRecordEntity = new MsgRecordEntity();
-//		msgRecordEntity.setOwnerid();
-//
-//		msgRecordsService.addMsg(msgRecordEntity);
+
+		MsgRecordEntity msgRecordEntity = new MsgRecordEntity();
+		msgRecordEntity.setReplyid(userid);
+
+		Integer cardId = replyCardEntity.getPostcardid();
+		msgRecordEntity.setCardid(cardId);
+
+		msgRecordEntity.setOwnerid(postCardDao.getPostcard(cardId).getUserid());
+		msgRecordEntity.setIsread(0);
+		msgRecordEntity.setReplytime(DateUtil.currentTimestamp());
+
+		msgRecordsService.addMsg(msgRecordEntity);
 
 	}
 	

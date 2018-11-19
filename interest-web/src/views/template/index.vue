@@ -61,6 +61,10 @@
                         <div v-if="loginFlag" class="layout-nav">
                             <MenuItem name="1">
                                 {{user.loginName}}
+                                <!--<a v-if="unreadMsgCount > 0">{{unreadMsgCount}}</a>-->
+                                <Badge :count="unreadMsgCount" type="info">
+                                    <a href="#" class="demo-badge"></a>
+                                </Badge>
                             </MenuItem>
                             <MenuItem name="2">
                                 <Icon type="ios-email"></Icon>
@@ -125,6 +129,8 @@
                 loading: true,
                 searchValue:'',
                 emailModal:false,
+                //用户未读消息个数
+                unreadMsgCount: 0,
                 email: {
                     title:'',
                     email:'',
@@ -155,7 +161,7 @@
                     ]
                     
                 }
-            }
+            };
         },
         mounted(){
             if (this.$store.getters._isMobile) {
@@ -212,6 +218,7 @@
         },
         methods:{
             userGet(){
+                let _this = this;
                 this.axios({
                     method: 'get',
                     url: '/public/user'
@@ -222,8 +229,23 @@
                         if(response.data.usertype == 1){
                             this.consoleFlag = true;
                         }
+
+                        return this.axios({
+                            method: 'get',
+                            url: '/msgrecords/unreadnum'
+                        });
+                    } else {
+                        return Promise.resolve(0);
                     }
-                }.bind(this)).catch(function (error) {
+
+                }.bind(this)).then(function(response) {
+                    if (response === 0) {
+                        _this.unreadMsgCount = response;
+                    } else {
+                        _this.unreadMsgCount = response.data;
+                    }
+
+                }).catch(function (error) {
                     this.$Message.error('无权限');
                 }.bind(this));
             },
@@ -287,8 +309,9 @@
                             });
                         }, 1000);
                     }
-                })
-            }
+                });
+            },
+
         }
-    }
+    };
 </script>
