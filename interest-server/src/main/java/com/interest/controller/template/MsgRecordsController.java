@@ -1,13 +1,11 @@
 package com.interest.controller.template;
 
 import com.interest.model.PageResult;
+import com.interest.model.utils.RepsonseWraper;
 import com.interest.service.MsgRecordsService;
 import com.interest.utils.SecurityAuthenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MsgRecordsController {
@@ -27,5 +25,10 @@ public class MsgRecordsController {
         return pageResult;
     }
 
+    @PutMapping("/msgrecords/read")
+    public RepsonseWraper<Integer> userReadMes(@RequestParam("msgRecordId")Integer msgRecordId){
+        msgRecordsService.updateMsgRecordIsread(msgRecordId,1);
+        return new RepsonseWraper<Integer>("200",msgRecordId);
+    }
 
 }

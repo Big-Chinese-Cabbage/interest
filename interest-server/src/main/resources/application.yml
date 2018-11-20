@@ -8,6 +8,7 @@ spring:
     url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
     username: root
     password: 12345678
+
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15

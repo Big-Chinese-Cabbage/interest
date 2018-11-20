@@ -41,4 +41,9 @@ public class MsgRecordsServiceImpl implements MsgRecordsService {
         pageResult.setData(list);
         return pageResult;
     }
+
+    @Override
+    public void updateMsgRecordIsread(Integer msgRecordId, int isread) {
+        msgRecordsDao.updateMsgRecordIsread(msgRecordId,isread);
+    }
 }
