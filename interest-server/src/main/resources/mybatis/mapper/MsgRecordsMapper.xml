@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.MsgRecordsDao">
-	<resultMap id="msgRecordMap"
-		type="com.interest.model.MsgRecordEntity">
-		<id column="id" property="id" />
-		<result column="ownerid" property="ownerid" />
-		<result column="replyid" property="replyid" />
-		<result column="cardid" property="cardid" />
-		<result column="replytime" property="replytime" />
-		<result column="isread" property="isread" />
-	</resultMap>
+    <resultMap id="msgRecordMap"
+               type="com.interest.model.MsgRecordEntity">
+        <id column="id" property="id"/>
+        <result column="ownerid" property="ownerid"/>
+        <result column="replyid" property="replyid"/>
+        <result column="cardid" property="cardid"/>
+        <result column="replytime" property="replytime"/>
+        <result column="isread" property="isread"/>
+    </resultMap>
 
-	<resultMap id="msgModelMap"
-			   type="com.interest.model.view.MsgRecordModel">
-		<id column="id" property="id" />
-		<result column="ownerid" property="ownerid" />
-		<result column="replyid" property="replyid" />
-		<result column="cardid" property="cardid" />
-		<result column="replytime" property="replytime" />
-		<result column="isread" property="isread" />
-        <result column="replyUserid" property="replyUserid" />
-        <result column="replyUserHeadimg" property="replyUserHeadimg" />
-        <result column="replyUsername" property="replyUsername" />
-        <result column="replyContent" property="replyContent" />
-        <result column="postCardTitle" property="postCardTitle" />
-	</resultMap>
+    <resultMap id="msgModelMap"
+               type="com.interest.model.view.MsgRecordModel">
+        <id column="id" property="id"/>
+        <result column="ownerid" property="ownerid"/>
+        <result column="replyid" property="replyid"/>
+        <result column="cardid" property="cardid"/>
+        <result column="replytime" property="replytime"/>
+        <result column="isread" property="isread"/>
+        <result column="replyUserid" property="replyUserid"/>
+        <result column="replyUserHeadimg" property="replyUserHeadimg"/>
+        <result column="replyUsername" property="replyUsername"/>
+        <result column="replyContent" property="replyContent"/>
+        <result column="postCardTitle" property="postCardTitle"/>
+    </resultMap>
 
-	<insert id="addMsg" parameterType="MsgRecordEntity">
+    <insert id="addMsg" parameterType="MsgRecordEntity">
 		insert into msg_records(ownerid, replyid, cardid, replytime, isread)
 			values(#{ownerid}, #{replyid}, #{cardid}, #{replytime}, #{isread});
 	</insert>
 
 
-	<select id="getUnreadMsgCount" parameterType="Integer" resultType="int">
-		  select count(*) from msg_records where ownerid = #{userid}
-	</select>
+    <select id="getUnreadMsgCount" parameterType="Integer" resultType="int">
+        select count(1) from msg_records
+        <where>
+            ownerid = #{userid} and isread = 0
+        </where>
+    </select>
 
-	<select id="getMsgListByUserid" resultMap="msgModelMap">
-		select a.*,b.content replyContent,c.id replyUserid,c.headimg replyUserHeadimg,c.name replyUsername,d.title postCardTitle
+    <select id="getMsgListByUserid" resultMap="msgModelMap">
+        select a.*,b.content replyContent,c.id replyUserid,c.headimg replyUserHeadimg,c.name replyUsername,d.title
+        postCardTitle
         from msg_records a
-          left join reply_card b on a.replyid = b.id
-          left join sys_user c on b.userid = c.id
-          left join post_card d on b.postcardid = d.id
-		<where>
-			ownerid = #{userid}
-		</where>
-		order by replytime desc
-		limit #{start},#{pageSize}
-	</select>
+        left join reply_card b on a.replyid = b.id
+        left join sys_user c on b.userid = c.id
+        left join post_card d on b.postcardid = d.id
+        <where>
+            ownerid = #{userid}
+        </where>
+        order by replytime desc
+        limit #{start},#{pageSize}
+    </select>
 
-	<select id="getMsgSizeByUserid" resultType="Integer">
-		select count(1) from msg_records
-		<where>
-			ownerid = #{userid}
-		</where>
-	</select>
+    <select id="getMsgSizeByUserid" resultType="Integer">
+        select count(1) from msg_records
+        <where>
+            ownerid = #{userid}
+        </where>
+    </select>
 
-	<update id="updateMsgRecordIsread">
-		update msg_records set isread = #{isread}
-		<where>
-			id = #{id}
-		</where>
-	</update>
+    <update id="updateMsgRecordIsread">
+        update msg_records set isread = #{isread}
+        <where>
+            id = #{id}
+        </where>
+    </update>
 
 </mapper>

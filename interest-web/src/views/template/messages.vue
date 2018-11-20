@@ -1,22 +1,23 @@
 <template>
     <div class="unread-msg-wrapper">
-        <Card v-for="(item, index) in messages" :key="item.id" class="msg-card-item" @click="read(item.id)">
+        <Card v-for="(item, index) in messages" :key="item.id" class="msg-card-item">
+            <div @click="read(item.id,item.isread)">
+                <div class="synopsis">
+                    <Avatar shape="square" icon="person" :src="item.replyUserHeadimg" :title="item.replyUsername" />
 
-            <div class="synopsis">
-                <Avatar shape="square" icon="person" :src="item.replyUserHeadimg" :title="item.replyUsername" />
+                    <span class="user-name">{{item.replyUsername}}</span>
+                    <span class="time">{{dateGet(item.replytime)}}</span>
+                    <span>回复：</span>
 
-                <span class="user-name">{{item.replyUsername}}</span>
-                <span class="time">{{dateGet(item.replytime)}}</span>
-                <span>回复：</span>
+                    <router-link :to="{ path: 'card/' + item.cardid }">{{item.postCardTitle}}</router-link>
+                </div>
+                <div class="reply-content">
+                    {{item.replyContent}}
+                </div>
 
-                <router-link :to="{ path: 'card/' + item.cardid }">{{item.postCardTitle}}</router-link>
+                <Icon v-if="item.isread == 0" class="unread-symbol" type="chatbox-working" color="red" size="20"></Icon>
             </div>
-            <div class="reply-content">
-                {{item.replyContent}}
-            </div>
-
-            <Icon v-if="item.isread == 0" class="unread-symbol" type="chatbox-working" color="red" size="20"></Icon>
-
+        
         </Card>
 
         <Page :total="totalCount" class="pagin" show-elevator show-sizer show-total
@@ -52,12 +53,18 @@
         },
 
         methods: {
-            read(id) {
-                console.log('read' + id);
+            read(id,isread) {
+                if(isread == 1){
+                    return;
+                }
                 let _this = this;
-                this.axios.put('/msgrecords/read/',{
-                    msgRecordId: id
-                }).then(function() {
+                this.axios({
+                  method: 'put',
+                  url: '/msgrecords/read/',
+                  params:{
+                    'msgRecordId': id
+                  }
+                }).then(function (response) {
                     let index = _this.messages.findIndex(function(item) {
                         return item.id == id;
                     });
@@ -66,9 +73,23 @@
                     item.isread = 1;
 
                     _this.messages.splice(index, 1, item);
-                }).catch(function (error) {
+                }.bind(this)).catch(function (error) {
                     _this.$Message.error('已读失败，请稍后重试');
-                });
+                }); 
+                // this.axios.put('/msgrecords/read/',{
+                //     msgRecordId: id
+                // }).then(function() {
+                //     let index = _this.messages.findIndex(function(item) {
+                //         return item.id == id;
+                //     });
+
+                //     let item = _this.messages[index];
+                //     item.isread = 1;
+
+                //     _this.messages.splice(index, 1, item);
+                // }).catch(function (error) {
+                //     _this.$Message.error('已读失败，请稍后重试');
+                // });
             }
         }
     };
