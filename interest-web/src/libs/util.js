@@ -20,4 +20,5 @@ util.ajax = axios.create({
     timeout: 30000
 });
 
+
 export default util;

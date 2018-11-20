@@ -103,10 +103,7 @@
                     alter(error);
                 }.bind(this));
             },
-            dateGet(e){
-                var time = new Date(parseInt(e));
-                return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate()+" "+time.getHours()+":"+time.getMinutes(); 
-            },
+
             listDateSet(e){
                 for (var i = e.length - 1; i >= 0; i--) {
                     e[i].replytime = this.dateGet(e[i].replytime);

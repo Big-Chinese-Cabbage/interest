@@ -1,8 +1,26 @@
 <template>
     <div class="unread-msg-wrapper">
-        <Card v-for="(item, index) in messages" :key="index">
-            回复的消息。。。{{index}}
+        <Card v-for="(item, index) in messages" :key="item.id" class="msg-card-item" @click="read(item.id)">
+
+            <div class="synopsis">
+                <Avatar shape="square" icon="person" :src="item.replyUserHeadimg" :title="item.replyUsername" />
+
+                <span class="user-name">{{item.replyUsername}}</span>
+                <span class="time">{{dateGet(item.replytime)}}</span>
+                <span>回复：</span>
+
+                <router-link :to="{ path: 'card/' + item.cardid }">{{item.postCardTitle}}</router-link>
+            </div>
+            <div class="reply-content">
+                {{item.replyContent}}
+            </div>
+
+            <Icon v-if="item.isread == 0" class="unread-symbol" type="chatbox-working" color="red" size="20"></Icon>
+
         </Card>
+
+        <Page :total="totalCount" class="pagin" show-elevator show-sizer show-total
+            @on-change=""></Page>
     </div>
     
 </template>
@@ -13,23 +31,76 @@
 
         data () {
             return {
-                messages: []
+                messages: [],
+                pageSize: 10,
+                page: 0,
+                totalCount: 0
             };
         },
 
         mounted() {
             let _this = this;
-            this.axios.get('/msgrecords/user')
+            this.axios.get('/msgrecords/user?pageSize= ' + _this.pageSize + '&page=' + _this.page)
                 .then(function (response) {
-                    _this.messages = response.data;
+                    let data = response.data;
+                    _this.messages = data.data;
+                    _this.totalCount = data.totalCount;
                     console.log(response);
                 }).catch(function (error) {
                     _this.$Message.error('查询失败，请稍后重试');
                 });
+        },
+
+        methods: {
+            read(id) {
+                console.log('read' + id);
+                let _this = this;
+                this.axios.put('/msgrecords/read/',{
+                    msgRecordId: id
+                }).then(function() {
+                    let index = _this.messages.findIndex(function(item) {
+                        return item.id == id;
+                    });
+
+                    let item = _this.messages[index];
+                    item.isread = 1;
+
+                    _this.messages.splice(index, 1, item);
+                }).catch(function (error) {
+                    _this.$Message.error('已读失败，请稍后重试');
+                });
+            }
         }
     };
 </script>
 
 <style scoped lang="scss">
+    .unread-msg-wrapper {
+        position: relative;
+
+        .msg-card-item {
+            cursor: pointer;
+        }
+
+        .unread-symbol {
+            position: absolute;
+            top: 1.5em;
+            right: 1em;
+        }
+
+        .synopsis {
+            span {
+                line-height: 30px;
+            }
+        }
+
+        .reply-content {
+            padding: 6px 30px;
+        }
+
+        .pagin {
+            margin: 10px 20px;
+        }
+    }
 
 </style>
