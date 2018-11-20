@@ -56,4 +56,11 @@
 		</where>
 	</select>
 
+	<update id="updateMsgRecordIsread">
+		update msg_records set isread = #{isread}
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
 </mapper>

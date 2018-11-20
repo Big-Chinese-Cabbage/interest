@@ -18,4 +18,6 @@ public interface MsgRecordsDao {
     List<MsgRecordModel> getMsgListByUserid(@Param("userid") int userid,@Param("pageSize") int pageSize,@Param("start") int start);
 
     int getMsgSizeByUserid(@Param("userid") int userid);
+
+    void updateMsgRecordIsread(@Param("id") Integer msgRecordId,@Param("isread") int isread);
 }

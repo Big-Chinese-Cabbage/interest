@@ -26,4 +26,6 @@ public interface MsgRecordsService {
      * @return
      */
     PageResult getUserMegsResult(int pageSize, int start);
+
+    void updateMsgRecordIsread(Integer msgRecordId, int isread);
 }
