@@ -1,44 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.EmailDao">
-	<resultMap id="emailMap" type="com.interest.model.EmailEntity">
-		<id column="id" property="id" />
-		<result column="title" property="title" />
-		<result column="email" property="email" />
-		<result column="name" property="name" />
-		<result column="content" property="content" />
-		<result column="createtime" property="createtime" />
-		<result column="userid" property="userid" />
-	</resultMap>
-	
-	<insert id="insertEntity" parameterType="EmailEntity">
+    <resultMap id="emailMap" type="com.interest.model.EmailEntity">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="email" property="email"/>
+        <result column="name" property="name"/>
+        <result column="content" property="content"/>
+        <result column="createtime" property="createtime"/>
+        <result column="userid" property="userid"/>
+    </resultMap>
+
+    <resultMap id="emailModelMap" type="com.interest.model.view.EmailModel">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="email" property="email"/>
+        <result column="name" property="name"/>
+        <result column="content" property="content"/>
+        <result column="createtime" property="createtime"/>
+        <result column="userid" property="userid"/>
+        <result column="username" property="username"/>
+    </resultMap>
+
+    <insert id="insertEntity" parameterType="EmailEntity">
 		insert into email(userid,title,email,name,content,createtime)
 		values (#{userid},#{title},#{email},#{name},#{content},#{createtime})
 	</insert>
-	
-	<select id="emailsList" resultMap="emailMap">
-	<![CDATA[select * from email]]>
-	    <![CDATA[ order by createtime desc ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
-	</select>
-	<!-- 获取user列表的总量 -->
-	<select id="emailsSize" resultType="Integer">  
-	    <![CDATA[select count(*) from email]]>
+
+    <select id="emailsList" resultMap="emailModelMap">
+        select a.* ,b.name username
+          from email a
+          left join sys_user b on a.userid = b.id
+        <![CDATA[ order by createtime desc ]]>
+        <if test="pageSize != null and start != null ">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <!-- 获取user列表的总量 -->
+    <select id="emailsSize" resultType="Integer">
+	    <![CDATA[
+        select count(*) from email
+        ]]>
 	</select>
 
-	<delete id="deleteEmails">
-		delete from email
-		<where>
-			<if test="groupId !=null">
-				id in
-				<foreach collection="groupId" item="item" index="index"
-						 open="(" separator="," close=")">
-					#{item}
-				</foreach>
-			</if>
-		</where>
-	</delete>
+    <delete id="deleteEmails">
+        delete from email
+        <where>
+            <if test="groupId !=null">
+                id in
+                <foreach collection="groupId" item="item" index="index"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </delete>
 
 </mapper>

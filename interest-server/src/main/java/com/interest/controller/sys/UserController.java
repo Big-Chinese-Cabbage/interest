@@ -1,22 +1,15 @@
 package com.interest.controller.sys;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import com.interest.model.PageResult;
 import com.interest.model.UserEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.interest.service.UserService;
 import com.interest.utils.SecurityAuthenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 /*@PreAuthorize("hasRole('ADMI')")*/
@@ -38,16 +31,16 @@ public class UserController {
 	/**
 	 * 获取user表数据
 	 * 
-	 * @param loginName
+	 * @param name
 	 * @param pageSize
 	 * @param page
 	 * @return
 	 */
 	@GetMapping("/users")
-	public PageResult usersList(String loginName, int pageSize, int page) {
+	public PageResult usersList(@RequestParam(value = "name",required = false) String name, @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
 		PageResult pageResult = new PageResult();
-		pageResult.setData(userService.usersList(loginName, pageSize, page * pageSize));
-		pageResult.setTotalCount(userService.usersSize(loginName, pageSize, page * pageSize));
+		pageResult.setData(userService.usersList(name, pageSize, page * pageSize));
+		pageResult.setTotalCount(userService.usersSize(name, pageSize, page * pageSize));
 		log.debug("The method is ending");
 		return pageResult;
 	}

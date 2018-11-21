@@ -19,7 +19,7 @@
         </div>
         <Modal :mask-closable="false" :visible.sync="modal" v-model="modal" width="600" title="查看">
 	        <Form :label-width="80" >
-	        	<Form-item label="登录名:">
+	        	<Form-item label="用户名:">
 	        		<strong>{{email.username}}</strong>
                     <!-- <Input v-model="email.username" style="width: 204px" disabled="disabled" /> -->
                 </Form-item>

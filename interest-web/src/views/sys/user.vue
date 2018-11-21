@@ -2,8 +2,8 @@
 	<div style="margin: 20px;">
         <div>
             <Row style="margin-bottom: 25px;">
-                <Col span="8">登录名：
-                	<Input v-model="loginName" placeholder="请输入..." style="width:200px"></Input>
+                <Col span="8">用户名：
+                	<Input v-model="name" placeholder="请输入..." style="width:200px"></Input>
                 </Col>
                 <Col span="8"><Button type="primary" shape="circle" icon="ios-search" @click="search()">搜索</Button></Col>
             </Row>
@@ -33,7 +33,7 @@
                 <Row>
                     <Col span="12">
                         <Form-item label="登录名:">
-                            <Input v-model="userModify.loginName" style="width: 204px" disabled="disabled" />
+                            <Input v-model="userModify.name" style="width: 204px" disabled="disabled" />
                         </Form-item>
                     </Col>
                 </Row>
@@ -63,7 +63,7 @@
         data () {
             return {
                 /*用于查找的登录名*/
-                loginName:null,
+                name:null,
             	/*选择的数量*/
                 count:null,
             	/*选中的组数据*/
@@ -103,7 +103,8 @@
                 },
                 /*用于修改的user实体*/
                 userModify:{
-					loginName:null,
+                    id:null,
+					name:null,
 					usertype:null
                 },
                 /*新建验证*/
@@ -130,9 +131,6 @@
                     name: [
                         { type:'string',required: true, message: '输入用户名', trigger: 'blur' }
                     ],
-                    loginName: [
-                        { type:'string',required: true, message: '输入登录名', trigger: 'blur' }
-                    ],
                     password: [
                         { type:'string',required: true, message: '输入密码', trigger: 'blur' }
                     ],
@@ -149,8 +147,8 @@
                         align: 'center'
                     },
                     {
-                        title: '登录名',
-                        key: 'loginName'
+                        title: '用户名',
+                        key: 'name'
                     },
                     {
                         title: '邮箱',
@@ -243,7 +241,7 @@
         	/*页面初始化调用方法*/
             this.getTable({
                 "pageInfo":this.pageInfo,
-                "loginName":this.loginName
+                "name":this.name
             });
             this.axios({
               method: 'get',
@@ -305,7 +303,7 @@
             /*userModify设置*/
             userModifySet(e){
                 this.userModify.id = e.id;
-                this.userModify.loginName = e.loginName;
+                this.userModify.name = e.name;
                 this.userModify.usertype = e.usertype;
             },
             dateGet(e){
@@ -325,7 +323,7 @@
                   params: {
                     'page':e.pageInfo.page,
                     'pageSize':e.pageInfo.pageSize,
-                    'loginName':e.loginName
+                    'name':e.name
                   }
                 }).then(function (response) {
                     this.data1=response.data.data;
@@ -340,7 +338,7 @@
                 this.initPageInfo();
                 this.getTable({
                     "pageInfo":this.pageInfo,
-                    "loginName":this.loginName
+                    "name":this.name
                 });   
             },
             /*分页点击事件*/
@@ -348,7 +346,7 @@
                 this.pageInfo.page = e-1;
                 this.getTable({  
                     "pageInfo":this.pageInfo,
-                    "loginName":this.loginName
+                    "name":this.name
                 });
             },
             /*新建点击触发事件*/
@@ -374,7 +372,7 @@
                                 this.initUserNew();
                                 this.getTable({
                                     "pageInfo":this.pageInfo,
-                                    "loginName":this.loginName
+                                    "name":this.name
                                 });
                                 this.$Message.info('新建成功');
                             }.bind(this)).catch(function (error) {
@@ -416,7 +414,7 @@
                   method: 'put',
                   url: '/users/user',
                   data: {
-                    "loginName": this.userModify.loginName,
+                    "name": this.userModify.name,
                     "usertype": this.userModify.usertype,
                     "id": this.userModify.id
                   }
@@ -424,42 +422,13 @@
                     this.initUserNew();
                     this.getTable({
                         "pageInfo":this.pageInfo,
-                        "loginName":this.loginName
+                        "name":this.name
                     });
                     this.$Message.info('修改成功');
                 }.bind(this)).catch(function (error) {
                   alert(error);
                 });  
                 this.modifyModal = false;
-                // this.$refs[userModify].validate((valid) => {
-                //     if (valid) {
-                //         this.initUser();
-                //         this.userSet(this.userModify);
-                //         this.axios({
-                //           method: 'put',
-                //           url: '/users/'+this.user.id,
-                //           data: this.user
-                //         }).then(function (response) {
-                //             this.initUserNew();
-                //             this.getTable({
-                //                 "pageInfo":this.pageInfo,
-                //                 "loginName":this.loginName
-                //             });
-                //             this.$Message.info('修改成功');
-                //         }.bind(this)).catch(function (error) {
-                //           alert(error);
-                //         });  
-                //         this.modifyModal = false;
-                //     }else {
-                //         this.$Message.error('表单验证失败!');
-                //         setTimeout(() => {
-                //             this.loading = false;
-                //             this.$nextTick(() => {
-                //                 this.loading = true;
-                //             });
-                //         }, 1000);
-                //     }
-                // })
             },
             /*modal的cancel点击事件*/
             cancel () {
@@ -490,7 +459,7 @@
                     }).then(function (response) {
                         this.getTable({
                             "pageInfo":this.pageInfo,
-                            "loginName":this.loginName
+                            "name":this.name
                         });
                         this.groupId=null;
                         this.count=0;

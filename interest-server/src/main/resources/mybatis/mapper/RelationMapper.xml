@@ -21,7 +21,7 @@
 	</delete>
 	<!-- 批量插入关系数据 -->
 	<insert id="insertRelations">
-		insert into r_user_role(user_id,role_id) values
+		replace into r_user_role(user_id,role_id) values
 		<foreach collection="list" item="item" index="index"
 			separator=",">
 			(#{item.userId},#{item.roleId})

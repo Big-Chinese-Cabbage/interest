@@ -26,21 +26,21 @@ public interface UserDao {
 
 	/**
 	 * 获取user列表
-	 * @param loginName
+	 * @param name
 	 * @param pageSize
-	 * @param page
+	 * @param start
 	 * @return
 	 */
-	public ArrayList<UserEntity> usersList(@Param("loginName")String loginName,@Param("pageSize") int pageSize,@Param("start") int start);
+	public ArrayList<UserEntity> usersList(@Param("name")String name,@Param("pageSize") int pageSize,@Param("start") int start);
 
 	/**
 	 * 获取user列表的总量
-	 * @param loginName
+	 * @param name
 	 * @param pageSize
-	 * @param page
+	 * @param start
 	 * @return
 	 */
-	public Integer usersSize(@Param("loginName")String loginName,@Param("pageSize") int pageSize,@Param("start") int start);
+	public Integer usersSize(@Param("name")String name,@Param("pageSize") int pageSize,@Param("start") int start);
 
 	/**
 	 * 新建用户信息

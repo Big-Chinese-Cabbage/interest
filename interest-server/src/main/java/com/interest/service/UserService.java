@@ -18,21 +18,21 @@ public interface UserService {
 
 	/**
 	 * 获取user列表
-	 * @param loginName
+	 * @param name
 	 * @param pageSize
-	 * @param page
+	 * @param start
 	 * @return
 	 */
-	public List<UserEntity> usersList(String loginName, int pageSize, int start);
+	public List<UserEntity> usersList(String name, int pageSize, int start);
 
 	/**
 	 * 获取user列表的总量
-	 * @param loginName
+	 * @param name
 	 * @param pageSize
-	 * @param page
+	 * @param start
 	 * @return
 	 */
-	public Integer usersSize(String loginName, int pageSize, int start);
+	public Integer usersSize(String name, int pageSize, int start);
 
 	/**
 	 * 新建用户信息
