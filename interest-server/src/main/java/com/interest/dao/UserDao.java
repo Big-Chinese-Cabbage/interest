@@ -69,4 +69,6 @@ public interface UserDao {
     UserEntity getEntityByQqid(@Param("qqid") String openid);
 
 	void insertUserByQq(UserEntity userEntity);
+
+    List<UserEntity> getALl();
 }

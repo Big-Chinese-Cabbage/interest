@@ -24,4 +24,6 @@ public interface PostCardDao {
 
 	public void deletePostcards(@Param("groupId") List<String> groupId);
 
+	public List<PostCardEntity> getALL();
+
 }

@@ -81,4 +81,8 @@
 		</where>
 	</delete>
 
+	<select id="getALL" resultMap="postCardMap">
+		select * from post_card
+	</select>
+
 </mapper>

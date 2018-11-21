@@ -146,4 +146,8 @@
 		(#{name},#{usertype},#{headimg},#{createTime},#{qqid})
 	</insert>
 
+    <select id="getALl" resultMap="userMap">
+        select * from sys_user
+    </select>
+
 </mapper>
