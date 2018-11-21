@@ -40,7 +40,7 @@ CREATE TABLE `email` (
 
 LOCK TABLES `email` WRITE;
 /*!40000 ALTER TABLE `email` DISABLE KEYS */;
-INSERT INTO `email` VALUES (1,'123','213@qq.com','123','123','1531102263781',NULL),(2,'123','123@qq.com','123','123','1542349945304',12);
+INSERT INTO `email` VALUES (1,'123','213@qq.com','123','123','1531102263781',1),(2,'123','123@qq.com','123','123','1542349945304',12);
 /*!40000 ALTER TABLE `email` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +60,7 @@ CREATE TABLE `interest` (
   `sort` int(11) DEFAULT '0' COMMENT '排序',
   `banner` int(1) DEFAULT '0' COMMENT '是否加入轮播（0:不加入，1:加入）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='兴趣表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='兴趣表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `msg_records` (
   `replytime` varchar(225) DEFAULT NULL COMMENT '回复时间',
   `isread` int(1) DEFAULT '0' COMMENT '是否已读(0:未读，1:已读)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='消息记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='消息记录表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +97,7 @@ CREATE TABLE `msg_records` (
 
 LOCK TABLES `msg_records` WRITE;
 /*!40000 ALTER TABLE `msg_records` DISABLE KEYS */;
+INSERT INTO `msg_records` VALUES (39,1,40,38,'1542351639169',1),(40,1,49,43,'1542619140358',1),(41,12,50,33,'1542766744191',0),(42,1,51,44,'1542766809118',1);
 /*!40000 ALTER TABLE `msg_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +150,7 @@ CREATE TABLE `post_card` (
   `replytime` varchar(225) DEFAULT NULL COMMENT '最新回复时间',
   `userid` int(10) DEFAULT NULL COMMENT '用户名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='帖子表';
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='帖子表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +159,7 @@ CREATE TABLE `post_card` (
 
 LOCK TABLES `post_card` WRITE;
 /*!40000 ALTER TABLE `post_card` DISABLE KEYS */;
-INSERT INTO `post_card` VALUES (33,'你喜欢看什么动漫？','你喜欢看什么动漫？',1,'1527145330752','1542353287205',12),(34,'你觉得火影忍者这部动漫怎么样？','你觉得火影忍者这部动漫怎么样？',1,'1527145682685','1527210959322',NULL),(38,'汉服怎么样？','汉服怎么样？',2,'1527150545468','1527150554251',NULL),(39,'123','eqwsadsad',1,'1542350790861','1542350790861',12),(40,'123','eqwsadsad',1,'1542350799902','1542350799902',12),(41,'qweqw','eqwsadsad',1,'1542351639169','1542351639169',12),(42,'qweqw','eqwsadsad',1,'1542351661315','1542351661315',12);
+INSERT INTO `post_card` VALUES (33,'你喜欢看什么动漫？','你喜欢看什么动漫？',1,'1527145330752','1542766744184',12),(34,'你觉得火影忍者这部动漫怎么样？','你觉得火影忍者这部动漫怎么样？',1,'1527145682685','1527210959322',NULL),(38,'汉服怎么样？','汉服怎么样？',2,'1527150545468','1527150554251',NULL),(39,'123','eqwsadsad',1,'1542350790861','1542350790861',12),(40,'123','eqwsadsad',1,'1542350799902','1542350799902',12),(41,'qweqw','eqwsadsad',1,'1542351639169','1542351639169',12),(42,'qweqw','eqwsadsad',1,'1542351661315','1542351661315',12),(43,'qeq','qweq',1,'1542595552839','1542619140350',1),(44,'qwe','qweqweqwe',1,'1542766755374','1542766809112',1);
 /*!40000 ALTER TABLE `post_card` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +183,7 @@ CREATE TABLE `r_user_role` (
 
 LOCK TABLES `r_user_role` WRITE;
 /*!40000 ALTER TABLE `r_user_role` DISABLE KEYS */;
-INSERT INTO `r_user_role` VALUES (1,1);
+INSERT INTO `r_user_role` VALUES (1,1),(13,1);
 /*!40000 ALTER TABLE `r_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +201,7 @@ CREATE TABLE `reply_card` (
   `createtime` varchar(225) DEFAULT NULL COMMENT '创建时间',
   `userid` int(10) NOT NULL COMMENT '回复用户id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='回帖表';
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='回帖表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +210,7 @@ CREATE TABLE `reply_card` (
 
 LOCK TABLES `reply_card` WRITE;
 /*!40000 ALTER TABLE `reply_card` DISABLE KEYS */;
-INSERT INTO `reply_card` VALUES (32,'我喜欢看海贼王。',33,'1527145732382',1),(40,'很好看',38,'1527150554251',12),(41,'我喜欢漩涡鸣人。',34,'1527210804774',12),(42,'喜欢佐助，佐助太帅了。',34,'1527210846847',12),(43,'火影忍者打斗场面好看',34,'1527210893468',12),(44,'喜欢这个结局，大圆满。',34,'1527210959322',12),(45,' 死神',33,'1527211842627',12),(46,'一拳超人',33,'1527217127806',12),(47,'qweqwfasf',33,'1542353287205',12);
+INSERT INTO `reply_card` VALUES (32,'我喜欢看海贼王。',33,'1527145732382',1),(40,'很好看',38,'1527150554251',12),(41,'我喜欢漩涡鸣人。',34,'1527210804774',12),(42,'喜欢佐助，佐助太帅了。',34,'1527210846847',12),(43,'火影忍者打斗场面好看',34,'1527210893468',12),(44,'喜欢这个结局，大圆满。',34,'1527210959322',12),(45,' 死神',33,'1527211842627',12),(46,'一拳超人',33,'1527217127806',12),(47,'qweqwfasf',33,'1542353287205',12),(48,'qweqweqwfqw',43,'1542595559454',1),(49,'123123',43,'1542619140350',1),(50,'qweqwe',33,'1542766744184',1),(51,'hello',44,'1542766809112',1);
 /*!40000 ALTER TABLE `reply_card` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,10 +288,12 @@ CREATE TABLE `sys_user` (
   `url` varchar(225) DEFAULT NULL COMMENT 'GitHub主页',
   `create_time` varchar(225) DEFAULT NULL COMMENT '注册时间',
   `githubid` varchar(225) DEFAULT NULL COMMENT 'github的login',
+  `qqid` varchar(225) DEFAULT NULL COMMENT 'qq的openid',
   PRIMARY KEY (`id`),
   UNIQUE KEY `githubid_UNIQUE` (`githubid`),
-  UNIQUE KEY `login_name_UNIQUE` (`login_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='用户';
+  UNIQUE KEY `login_name_UNIQUE` (`login_name`),
+  UNIQUE KEY `qqid_UNIQUE` (`qqid`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +302,7 @@ CREATE TABLE `sys_user` (
 
 LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
-INSERT INTO `sys_user` VALUES (1,'管理员','admin','{bcrypt}$2a$10$D8E4cuanLviCCe/ASqBC7OZ84JYOH8IT4/y4JLAV/Pm/AdhzPcy2.','123456@qq.com',1,'https://avatars2.githubusercontent.com/u/30545965?v=4','http://www.lovemtt.com','1531704654140',NULL),(12,'smallsnail-wh','smallsnail-wh',NULL,'null',0,'https://avatars2.githubusercontent.com/u/30545965?v=4','https://github.com/smallsnail-wh','1542346679421','smallsnail-wh');
+INSERT INTO `sys_user` VALUES (1,'管理员','admin','{bcrypt}$2a$10$D8E4cuanLviCCe/ASqBC7OZ84JYOH8IT4/y4JLAV/Pm/AdhzPcy2.','123456@qq.com',1,'https://avatars2.githubusercontent.com/u/30545965?v=4','http://www.lovemtt.com','1531704654140',NULL,NULL),(12,'smallsnail-wh',NULL,NULL,'null',0,'https://avatars2.githubusercontent.com/u/30545965?v=4','https://github.com/smallsnail-wh','1542463692126','smallsnail-wh',NULL),(13,'树根',NULL,NULL,NULL,0,'http://thirdqq.qlogo.cn/qqapp/101512648/1C47A2C639D3A89E573AC2BF46FBEF63/40',NULL,'1542463259014',NULL,'1C47A2C639D3A89E573AC2BF46FBEF63');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,6 +332,33 @@ LOCK TABLES `user_github` WRITE;
 INSERT INTO `user_github` VALUES ('smallsnail-wh','https://avatars2.githubusercontent.com/u/30545965?v=4','https://github.com/smallsnail-wh','null',12);
 /*!40000 ALTER TABLE `user_github` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user_qq`
+--
+
+DROP TABLE IF EXISTS `user_qq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_qq` (
+  `openid` varchar(225) NOT NULL COMMENT 'openid',
+  `nickname` varchar(225) DEFAULT NULL COMMENT '用户名',
+  `figureurl_qq_1` varchar(225) DEFAULT NULL COMMENT '头像url',
+  `gender` varchar(225) DEFAULT NULL COMMENT '性别',
+  `userid` int(10) DEFAULT NULL COMMENT '用户id',
+  PRIMARY KEY (`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='qq用户';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_qq`
+--
+
+LOCK TABLES `user_qq` WRITE;
+/*!40000 ALTER TABLE `user_qq` DISABLE KEYS */;
+INSERT INTO `user_qq` VALUES ('1C47A2C639D3A89E573AC2BF46FBEF63','树根','http://thirdqq.qlogo.cn/qqapp/101512648/1C47A2C639D3A89E573AC2BF46FBEF63/40','男',13);
+/*!40000 ALTER TABLE `user_qq` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -339,4 +369,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-16 16:15:35
+-- Dump completed on 2018-11-21 16:50:43
