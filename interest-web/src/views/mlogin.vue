@@ -26,6 +26,20 @@
         line-height: 1;
         color: #ed3f14;
     }
+    .ivu-form-item-content .account-list{
+        width: auto;
+        padding-top: 10px;
+    }
+    .account-list li {
+        width:  auto;
+        display: inline-block;
+    }
+
+    .account-list .icon{
+       
+        width: 35px;
+        height: 40px;
+    }
 </style>
 <template>
     <div class="index">
@@ -52,13 +66,30 @@
                                     <Input v-model="formLogin.password" type="password" placeholder="密码" >
                                     <Icon type="ios-locked-outline" slot="prepend"></Icon></Input>
                                 </FormItem>
-                                <FormItem>
+                                <!-- <FormItem>
                                     <Button type="primary" @click="login('formLogin')" style="width: 250px">登录</Button>
                                     <div style="width: 250px">
                                         <a href="https://github.com/login/oauth/authorize?client_id=bbb5cc2034eb62484c1c" style="{right: 26px;}">
                                             <Icon  style="color: rebeccapurple;" size="40" type="social-github"></Icon>
                                         </a>
                                     </div>
+                                </FormItem> -->
+                                <FormItem>
+                                    <Button type="primary" @click="login('formLogin')" style="width: 250px">登录</Button>
+                                    <ul class="account-list">
+                                        <li>
+                                            <a href="https://github.com/login/oauth/authorize?client_id=bbb5cc2034eb62484c1c&state=github" style="{right: 26px;}">
+                                                <!-- <Icon  style="color: rebeccapurple;" size="40" type="social-github"></Icon> -->
+                                                <img class="icon" src="../images/GitHub.svg" />
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101512648&redirect_uri=http://www.lovemtt.com/qq&state=qq" style="{right: 26px;}">
+                                                <img class="icon" src="../images/social-qq.svg" />  
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </FormItem>
                             </dl>
                         </li>

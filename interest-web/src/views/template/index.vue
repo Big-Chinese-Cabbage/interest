@@ -204,11 +204,18 @@
             };
         },
         mounted() {
-            if (this.$store.getters._isMobile) {
-                this.$router.replace('/mobile');
-            }
             var code = this.$route.query.code;
             var state = this.$route.query.state;
+            if (this.$store.getters._isMobile) {
+                if (code != null && code != '' && state != null && state != '') {
+                    this.$router.replace('/mobile'+'?code='+code+'&state='+state);
+                    return;
+                }else{
+                    this.$router.replace('/mobile');
+                    return;
+                }
+                
+            }
             this.login(code, state);
         },
         methods: {

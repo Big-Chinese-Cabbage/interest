@@ -82,7 +82,7 @@
                         <DropdownMenu class="dropdown-menu" slot="list">
                         	<DropdownItem name="name">
                             	<Icon type="person"></Icon>
-                               	{{user.loginName}}
+                               	{{user.name}}
                             </DropdownItem>
                             <DropdownItem name="email" divided>
                             	<Icon type="ios-email"></Icon>
@@ -151,7 +151,8 @@
                 user: {
                     loginName: '',
                     email: '',
-                    headimg: ''
+                    headimg: '',
+                    name: ''
                 },
                 emailRule: {
                     title: [
@@ -178,54 +179,9 @@
             if (!this.$store.getters._isMobile) {
                 this.$router.replace('/');
             }
-            this.code = this.$route.query.code;
-            if(this.code !=null && this.code != ''){
-
-                // this.$Spin.show();
-                this.$Spin.show({
-                    render: (h) => {
-                        return h('div', [
-                            h('Icon', {
-                                // 'class': 'demo-spin-icon-load',
-                                style:{
-                                    animation: 'ani-demo-spin 1s linear infinite'
-                                },
-                                props: {
-                                    type: 'load-c',
-                                    size: 18
-                                }
-                            }),
-                            h('div', '正在登录，请等待...')
-                        ])
-                    }
-                });
-                setTimeout(() => {
-                    this.$Spin.hide();
-                }, 10000);
-                this.axios({
-                    method: 'post',
-                    url: '/authentication/github',
-                    params:{
-                        "code": this.code
-                    },
-                    auth: {
-                        username: 'client',
-                        password: 'secret'
-                    }
-                }).then(function (response) {
-                    localStorage.setItem("currentUser_token",response.data.access_token);
-                    localStorage.setItem("currentUser_refresh_token",response.data.refresh_token);
-                    this.axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
-                    this.$router.push({ path: '/' }) ;
-                    location.reload();
-                }.bind(this)).catch(function (error) {
-                    this.$Message.error('登陆失败');
-                }.bind(this));
-            }else{
-                this.userGet();
-            }
-            // this.$router.push("/page/home");
-            
+            var code = this.$route.query.code;
+            var state = this.$route.query.state;
+            this.login(code, state);
         },
         methods:{
             dropdownClick(m){
@@ -258,17 +214,8 @@
                 this.user.loginName = e.loginName;
                 this.user.email = e.email;
                 this.user.headimg = e.headimg;
+                this.user.name = e.name;
             },
-            // userModifySet(e){
-            //     this.userModify.loginName = e.loginName;
-            //     this.userModify.password = e.password;
-            //     this.userModify.passwordAgain = e.password;
-            //     this.userModify.name = e.name;
-            //     this.userModify.sex = e.sex;
-            //     this.userModify.age = e.age;
-            //     this.userModify.college = e.college;
-            //     this.userModify.info = e.info;
-            // },
             search(){
                 if(this.searchValue != null && this.searchValue != ''){
                     this.$router.push("/page/home/"+this.searchValue);
@@ -315,6 +262,89 @@
                         }, 1000);
                     }
                 })
+            },
+            /*登录*/
+            login(code, state) {
+                if (code != null && code != '' && state != null && state != '') {
+                    this.$Spin.show({
+                        render: (h) => {
+                            return h('div', [
+                                h('Icon', {
+                                    style: {
+                                        animation: 'ani-demo-spin 1s linear infinite'
+                                    },
+                                    props: {
+                                        type: 'load-c',
+                                        size: 18
+                                    }
+                                }),
+                                h('div', '正在登录，请等待...')
+                            ]);
+                        }
+                    });
+                    setTimeout(() => {
+                        this.$Spin.hide();
+                    }, 10000);
+                    if (state == 'github') {
+                        this.githubLogin(code);
+                    } else if (state == 'qq') {
+                        this.qqLogin(code);
+                    } else {
+                        this.$router.push({path: '/'});
+                        location.reload();
+                    }
+                } else {
+                    this.userGet();
+                }
+            },
+            /*github登录*/
+            githubLogin(code) {
+                this.axios({
+                    method: 'post',
+                    url: '/authentication/github',
+                    params: {
+                        'code': code
+                    },
+                    auth: {
+                        username: 'client',
+                        password: 'secret'
+                    }
+                }).then(function (response) {
+                    localStorage.setItem('currentUser_token', response.data.access_token);
+                    localStorage.setItem('currentUser_refresh_token', response.data.refresh_token);
+                    this.axios.defaults.headers.common['Authorization'] = 'bearer ' + localStorage.getItem('currentUser_token');
+                    this.$router.push({path: '/'});
+                    location.reload();
+                }.bind(this)).catch(function (error) {
+                    this.$Message.error('登陆失败');
+                }.bind(this));
+            },
+            /*qq登录*/
+            qqLogin(code) {
+                this.axios({
+                    method: 'post',
+                    url: '/authentication/qq',
+                    params: {
+                        'code': code
+                    },
+                    auth: {
+                        username: 'client',
+                        password: 'secret'
+                    }
+                }).then(function (response) {
+                    localStorage.setItem('currentUser_token', response.data.access_token);
+                    localStorage.setItem('currentUser_refresh_token', response.data.refresh_token);
+                    this.axios.defaults.headers.common['Authorization'] = 'bearer ' + localStorage.getItem('currentUser_token');
+                    this.$router.push({path: '/'});
+                    location.reload();
+                }.bind(this)).catch(function (error) {
+                    this.$Message.error('登陆失败');
+                }.bind(this));
+            },
+
+            toMessages() {
+                console.log('to messages page');
+                this.$router.push({path: '/page/messages'});
             }
         }
     }
