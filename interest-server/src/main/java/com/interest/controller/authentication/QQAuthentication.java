@@ -12,6 +12,8 @@ import com.interest.service.UserQQService;
 import com.interest.utils.DateUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service(value = "qQAuthentication")
 public class QQAuthentication implements MyAuthentication {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserDao userDao;
@@ -47,6 +51,8 @@ public class QQAuthentication implements MyAuthentication {
 
         String appid = qqProperties.getAppid();
         String appkey = qqProperties.getAppkey();
+
+        logger.info("**********appid:"+appid+";appkey:"+appkey+"**********");
 
         /* 获取access_token */
         String tokenUrl = QQ_ACCESSS_TOKEN_URL+"?grant_type=authorization_code&client_id="+appid+

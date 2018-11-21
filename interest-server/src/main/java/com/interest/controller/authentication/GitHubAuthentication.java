@@ -9,6 +9,8 @@ import com.interest.service.UserGithubService;
 import com.interest.utils.DateUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service(value = "gitHubAuthentication")
 public class GitHubAuthentication implements MyAuthentication {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserDao userDao;
@@ -44,6 +48,8 @@ public class GitHubAuthentication implements MyAuthentication {
         requestEntity.add("client_id", githubProperties.getClientId());
         requestEntity.add("client_secret", githubProperties.getClientSecret());
         requestEntity.add("code", code);
+
+        logger.info("**********client_id:"+requestEntity.get("client_id")+";client_secret:"+requestEntity.get("client_secret")+"**********");
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(GITHUB_ACCESSS_TOKEN_URL, requestEntity, String.class);
 
