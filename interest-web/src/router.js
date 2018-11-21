@@ -153,7 +153,17 @@ const routers = [
                 meta: {
                     title:"card"
                 }
-	    	}
+	    	},
+
+
+            {
+                path: 'messages',
+                name: 'messages',
+                component: (resolve) => require(['./views/mobile/messages.vue'], resolve),
+                meta: {
+                    title: 'messages'
+                }
+            }
 	    ]
 	},
 	{

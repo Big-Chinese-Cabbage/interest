@@ -48,6 +48,24 @@
     .mobild-layout .demo-spin-icon-load{
         animation: ani-demo-spin 1s linear infinite;
     }
+
+    .avatar-badge-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .avatar-badge-wrapper .msg-num {
+        position: absolute;
+        top: 9px;
+        right: -12px;
+        color: #fff !important;
+        background-color: #2db7f5;
+        border-radius: 50%;
+        padding: 2px 5px;
+        line-height: 1;
+    }
+
+
     @keyframes ani-demo-spin {
         from { transform: rotate(0deg);}
         50%  { transform: rotate(180deg);}
@@ -78,7 +96,14 @@
                         <span class="layout-title">interest</span>
                     </div> -->
                     <Dropdown v-if="loginFlag" trigger="click" class="layout-nav" @on-click="m=>{dropdownClick(m)}">
-                        <img style="width: 40px;height: 40px; margin-top: 12px;border-radius: 100%;" :src="user.headimg"></img>
+                        <div  type="success" class="avatar-badge-wrapper">
+
+                            <img style="width: 40px;height: 40px; margin-top: 12px;border-radius: 100%;" :src="user.headimg" />
+
+                            <span v-if="unreadMsgCount > 0"  class="msg-num">{{unreadMsgCount}}</span>
+
+                        </div>
+
                         <DropdownMenu class="dropdown-menu" slot="list">
                         	<DropdownItem name="name">
                             	<Icon type="person"></Icon>
@@ -88,6 +113,12 @@
                             	<Icon type="ios-email"></Icon>
                                 邮件
                             </DropdownItem>
+
+                            <DropdownItem name="messages" divided>
+                                <Icon type="chatbox-working"></Icon>
+                                消息
+                            </DropdownItem>
+
                             <DropdownItem name="loginOut" divided>
                             	<Icon type="log-out"></Icon>
                             	退出
@@ -141,6 +172,8 @@
                 consoleFlag: false,
                 loading: true,
                 searchValue:'',
+                //用户未读消息个数
+                unreadMsgCount: 0,
                 emailModal:false,
                 email: {
                     title:'',
@@ -189,12 +222,14 @@
                     this.emailModal = true;
                 }else if(m == "loginOut"){
                     this.$store.dispatch('users/loginOUt',{"router":this.$router});
+                } else if(m == 'messages') {
+                    this.$router.push({path: '/mobile/messages'});
                 }
             },
         	toLogin(){
-        		this.$router.push("/mlogin");
+              this.$router.push('/mlogin');
         	},
-            userGet(){
+            /*userGet(){
                 this.axios({
                     method: 'get',
                     url: '/public/user'
@@ -207,6 +242,39 @@
                         }
                     }
                 }.bind(this)).catch(function (error) {
+                    this.$Message.error('无权限');
+                }.bind(this));
+            },*/
+
+            userGet() {
+                let _this = this;
+                this.axios({
+                    method: 'get',
+                    url: '/public/user'
+                }).then(function (response) {
+                    if (response.data != null && response.data != '') {
+                        this.loginFlag = true;
+                        this.userSet(response.data);
+                        if (response.data.usertype == 1) {
+                            this.consoleFlag = true;
+                        }
+
+                        return this.axios({
+                            method: 'get',
+                            url: '/msgrecords/unreadnum'
+                        });
+                    } else {
+                        return Promise.resolve(0);
+                    }
+
+                }.bind(this)).then(function (response) {
+                    if (response === 0) {
+                        _this.unreadMsgCount = response;
+                    } else {
+                        _this.unreadMsgCount = response.data;
+                    }
+
+                }).catch(function (error) {
                     this.$Message.error('无权限');
                 }.bind(this));
             },
@@ -343,9 +411,9 @@
             },
 
             toMessages() {
-                console.log('to messages page');
+                //console.log('to messages page');
                 this.$router.push({path: '/page/messages'});
             }
         }
-    }
+    };
 </script>

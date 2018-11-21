@@ -20,7 +20,7 @@
         
         </Card>
 
-        <Page :total="totalCount" class="pagin" show-elevator show-sizer show-total
+        <Page :total="totalCount" class="pagin" show-total
             @on-change=""></Page>
     </div>
     
@@ -99,8 +99,6 @@
 <style scoped lang="scss">
     .unread-msg-wrapper {
         position: relative;
-        width: 70%;
-        min-width: 768px;
         margin: auto;
         padding: 20px 0;
 
@@ -110,11 +108,12 @@
 
         .unread-symbol {
             position: absolute;
-            top: 1.5em;
-            right: 1em;
+            top: 2em;
+            right: .5em;
         }
 
         .synopsis {
+            padding-right: 10px;
             span {
                 line-height: 30px;
             }
