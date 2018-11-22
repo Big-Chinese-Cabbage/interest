@@ -71,4 +71,6 @@ public interface UserDao {
 	void insertUserByQq(UserEntity userEntity);
 
     List<UserEntity> getALl();
+
+	void updateUsertypeById(@Param("id") int id,@Param("usertype") Integer usertype);
 }

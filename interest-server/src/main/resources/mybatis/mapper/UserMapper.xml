@@ -102,6 +102,14 @@
 			login_name = #{loginName}
 		</where>
 	</update>
+
+	<update id="updateUsertypeById">
+		update sys_user set
+		usertype = #{usertype}
+		<where>
+			id = #{id}
+		</where>
+	</update>
 	<!-- 删除用户信息 -->
 	<delete id="deleteUsers">
 		delete from sys_user
