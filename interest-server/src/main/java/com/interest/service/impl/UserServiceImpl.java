@@ -89,7 +89,8 @@ public class UserServiceImpl implements UserService {
 			list.add(relationEntity);
 			relationDao.insertRelations(list);
 		}
-		userDao.updateUsertype(userEntity.getLoginName(),userEntity.getUsertype());
+		//userDao.updateUsertype(userEntity.getLoginName(),userEntity.getUsertype());
+		userDao.updateUsertypeById(userEntity.getId(),userEntity.getUsertype());
 	}
 
 	@Override
