@@ -37,15 +37,17 @@ axios.interceptors.response.use(
                     store.commit('users/clearUser');
                     router.replace({
                         path: '/',
-                        query: {redirect: router.currentRoute.fullPath}
+                        // query: {redirect: router.currentRoute.fullPath}
                     });
+                    location.reload();
                     break;
                 case 403:
                     // 403 无权限，跳转到首页
                     router.replace({
                         path: '/',
-                        query: {redirect: router.currentRoute.fullPath}
+                        // query: {redirect: router.currentRoute.fullPath}
                     });
+                    location.reload();
                     break;
             }
         }

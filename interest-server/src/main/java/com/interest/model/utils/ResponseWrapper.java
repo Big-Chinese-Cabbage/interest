@@ -5,40 +5,40 @@ package com.interest.model.utils;
  *
  * @param <T>
  */
-public class RepsonseWraper<T> {
+public class ResponseWrapper<T> {
 
-    private String state;
+    private String status;
 
     private String message;
 
     private T data;
 
-    public RepsonseWraper(String state) {
-        this.state = state;
+    public ResponseWrapper(String status) {
+        this.status = status;
     }
 
-    public RepsonseWraper(String state, String message) {
-        this.state = state;
+    public ResponseWrapper(String status, String message) {
+        this.status = status;
         this.message = message;
     }
 
-    public RepsonseWraper(String state, T data) {
-        this.state = state;
+    public ResponseWrapper(String status, T data) {
+        this.status = status;
         this.data = data;
     }
 
-    public RepsonseWraper(String state, String message, T data) {
-        this.state = state;
+    public ResponseWrapper(String status, String message, T data) {
+        this.status = status;
         this.message = message;
         this.data = data;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getMessage() {
