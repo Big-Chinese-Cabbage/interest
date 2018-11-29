@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -38,7 +39,7 @@ public class MyAuthorizationServerConfigurerAdapter extends AuthorizationServerC
     private DataSource dataSource;
 	
 	@Bean 
-    public ClientDetailsService clientDetailsService() {
+    public ClientDetailsService myClientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
 
@@ -56,14 +57,15 @@ public class MyAuthorizationServerConfigurerAdapter extends AuthorizationServerC
 		endpoints.authenticationManager(authenticationManager).tokenStore(new JwtTokenStore(jwtAccessTokenConverter()));*/
 		/*jwt方式+redis存储token*/
 		endpoints.accessTokenConverter(jwtAccessTokenConverter());
-		endpoints.authenticationManager(authenticationManager).tokenStore(new MyRedisTokenStore(redisConnection));
+		//endpoints.authenticationManager(authenticationManager).tokenStore(new MyRedisTokenStore(redisConnection));
+		endpoints.authenticationManager(authenticationManager).tokenStore(new RedisTokenStore(redisConnection));
 		/*普通*/
 //		endpoints.authenticationManager(authenticationManager);
 	}
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.withClientDetails(clientDetailsService());
+		clients.withClientDetails(myClientDetailsService());
 	}
 
 

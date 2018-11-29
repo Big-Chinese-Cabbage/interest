@@ -4,11 +4,9 @@ server:
     context-path: /interest
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&useSSL=false&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: wanghuan
-
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
@@ -17,7 +15,7 @@ spring:
       connection-timeout: 30000
       pool-name: DatebookHikariCP
   redis:
-    database: 5
+    database: 0
     host: 127.0.0.1
     port: 6379
     password: null
@@ -53,8 +51,8 @@ interest:
 #      domain-name: http://www.lovemtt.com/interest
       domain-name: http://127.0.0.1:8080/interest
 github:
-  client-id: 你在github中注册的client id
-  client-secret: 你在github中注册的client secret
+  client-id: 89e5885a3b1e527ef739
+  client-secret: 93a670a75ec971cc0b1f0339ac5a8a1ef6a405a0
 qq:
   appid: 你在qq中注册的appid
   appkey: 你在qq中注册的appkey

@@ -1,7 +1,7 @@
 package com.interest.controller.template;
 
 import com.interest.model.PageResult;
-import com.interest.model.utils.RepsonseWraper;
+import com.interest.model.utils.ResponseWrapper;
 import com.interest.service.MsgRecordsService;
 import com.interest.utils.SecurityAuthenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class MsgRecordsController {
     }
 
     @PutMapping("/msgrecords/read")
-    public RepsonseWraper<Integer> userReadMes(@RequestParam("msgRecordId")Integer msgRecordId){
+    public ResponseWrapper<Integer> userReadMes(@RequestParam("msgRecordId")Integer msgRecordId){
         msgRecordsService.updateMsgRecordIsread(msgRecordId,1);
-        return new RepsonseWraper<Integer>("200",msgRecordId);
+        return new ResponseWrapper<Integer>("200",msgRecordId);
     }
 
 }
