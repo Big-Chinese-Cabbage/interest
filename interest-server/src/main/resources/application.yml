@@ -51,8 +51,8 @@ interest:
 #      domain-name: http://www.lovemtt.com/interest
       domain-name: http://127.0.0.1:8080/interest
 github:
-  client-id: 89e5885a3b1e527ef739
-  client-secret: 93a670a75ec971cc0b1f0339ac5a8a1ef6a405a0
+  client-id: 你在github中注册的client id
+  client-secret: 你在github中注册的client secret
 qq:
   appid: 你在qq中注册的appid
   appkey: 你在qq中注册的appkey
