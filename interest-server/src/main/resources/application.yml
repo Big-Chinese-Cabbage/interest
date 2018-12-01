@@ -37,6 +37,7 @@ mybatis:
   type-aliases-package: com.interest.model
 
 logging:
+# 你需要存储日志的目录
   file: D:/interest/file/log/interest.log
   level:
     org.springframework.web: DEBUG
@@ -47,9 +48,11 @@ logging:
 interest:
   properties:
     paths-properties:
-      image: D:/interest/file/image
+#      image: D:/interest/file/image
+      image: 你需要存储图片的目录，如上
 #      domain-name: http://www.lovemtt.com/interest
-      domain-name: http://127.0.0.1:8080/interest
+#      domain-name: http://127.0.0.1:8080/interest
+      domain-name: 你的域名或者（ip+端口）+/interest，如上
 github:
   client-id: 你在github中注册的client id
   client-secret: 你在github中注册的client secret
