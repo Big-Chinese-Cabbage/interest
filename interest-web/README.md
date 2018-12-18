@@ -108,7 +108,8 @@ Http状态码
 如果你项目启动有错误：
 --
 1. 项目启动报错，请试一下用管理员权限输入命令。
-
+2. 如果出现如下图的错误，请把webpack.dev.config.js和webpack.prod.config.js中的fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});更改为fs.write(fd, buf, 0, 'utf-8', function(err, written, buffer) {});
+![这里写图片描述](https://github.com/smallsnail-wh/images/blob/master/Cache_-1b74880424eb879c..jpg)
 下面是主要功能截图
 --
 
