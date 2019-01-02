@@ -50,14 +50,8 @@ public class MyAuthorizationServerConfigurerAdapter extends AuthorizationServerC
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		/*redis存储token*/
-		/*endpoints.authenticationManager(authenticationManager).tokenStore(new MyRedisTokenStore(redisConnection));*/
-		/*jwt方式*/
-		/*endpoints.accessTokenConverter(jwtAccessTokenConverter());
-		endpoints.authenticationManager(authenticationManager).tokenStore(new JwtTokenStore(jwtAccessTokenConverter()));*/
 		/*jwt方式+redis存储token*/
 		endpoints.accessTokenConverter(jwtAccessTokenConverter());
-		//endpoints.authenticationManager(authenticationManager).tokenStore(new MyRedisTokenStore(redisConnection));
 		endpoints.authenticationManager(authenticationManager).tokenStore(new RedisTokenStore(redisConnection));
 		/*普通*/
 //		endpoints.authenticationManager(authenticationManager);
