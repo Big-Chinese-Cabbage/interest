@@ -1,9 +1,9 @@
 <style type="text/css">
 </style>
 <template>
-	<div>
-		<Upload 
-			v-show="false"
+  <div>
+    <Upload 
+      v-show="false"
             id="interest-editor"
             ref="upload"
             :headers="headers"
@@ -14,7 +14,7 @@
             :on-success="handleSuccess"
             :on-format-error="handleFormatError"
             :format="['jpg','jpeg','png']">
-            <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
+            <Button icon="ios-cloud-upload-outline">上传图片</Button>
         </Upload>
         <quill-editor
           v-model="content" 
@@ -53,11 +53,13 @@
       ['link', 'image', 'video'],
       ['clean']                                         // remove formatting button
     ]
-	export default {
+  export default {
         props: ['interestContent'],
         watch: {
             interestContent: function(newQuestion, oldQuestion) {
-                this.content = newQuestion+'';
+              console.log(newQuestion);
+              this.setContent(newQuestion);
+              //this.content = newQuestion+'';
             }
         },
         data () {
@@ -99,6 +101,16 @@
         mounted(){
         },
         methods:{
+            setContent(innerHTML) {
+              setTimeout(() => {
+                let quill = this.$refs.myQuillEditor.quill;
+                quill.container.querySelector('.ql-editor').innerHTML = innerHTML;
+              })
+            },
+            getContent(){
+              let quill = this.$refs.myQuillEditor.quill;
+              return quill.container.querySelector('.ql-editor').innerHTML;
+            },
             handleSuccess (res, file) {
                 // 获取富文本组件实例
                 let quill = this.$refs.myQuillEditor.quill;
@@ -120,11 +132,13 @@
                 });
             },
             onEditorBlur(){//失去焦点事件
+              this.$emit('editor-change',this.content);
             },
             onEditorFocus(){//获得焦点事件
+              this.$emit('editor-change',this.content);
             },
             onEditorChange(){//内容改变事件
-            	this.$emit('editor-change',this.content);
+              this.$emit('editor-change',this.content);
             },
             
         }

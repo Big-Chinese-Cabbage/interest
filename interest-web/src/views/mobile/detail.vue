@@ -1,18 +1,26 @@
 <style type="text/css">
-    .clearfix:after {
-        visibility: hidden;
-        display: block;
-        font-size: 0;
-        content: ".";
-        clear: both;
-        height: 0;
-    }
-    .clearfix {
-        zoom:1;
-    }
-    .layout-left{
-        float: left;
-    }
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: ".";
+  clear: both;
+  height: 0;
+}
+.clearfix {
+  zoom: 1;
+}
+.head {
+  border-bottom: 1px solid #e8eaec;
+}
+.layout-left {
+  float: left;
+}
+.content p{
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+}
 </style>
 <template>
     <div id="mywork">
@@ -28,7 +36,7 @@
                     <p>看帖</p>
                 </div>
                 <Card v-for="(item,index) in postcardList" :key="index">
-                    <div class="clearfix">
+                    <div class="clearfix head">
                     	<div class="layout-left" style="margin-top: 2px;">
                     		<a :href="item.githuburl" target="_blank">
 	                            <!-- <Icon type="ios-person"></Icon> -->
@@ -46,7 +54,7 @@
                     		</p>
                     	</div>
                     </div>
-                    <div>
+                    <div class="content">
                         <p>
 	                        <router-link :to="('/mobile/card/'+item.id)">
 	                            <span class="tirtleFont lineThrou">{{item.title}}</span>
@@ -67,10 +75,10 @@
                     <span><Icon type="edit"></Icon>发帖</span>
                   </div>
                   <div class="box-flex flex-6 width-100 padding-all-5x">
-                    <Input v-model="title" placeholder="标题"></Input>
+                    <Input v-model="title" placeholder="标题" />
                   </div>
                   <div class="box-flex flex-6 width-100 padding-all-5x">
-                    <Input v-model="textarea" type="textarea" :rows="6" placeholder="内容"></Input>
+                    <Input v-model="textarea" type="textarea" :rows="6" placeholder="内容" />
                   </div>
                 </div>
                 <div class="box-flex width-100 margin-top-2 flex-items-flex-end flex-justify-flex-end margin-bottom-3">
@@ -82,120 +90,153 @@
   </div>
 </template>
 <script>
-    export default {
-        data(){
-            return {
-                postcardList:[],
-                interestid:null,
-                insterest:{
-                    id:'',
-                    title:'',
-                    info:'',
-                    content:'',
-                    image:''
-                },
-                total:0,
-                pageInfo:{
-                    page:0,
-                    pageSize:20
-                },
-                textarea:'',
-                title:''
-            }
-        },
-        mounted(){
-            this.interestid = this.$route.params.id;
-            this.getArticle(this.$route.params.id);
-            this.getPostCard({
-                "pageInfo":this.pageInfo,
-                "interestid":this.interestid
-            });
-        },
-        methods: {
-            getArticle(e){
-                this.axios({
-                    method: 'get',
-                    url: '/public/interests/interest',
-                    params:{
-                        "id": e
-                    }
-                }).then(function (response) {
-                    this.insterestSet(response.data);
-                }.bind(this)).catch(function (error) {
-                    alter(error);
-                }.bind(this));
-            },
-            dateGet(e){
-                var time = new Date(parseInt(e));
-                return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate()+" "+time.getHours()+":"+time.getMinutes(); 
-            },
-            listDateSet(e){
-                for (var i = e.length - 1; i >= 0; i--) {
-                    e[i].replytime = this.dateGet(e[i].replytime);
-                }
-            },
-            getPostCard(e){
-                this.axios({
-                  method: 'get',
-                  url: '/public/postcards',
-                  params: {
-                    'page':e.pageInfo.page,
-                    'pageSize':e.pageInfo.pageSize,
-                    'interestid':e.interestid
-                  }
-                }).then(function (response) {
-                    this.postcardList=response.data.data;
-                    this.listDateSet(this.postcardList);
-                    this.total=response.data.totalCount;
-                }.bind(this)).catch(function (error) {
-                  alert(error);
-                });
-            },
-            pageSearch(e){
-                this.pageInfo.page = e-1;
-                this.getPostCard({  
-                    "pageInfo":this.pageInfo,
-                    "interestid":this.interestid
-                });
-            },
-            insterestSet(e){
-                this.insterest.id = e.id;
-                this.insterest.title = e.title;
-                this.insterest.info = e.info;
-                this.insterest.content = e.content;
-                this.insterest.image = e.image;
-            },
-            sendCard(){
-                if(this.title != null && this.textarea != null && this.title != '' && this.textarea != ''){
-                    if(this.axios.defaults.headers.common['Authorization'] != null && this.axios.defaults.headers.common['Authorization'] != ''){
-                        this.axios({
-                            method: 'post',
-                            url: '/postcards/postcard',
-                            data:{
-                                "interestid": this.interestid,
-                                "title": this.title,
-                                "content":this.textarea
-                            }
-                        }).then(function (response) {
-                            this.$Message.info('发帖成功');
-                            this.title = '';
-                            this.textarea = '';
-                            this.pageInfo.page = 0;
-                            this.getPostCard({
-                                "pageInfo":this.pageInfo,
-                                "interestid":this.interestid
-                            });
-                        }.bind(this)).catch(function (error) {
-                            alter(error);
-                        }.bind(this));
-                    }else{
-                        this.$Message.error('登录后，才能发帖！');
-                    }
-                }else{
-                    this.$Message.error('请填写标题和内容');
-                }
-                
-            }
-        }
+export default {
+  data() {
+    return {
+      postcardList: [],
+      interestid: null,
+      insterest: {
+        id: "",
+        title: "",
+        info: "",
+        content: "",
+        image: ""
+      },
+      total: 0,
+      pageInfo: {
+        page: 0,
+        pageSize: 20
+      },
+      textarea: "",
+      title: ""
     };
+  },
+  mounted() {
+    this.interestid = this.$route.params.id;
+    this.getArticle(this.$route.params.id);
+    this.getPostCard({
+      pageInfo: this.pageInfo,
+      interestid: this.interestid
+    });
+  },
+  methods: {
+    getArticle(e) {
+      this.axios({
+        method: "get",
+        url: "/public/interests/interest",
+        params: {
+          id: e
+        }
+      })
+        .then(
+          function(response) {
+            this.insterestSet(response.data);
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            alter(error);
+          }.bind(this)
+        );
+    },
+    dateGet(e) {
+      var time = new Date(parseInt(e));
+      return (
+        time.getFullYear() +
+        "-" +
+        (time.getMonth() + 1) +
+        "-" +
+        time.getDate() +
+        " " +
+        time.getHours() +
+        ":" +
+        time.getMinutes()
+      );
+    },
+    listDateSet(e) {
+      for (var i = e.length - 1; i >= 0; i--) {
+        e[i].replytime = this.dateGet(e[i].replytime);
+      }
+    },
+    getPostCard(e) {
+      this.axios({
+        method: "get",
+        url: "/public/postcards",
+        params: {
+          page: e.pageInfo.page,
+          pageSize: e.pageInfo.pageSize,
+          interestid: e.interestid
+        }
+      })
+        .then(
+          function(response) {
+            this.postcardList = response.data.data;
+            this.listDateSet(this.postcardList);
+            this.total = response.data.totalCount;
+          }.bind(this)
+        )
+        .catch(function(error) {
+          alert(error);
+        });
+    },
+    pageSearch(e) {
+      this.pageInfo.page = e - 1;
+      this.getPostCard({
+        pageInfo: this.pageInfo,
+        interestid: this.interestid
+      });
+    },
+    insterestSet(e) {
+      this.insterest.id = e.id;
+      this.insterest.title = e.title;
+      this.insterest.info = e.info;
+      this.insterest.content = e.content;
+      this.insterest.image = e.image;
+    },
+    sendCard() {
+      if (
+        this.title != null &&
+        this.textarea != null &&
+        this.title != "" &&
+        this.textarea != ""
+      ) {
+        if (
+          this.axios.defaults.headers.common["Authorization"] != null &&
+          this.axios.defaults.headers.common["Authorization"] != ""
+        ) {
+          this.axios({
+            method: "post",
+            url: "/postcards/postcard",
+            data: {
+              interestid: this.interestid,
+              title: this.title,
+              content: this.textarea
+            }
+          })
+            .then(
+              function(response) {
+                this.$Message.info("发帖成功");
+                this.title = "";
+                this.textarea = "";
+                this.pageInfo.page = 0;
+                this.getPostCard({
+                  pageInfo: this.pageInfo,
+                  interestid: this.interestid
+                });
+              }.bind(this)
+            )
+            .catch(
+              function(error) {
+                alter(error);
+              }.bind(this)
+            );
+        } else {
+          this.$Message.error("登录后，才能发帖！");
+        }
+      } else {
+        this.$Message.error("请填写标题和内容");
+      }
+    }
+  }
+};
 </script>
