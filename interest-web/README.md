@@ -1,5 +1,9 @@
 # interest-web
 
+20190110修改
+---
+前端项目转为vue-cli 3.0
+
 项目介绍
 --
 vue.js+node.js+webpack构建的前端项目，后端用的是项目[interest-server](https://github.com/smallsnail-wh/interest/tree/master/interest-server)（前后端分离）。
