@@ -7,14 +7,14 @@ import com.interest.model.view.PostCardModel;
 
 public interface PostCardService {
 
-	public List<PostCardModel> postcardList(String interestid, int pageSize, int start);
+	List<PostCardModel> postcardList(String interestid, int pageSize, int start);
 
-	public Integer postcardSize(String interestid, int pageSize, int start);
+	Integer postcardSize(String interestid, int pageSize, int start);
 
-	public void insertEntity(PostCardEntity postCardEntity);
+	void insertEntity(PostCardEntity postCardEntity);
 
-	public PostCardModel getPostcard(int id);
+	PostCardModel getPostcard(int id);
 
-	public void deletePostcards(List<String> groupId);
+	void deletePostcards(List<String> groupId);
 
 }

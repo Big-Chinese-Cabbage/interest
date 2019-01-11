@@ -11,13 +11,13 @@ public interface RelationService {
 	 * @param userId
 	 * @return
 	 */
-	public List<RelationEntity> getRelationByUserId(int userId);
+	List<RelationEntity> getRelationByUserId(int userId);
 
 	/**
 	 * 批量插入关系数据
 	 * @param relationList
 	 */
-	public void insertRelations(List<RelationEntity> relationList);
+	void insertRelations(List<RelationEntity> relationList);
 
 	
 }

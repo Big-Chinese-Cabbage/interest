@@ -56,9 +56,7 @@ public class LoginSuccessHandler {
 
 		OAuth2Authentication auth2Authentication = new OAuth2Authentication(auth2Request, authenticationTokenResult);
 
-		OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(auth2Authentication);
-
-		return token;
+		return authorizationServerTokenServices.createAccessToken(auth2Authentication);
 	}
 
 	public OAuth2Request getOAuth2Request(HttpServletRequest request, HttpServletResponse response,
@@ -87,9 +85,7 @@ public class LoginSuccessHandler {
 		TokenRequest tokenRequest = new TokenRequest(new HashMap<String, String>(), clientId, clientDetails.getScope(),
 				"custom");
 
-		OAuth2Request auth2Request = tokenRequest.createOAuth2Request(clientDetails);
-
-		return auth2Request;
+		return tokenRequest.createOAuth2Request(clientDetails);
 	}
 
 	public UserDetails getUserDetails(Authentication authentication) {

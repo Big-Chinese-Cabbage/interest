@@ -70,7 +70,7 @@ export default {
       })
         .then(
           function(response) {
-            this.bannerList = response.data;
+            this.bannerList = response.data.data;
           }.bind(this)
         )
         .catch(
@@ -87,7 +87,7 @@ export default {
         })
           .then(
             function(response) {
-              this.homeArticle = response.data;
+              this.homeArticle = response.data.data;
             }.bind(this)
           )
           .catch(
@@ -105,15 +105,12 @@ export default {
         })
           .then(
             function(response) {
-              this.homeArticle = response.data;
+              this.homeArticle = response.data.data;
               if (this.homeArticle.length == 0) {
                 this.flage = true;
               } else {
                 this.flage = false;
               }
-              // if (this.homeArticle.length() {
-              //     this.flage = true;
-              // }
             }.bind(this)
           )
           .catch(
@@ -123,13 +120,6 @@ export default {
           );
       }
     }
-    // login(formLogin){
-    //     this.$refs[formLogin].validate((valid) => {
-    //         if(valid){
-    //             this.$store.dispatch('users/userLogin',{"user_name":this.formLogin.userName,"user_password":this.formLogin.password,"router":this.$router});
-    //         }
-    //     })
-    // }
   }
 };
 </script>

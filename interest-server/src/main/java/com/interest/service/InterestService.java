@@ -7,23 +7,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface InterestService {
 
-	public List<InterestEntity> getInsterest(String title);
+	List<InterestEntity> getInsterest(String title);
 
-	public InterestEntity getInsterestById(int id);
+	InterestEntity getInsterestById(int id);
 
-    public String savePicture(MultipartFile picture);
+    String savePicture(MultipartFile picture);
 
-	public void insertEntity(InterestEntity interestEntity);
+	void insertEntity(InterestEntity interestEntity);
 
-	public void updateEntity(InterestEntity interestEntity);
+	void updateEntity(InterestEntity interestEntity);
 
-	public List<InterestEntity> interestList(int pageSize, int start);
+	List<InterestEntity> interestList(int pageSize, int start);
 
-	public Integer interestSize();
+	Integer interestSize();
 
-	public void deleteInterests(List<String> groupId);
+	void deleteInterests(List<String> groupId);
 
-    public List<InterestEntity> getBanners();
+    List<InterestEntity> getBanners();
 
-	public void updateBanners(List<String> groupId, int i);
+	void updateBanners(List<String> groupId, int i);
 }

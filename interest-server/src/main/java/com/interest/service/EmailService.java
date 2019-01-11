@@ -6,11 +6,11 @@ import com.interest.model.EmailEntity;
 
 public interface EmailService {
 
-	public void insertEntity(EmailEntity emailEntity);
+	void insertEntity(EmailEntity emailEntity);
 
-	public List<EmailEntity> emailsList(int pageSize, int start);
+	List<EmailEntity> emailsList(int pageSize, int start);
 
-	public Integer emailsSize(int pageSize, int start);
+	Integer emailsSize(int pageSize, int start);
 
-    public void deleteEmails(List<String> groupId);
+    void deleteEmails(List<String> groupId);
 }

@@ -234,10 +234,10 @@ export default {
       })
         .then(
           function(response) {
-            if (response.data != null && response.data != "") {
+            if (response.data.data != null && response.data.data != "") {
               this.loginFlag = true;
-              this.userSet(response.data);
-              if (response.data.usertype == 1) {
+              this.userSet(response.data.data);
+              if (response.data.data.usertype == 1) {
                 this.consoleFlag = true;
               }
 
@@ -254,7 +254,7 @@ export default {
           if (response === 0) {
             _this.unreadMsgCount = response;
           } else {
-            _this.unreadMsgCount = response.data;
+            _this.unreadMsgCount = response.data.data;
           }
         })
         .catch(

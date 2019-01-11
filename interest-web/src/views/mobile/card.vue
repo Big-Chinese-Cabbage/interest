@@ -136,7 +136,7 @@ export default {
     })
       .then(
         function(response) {
-          this.postcardSet(response.data);
+          this.postcardSet(response.data.data);
         }.bind(this)
       )
       .catch(
@@ -162,9 +162,9 @@ export default {
       })
         .then(
           function(response) {
-            this.replyCardList = response.data.data;
+            this.replyCardList = response.data.data.data;
             this.listDateSet(this.replyCardList);
-            this.total = response.data.totalCount;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
         .catch(function(error) {

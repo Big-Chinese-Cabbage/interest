@@ -11,8 +11,9 @@
 
                     <router-link :to="{ path: 'card/' + item.cardid }">{{item.postCardTitle}}</router-link>
                 </div>
+                <Divider />
                 <div class="reply-content">
-                    {{item.replyContent}}
+                    <p>{{item.replyContent}}</p>
                 </div>
 
                 <Icon v-if="item.isread == 0" class="unread-symbol" type="chatbox-working" color="red" size="20"></Icon>
@@ -46,7 +47,7 @@ export default {
         "/msgrecords/user?pageSize= " + _this.pageSize + "&page=" + _this.page
       )
       .then(function(response) {
-        let data = response.data;
+        let data = response.data.data;
         _this.messages = data.data;
         _this.totalCount = data.totalCount;
         console.log(response);
@@ -124,11 +125,18 @@ export default {
   .synopsis {
     span {
       line-height: 30px;
+      margin-right: 10px;
     }
   }
 
   .reply-content {
     padding: 6px 30px;
+
+    p {
+      word-wrap: break-word;
+      word-break: break-all;
+      overflow: hidden;
+    }
   }
 
   .pagin {

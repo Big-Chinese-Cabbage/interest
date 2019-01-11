@@ -137,7 +137,7 @@ export default {
       })
         .then(
           function(response) {
-            this.insterestSet(response.data);
+            this.insterestSet(response.data.data);
           }.bind(this)
         )
         .catch(
@@ -177,9 +177,9 @@ export default {
       })
         .then(
           function(response) {
-            this.postcardList = response.data.data;
+            this.postcardList = response.data.data.data;
             this.listDateSet(this.postcardList);
-            this.total = response.data.totalCount;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
         .catch(function(error) {

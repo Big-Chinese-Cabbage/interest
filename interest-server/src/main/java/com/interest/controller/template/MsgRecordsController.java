@@ -1,6 +1,7 @@
 package com.interest.controller.template;
 
 import com.interest.model.PageResult;
+import com.interest.model.utils.ResponseStatus;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.service.MsgRecordsService;
 import com.interest.utils.SecurityAuthenUtil;
@@ -15,20 +16,20 @@ public class MsgRecordsController {
 
 
     @GetMapping("/msgrecords/unreadnum")
-    public int getUnreadMsgCount() {
-       return msgRecordsService.getUnreadMsgCount(SecurityAuthenUtil.getId());
+    public ResponseWrapper<Integer> getUnreadMsgCount() {
+        return new ResponseWrapper<>(msgRecordsService.getUnreadMsgCount(SecurityAuthenUtil.getId()));
     }
 
     @GetMapping("/msgrecords/user")
-    public PageResult userMesRecordsGet(@RequestParam("pageSize") int pageSize, @RequestParam("page") int page){
+    public ResponseWrapper<PageResult> userMesRecordsGet(@RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
         PageResult pageResult = msgRecordsService.getUserMegsResult(pageSize, page * pageSize);
-        return pageResult;
+        return new ResponseWrapper<>(pageResult);
     }
 
     @PutMapping("/msgrecords/read")
-    public ResponseWrapper<Integer> userReadMes(@RequestParam("msgRecordId")Integer msgRecordId){
-        msgRecordsService.updateMsgRecordIsread(msgRecordId,1);
-        return new ResponseWrapper<Integer>("200",msgRecordId);
+    public ResponseWrapper<Integer> userReadMes(@RequestParam("msgRecordId") Integer msgRecordId) {
+        msgRecordsService.updateMsgRecordIsread(msgRecordId, 1);
+        return new ResponseWrapper<Integer>(msgRecordId);
     }
 
 }

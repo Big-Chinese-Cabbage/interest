@@ -10,20 +10,20 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PostCardDao {
 
-	public List<PostCardModel> postcardList(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
-											@Param("start") int start);
+    List<PostCardModel> postcardList(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
+                                     @Param("start") int start);
 
-	public Integer postcardSize(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
-			@Param("start") int start);
+    Integer postcardSize(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
+                         @Param("start") int start);
 
-	public void insertEntity(PostCardEntity postCardEntity);
+    void insertEntity(PostCardEntity postCardEntity);
 
-	public PostCardModel getPostcard(@Param("id") int id);
+    PostCardModel getPostcard(@Param("id") int id);
 
-	public void updateCreatetiem(@Param("id") int id, @Param("replytime") String replytime);
+    void updateCreatetiem(@Param("id") int id, @Param("replytime") String replytime);
 
-	public void deletePostcards(@Param("groupId") List<String> groupId);
+    void deletePostcards(@Param("groupId") List<String> groupId);
 
-	public List<PostCardEntity> getALL();
+    List<PostCardEntity> getALL();
 
 }

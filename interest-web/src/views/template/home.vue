@@ -83,7 +83,7 @@ export default {
       })
         .then(
           function(response) {
-            this.bannerList = response.data;
+            this.bannerList = response.data.data;
           }.bind(this)
         )
         .catch(
@@ -100,7 +100,7 @@ export default {
         })
           .then(
             function(response) {
-              this.homeArticle = response.data;
+              this.homeArticle = response.data.data;
             }.bind(this)
           )
           .catch(
@@ -118,7 +118,7 @@ export default {
         })
           .then(
             function(response) {
-              this.homeArticle = response.data;
+              this.homeArticle = response.data.data;
               if (this.homeArticle.length == 0) {
                 this.flage = true;
               } else {
