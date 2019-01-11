@@ -21,6 +21,10 @@
   word-break: break-all;
   overflow: hidden;
 }
+.chat {
+  color:#f90;
+  float: right;
+}
 </style>
 <template>
     <div id="mywork">
@@ -39,11 +43,10 @@
                     <div class="clearfix head">
                     	<div class="layout-left" style="margin-top: 2px;">
                     		<a :href="item.githuburl" target="_blank">
-	                            <!-- <Icon type="ios-person"></Icon> -->
 	                            <img :src="item.headimg" style="width: 30px;height: 30px;border-radius: 100%;margin-top: 6px;">
 	                        </a>
                     	</div>
-                        <div class="layout-left" style="margin-left: 7px">
+                      <div class="layout-left" style="margin-left: 7px">
                     		<p style="font-size: 17px;">
                     			<a :href="item.githuburl" target="_blank">
                     				{{item.username}}
@@ -53,6 +56,10 @@
                     			{{item.replytime}}
                     		</p>
                     	</div>
+                      <div class="chat">
+                        <Icon type="md-chatboxes" size="25" />
+                        <span>{{item.replyCount}}</span>
+                      </div>
                     </div>
                     <div class="content">
                         <p>

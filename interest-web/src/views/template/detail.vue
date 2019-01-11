@@ -4,6 +4,17 @@
     word-break: break-all;
     overflow: hidden;
   }
+  .chat{
+    display: inline;
+    margin-right: 50px;
+    color:#f90;
+  }
+  .chat span{
+    margin-left: 2px;
+  }
+  .title-text{
+    color: #2d64b3;
+  }
 </style>
 <template>
     <div id="mywork">
@@ -26,11 +37,16 @@
                     <p>看帖</p>
                 </div>
                 <Card v-for="(item,index) in postcardList" :key="index">
-                    <p slot="title">
+                    <div slot="title">
+                        <div class="chat">
+                          <Icon type="md-chatboxes" size="25" />
+                          <span>{{item.replyCount}}</span>
+                        </div>
                         <router-link :to="('/page/card/'+item.id)">
-                            <span class="tirtleFont lineThrou">{{item.title}}</span>
+                            <span class="tirtleFont lineThrou title-text">{{item.title}}</span>
                         </router-link>
-                    </p>
+
+                    </div>
                     <div slot="extra">
                         <a :href="item.githuburl" target="_blank">
                             <!-- <Icon type="ios-person"></Icon> -->

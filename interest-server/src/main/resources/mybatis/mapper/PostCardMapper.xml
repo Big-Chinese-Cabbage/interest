@@ -23,6 +23,7 @@
 		<result column="replytime" property="replytime" />
 		<result column="headimg" property="headimg" />
 		<result column="githuburl" property="githuburl" />
+		<association property="replyCount" column="id" select="com.interest.dao.ReplyCardDao.replyCardCountByPostId"/>
 	</resultMap>
 
 	<select id="postcardList" resultMap="postCardModelMap">

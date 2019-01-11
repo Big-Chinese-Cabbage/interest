@@ -10,24 +10,17 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ReplyCardDao {
 
-	// public List<PostCardEntity> postcardList(@Param("interestid") int interestid,
-	// @Param("pageSize") int pageSize,
-	// @Param("start") int start);
-	//
-	// public Integer postcardSize(@Param("interestid") int interestid,
-	// @Param("pageSize") int pageSize,
-	// @Param("start") int start);
 
-	public void insertEntity(ReplyCardEntity replyCardEntity);
+	void insertEntity(ReplyCardEntity replyCardEntity);
 
-	// public PostCardEntity getPostcard(@Param("id") int id);
-
-	public List<ReplyCardModel> replycardList(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
+	List<ReplyCardModel> replycardList(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
 											  @Param("start") int start);
 
-	public Integer replycardSize(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
+	Integer replycardSize(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
 			@Param("start") int start);
 
-	public void delReplyByPostcardid(@Param("groupId") List<String> groupId);
+	void delReplyByPostcardid(@Param("groupId") List<String> groupId);
+
+	Integer replyCardCountByPostId(@Param("postcardid") int id);
 
 }

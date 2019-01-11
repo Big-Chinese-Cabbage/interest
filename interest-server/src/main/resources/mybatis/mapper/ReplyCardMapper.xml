@@ -73,4 +73,11 @@
 		</where>
 	</delete>
 
+	<select id="replyCardCountByPostId" resultType="Integer">
+		select count(1) from reply_card
+		<where>
+			postcardid = #{postcardid}
+		</where>
+	</select>
+
 </mapper>
