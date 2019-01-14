@@ -255,7 +255,7 @@ export default {
     })
       .then(
         function(response) {
-          this.submenusList = response.data;
+          this.submenusList = response.data.data;
         }.bind(this)
       )
       .catch(function(error) {
@@ -328,8 +328,8 @@ export default {
       })
         .then(
           function(response) {
-            this.data1 = response.data.data;
-            this.total = response.data.totalCount;
+            this.data1 = response.data.data.data;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
         .catch(function(error) {

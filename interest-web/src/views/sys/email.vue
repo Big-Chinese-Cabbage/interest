@@ -161,9 +161,9 @@ export default {
       })
         .then(
           function(response) {
-            this.data1 = response.data.data;
+            this.data1 = response.data.data.data;
             this.listDateSet(this.data1);
-            this.total = response.data.totalCount;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
         .catch(function(error) {

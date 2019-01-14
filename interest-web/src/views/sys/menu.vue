@@ -326,7 +326,7 @@ export default {
     })
       .then(
         function(response) {
-          var listTemp = response.data;
+          var listTemp = response.data.data;
           for (var i = 0; i < listTemp.length; i++) {
             this.menuList.push({
               value: listTemp[i].id,
@@ -418,8 +418,8 @@ export default {
       })
         .then(
           function(response) {
-            this.data1 = response.data.data;
-            this.total = response.data.totalCount;
+            this.data1 = response.data.data.data;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
         .catch(function(error) {

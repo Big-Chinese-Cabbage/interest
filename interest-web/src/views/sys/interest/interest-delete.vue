@@ -130,7 +130,7 @@ export default {
     })
       .then(
         function(response) {
-          this.interestList = response.data;
+          this.interestList = response.data.data;
         }.bind(this)
       )
       .catch(
@@ -185,9 +185,9 @@ export default {
       })
         .then(
           function(response) {
-            this.data1 = response.data.data;
+            this.data1 = response.data.data.data;
             // this.listDateSet(this.data1);
-            this.total = response.data.totalCount;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
         .catch(function(error) {

@@ -284,7 +284,7 @@ export default {
     })
       .then(
         function(response) {
-          this.data2Temp = response.data;
+          this.data2Temp = response.data.data;
         }.bind(this)
       )
       .catch(function(error) {
@@ -377,9 +377,9 @@ export default {
       })
         .then(
           function(response) {
-            this.data1 = response.data.data;
+            this.data1 = response.data.data.data;
             this.listDateSet(this.data1);
-            this.total = response.data.totalCount;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
         .catch(function(error) {
@@ -551,8 +551,8 @@ export default {
         .then(
           function(response) {
             var roleList = [];
-            for (var i in response.data) {
-              roleList.push(response.data[i].roleId);
+            for (var i in response.data.data) {
+              roleList.push(response.data.data[i].roleId);
             }
             for (var i in this.data2Temp) {
               if (roleList.indexOf(this.data2Temp[i].id) == -1) {

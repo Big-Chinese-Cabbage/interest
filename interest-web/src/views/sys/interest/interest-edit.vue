@@ -140,7 +140,7 @@ export default {
     })
       .then(
         function(response) {
-          var listTemp = response.data;
+          var listTemp = response.data.data;
           for (var i = 0; i < listTemp.length; i++) {
             this.interestList.push({
               value: listTemp[i].id,
@@ -240,7 +240,7 @@ export default {
       })
         .then(
           function(response) {
-            this.entitySet(response.data);
+            this.entitySet(response.data.data);
             this.interestContent = this.entity.content;
           }.bind(this)
         )

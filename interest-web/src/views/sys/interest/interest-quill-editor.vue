@@ -57,7 +57,7 @@
         props: ['interestContent'],
         watch: {
             interestContent: function(newQuestion, oldQuestion) {
-              console.log(newQuestion);
+              // console.log(newQuestion);
               this.setContent(newQuestion);
               //this.content = newQuestion+'';
             }

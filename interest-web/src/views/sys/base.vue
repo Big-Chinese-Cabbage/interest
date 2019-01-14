@@ -163,7 +163,7 @@ export default {
     })
       .then(
         function(response) {
-          this.userName = response.data.name;
+          this.userName = response.data.data.name;
         }.bind(this)
       )
       .catch(function(error) {
@@ -175,7 +175,7 @@ export default {
     })
       .then(
         function(response) {
-          this.menuList = response.data;
+          this.menuList = response.data.data;
           for (var i in this.menuList) {
             for (var j in this.menuList[i].children) {
               this.menuSub.push(this.menuList[i].children[j]);
