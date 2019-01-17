@@ -52,17 +52,17 @@ public class QQAuthentication implements MyAuthentication {
         String appid = qqProperties.getAppid();
         String appkey = qqProperties.getAppkey();
 
-        logger.info("**********appid:"+appid+";appkey:"+appkey+"**********");
+        logger.info("**********appid:" + appid + ";appkey:" + appkey + "**********");
 
         /* 获取access_token */
-        String tokenUrl = QQ_ACCESSS_TOKEN_URL+"?grant_type=authorization_code&client_id="+appid+
-                "&client_secret="+appkey+"&code="+code+"&redirect_uri=http://www.lovemtt.com/qq";
+        String tokenUrl = QQ_ACCESSS_TOKEN_URL + "?grant_type=authorization_code&client_id=" + appid +
+                "&client_secret=" + appkey + "&code=" + code + "&redirect_uri=http://www.lovemtt.com/qq";
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(tokenUrl, String.class);
         String message = responseEntity.getBody().trim();
         String access_token = message.split("&")[0].split("=")[1];
 
         /* 获取openid */
-        String openidUrl = QQ_OPENID_URL+"?access_token="+access_token;
+        String openidUrl = QQ_OPENID_URL + "?access_token=" + access_token;
         responseEntity = restTemplate.getForEntity(openidUrl, String.class);
         message = responseEntity.getBody().trim();
         message = message.split("\\(")[1].split("\\)")[0];
@@ -79,12 +79,12 @@ public class QQAuthentication implements MyAuthentication {
             userEntity = userDao.getEntityByQqid(openid);
             if (userEntity == null) {
                 /* 获取qq用户信息 */
-                String userInfoUrl = QQ_USER_URL+"?access_token="+access_token+
-                        "&oauth_consumer_key="+appid+"&openid="+openid;
+                String userInfoUrl = QQ_USER_URL + "?access_token=" + access_token +
+                        "&oauth_consumer_key=" + appid + "&openid=" + openid;
                 responseEntity = restTemplate.getForEntity(userInfoUrl, String.class);
                 JSONObject qqUserInfo = new JSONObject(responseEntity.getBody().trim());
 
-                return insertUser(qqUserInfo,openid);
+                return insertUser(qqUserInfo, openid);
             } else {
                 return String.valueOf(userEntity.getId());
             }
@@ -97,9 +97,15 @@ public class QQAuthentication implements MyAuthentication {
         return null;
     }
 
-    private String insertUser(JSONObject qqUserInfo,String openid) throws JSONException {
+    private String insertUser(JSONObject qqUserInfo, String openid) throws JSONException {
+
+        StringBuilder qqHeadImg = new StringBuilder(qqUserInfo.getString("figureurl_qq_1"));
+        if (qqHeadImg.indexOf("https") < 0) {
+            qqHeadImg.insert(4, "s");
+        }
+
         UserEntity userEntity = new UserEntity();
-        userEntity.setHeadimg(qqUserInfo.getString("figureurl_qq_1"));
+        userEntity.setHeadimg(qqHeadImg.toString());
         userEntity.setName(qqUserInfo.getString("nickname"));
         userEntity.setQqid(openid);
         userEntity.setUsertype(0);
