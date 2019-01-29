@@ -13,7 +13,7 @@
 	</resultMap>
 
 	<resultMap id="postCardModelMap"
-			   type="com.interest.model.view.PostCardModel">
+			   type="com.interest.model.response.PostCardModel">
 		<id column="id" property="id" />
 		<result column="username" property="username" />
 		<result column="title" property="title" />

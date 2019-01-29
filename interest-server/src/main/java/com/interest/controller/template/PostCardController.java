@@ -5,7 +5,7 @@ import java.util.List;
 import com.interest.model.entity.PageResult;
 import com.interest.model.entity.PostCardEntity;
 import com.interest.model.utils.ResponseWrapper;
-import com.interest.model.view.PostCardModel;
+import com.interest.model.response.PostCardModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

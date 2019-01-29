@@ -3,7 +3,7 @@ package com.interest.dao;
 import java.util.List;
 
 import com.interest.model.entity.ReplyCardEntity;
-import com.interest.model.view.ReplyCardModel;
+import com.interest.model.response.ReplyCardModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

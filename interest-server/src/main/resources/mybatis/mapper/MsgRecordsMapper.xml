@@ -12,7 +12,7 @@
     </resultMap>
 
     <resultMap id="msgModelMap"
-               type="com.interest.model.view.MsgRecordModel">
+               type="com.interest.model.response.MsgRecordModel">
         <id column="id" property="id"/>
         <result column="ownerid" property="ownerid"/>
         <result column="replyid" property="replyid"/>

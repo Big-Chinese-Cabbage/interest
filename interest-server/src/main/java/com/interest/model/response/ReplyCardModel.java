@@ -1,16 +1,14 @@
-package com.interest.model.view;
+package com.interest.model.response;
 
-import com.interest.model.entity.PostCardEntity;
+import com.interest.model.entity.ReplyCardEntity;
 
-public class PostCardModel extends PostCardEntity {
+public class ReplyCardModel extends ReplyCardEntity {
 
     private String headimg;
 
     private String githuburl;
 
     private String username;
-
-    private Integer replyCount;
 
     public String getHeadimg() {
         return headimg;
@@ -34,13 +32,5 @@ public class PostCardModel extends PostCardEntity {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public Integer getReplyCount() {
-        return replyCount;
-    }
-
-    public void setReplyCount(Integer replyCount) {
-        this.replyCount = replyCount;
     }
 }

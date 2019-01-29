@@ -21,12 +21,12 @@ public class InterestController {
     private InterestService interestService;
 
     @GetMapping("/public/interests")
-    public ResponseWrapper<List<InterestEntity>> insterestGet(@RequestParam(value = "title", required = false) String title) {
+    public ResponseWrapper<List<InterestEntity>> interestGet(@RequestParam(value = "title", required = false) String title) {
         return new ResponseWrapper<>(interestService.getInsterest(title));
     }
 
     @GetMapping("/public/interests/interest")
-    public ResponseWrapper<InterestEntity> insterestGetById(@RequestParam(value = "id") int id) {
+    public ResponseWrapper<InterestEntity> interestGetById(@RequestParam(value = "id") int id) {
         return new ResponseWrapper<>(interestService.getInsterestById(id));
     }
 

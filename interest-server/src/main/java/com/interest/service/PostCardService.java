@@ -3,7 +3,7 @@ package com.interest.service;
 import java.util.List;
 
 import com.interest.model.entity.PostCardEntity;
-import com.interest.model.view.PostCardModel;
+import com.interest.model.response.PostCardModel;
 
 public interface PostCardService {
 

@@ -1,4 +1,4 @@
-package com.interest.model.view;
+package com.interest.model.response;
 
 import com.interest.model.entity.EmailEntity;
 
