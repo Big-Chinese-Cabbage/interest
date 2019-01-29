@@ -2,7 +2,7 @@ package com.interest.model.response;
 
 import com.interest.model.entity.MsgRecordEntity;
 
-public class MsgRecordModel extends MsgRecordEntity {
+public class MsgRecordResponse extends MsgRecordEntity {
 
     private Integer replyUserid;
 

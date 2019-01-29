@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<resultMap id="replyCardModelMap"
-			   type="com.interest.model.response.ReplyCardModel">
+			   type="com.interest.model.response.ReplyCardResponse">
 		<id column="id" property="id" />
 		<result column="username" property="username" />
 		<result column="content" property="content" />

@@ -3,7 +3,7 @@ package com.interest.dao;
 import java.util.List;
 
 import com.interest.model.entity.ReplyCardEntity;
-import com.interest.model.response.ReplyCardModel;
+import com.interest.model.response.ReplyCardResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,8 +13,8 @@ public interface ReplyCardDao {
 
 	void insertEntity(ReplyCardEntity replyCardEntity);
 
-	List<ReplyCardModel> replycardList(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
-											  @Param("start") int start);
+	List<ReplyCardResponse> replycardList(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
+										  @Param("start") int start);
 
 	Integer replycardSize(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
 			@Param("start") int start);

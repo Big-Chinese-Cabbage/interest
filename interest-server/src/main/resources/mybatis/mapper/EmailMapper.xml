@@ -11,7 +11,7 @@
         <result column="userid" property="userid"/>
     </resultMap>
 
-    <resultMap id="emailModelMap" type="com.interest.model.response.EmailModel">
+    <resultMap id="emailModelMap" type="com.interest.model.response.EmailResponse">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="email" property="email"/>

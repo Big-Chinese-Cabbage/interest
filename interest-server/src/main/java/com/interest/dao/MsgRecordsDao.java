@@ -1,7 +1,7 @@
 package com.interest.dao;
 
 import com.interest.model.entity.MsgRecordEntity;
-import com.interest.model.response.MsgRecordModel;
+import com.interest.model.response.MsgRecordResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,7 +15,7 @@ public interface MsgRecordsDao {
 
     int getUnreadMsgCount(Integer userid);
 
-    List<MsgRecordModel> getMsgListByUserid(@Param("userid") int userid,@Param("pageSize") int pageSize,@Param("start") int start);
+    List<MsgRecordResponse> getMsgListByUserid(@Param("userid") int userid, @Param("pageSize") int pageSize, @Param("start") int start);
 
     int getMsgSizeByUserid(@Param("userid") int userid);
 

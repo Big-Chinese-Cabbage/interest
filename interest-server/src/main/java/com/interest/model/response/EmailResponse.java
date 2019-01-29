@@ -2,7 +2,7 @@ package com.interest.model.response;
 
 import com.interest.model.entity.EmailEntity;
 
-public class EmailModel extends EmailEntity {
+public class EmailResponse extends EmailEntity {
 
     private String username;
 

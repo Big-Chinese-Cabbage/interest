@@ -5,7 +5,7 @@ import java.util.List;
 import com.interest.model.entity.PageResult;
 import com.interest.model.entity.PostCardEntity;
 import com.interest.model.utils.ResponseWrapper;
-import com.interest.model.response.PostCardModel;
+import com.interest.model.response.PostCardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +32,7 @@ public class PostCardController {
     }
 
     @GetMapping("/public/postcards/postcard")
-    public ResponseWrapper<PostCardModel> postcardGet(@RequestParam("id") int id) {
+    public ResponseWrapper<PostCardResponse> postcardGet(@RequestParam("id") int id) {
         return new ResponseWrapper<>(postCardService.getPostcard(id));
     }
 
