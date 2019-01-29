@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.interest.dao.InterestDao;
 import com.interest.model.entity.InterestEntity;
+import com.interest.model.response.BannerResponse;
+import com.interest.model.response.InterestResponse;
 import com.interest.properties.MyProperties;
 import com.interest.utils.DateUtil;
 import com.interest.utils.ImageUtil;
@@ -24,14 +26,12 @@ public class InterestServiceImpl implements InterestService {
 	private MyProperties myProperties;
 
 	@Override
-	public List<InterestEntity> getInsterest(String title) {
-		// TODO Auto-generated method stub
+	public List<InterestResponse> getInsterest(String title) {
 		return interestDao.getInsterest(title);
 	}
 
 	@Override
 	public InterestEntity getInsterestById(int id) {
-		// TODO Auto-generated method stub
 		return interestDao.getInsterestById(id);
 	}
 
@@ -79,7 +79,7 @@ public class InterestServiceImpl implements InterestService {
 	}
 
 	@Override
-	public List<InterestEntity> getBanners() {
+	public List<BannerResponse> getBanners() {
 		return interestDao.getBanners();
 	}
 

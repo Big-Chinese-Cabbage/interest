@@ -3,11 +3,13 @@ package com.interest.service;
 import java.util.List;
 
 import com.interest.model.entity.InterestEntity;
+import com.interest.model.response.BannerResponse;
+import com.interest.model.response.InterestResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface InterestService {
 
-	List<InterestEntity> getInsterest(String title);
+	List<InterestResponse> getInsterest(String title);
 
 	InterestEntity getInsterestById(int id);
 
@@ -23,7 +25,7 @@ public interface InterestService {
 
 	void deleteInterests(List<String> groupId);
 
-    List<InterestEntity> getBanners();
+    List<BannerResponse> getBanners();
 
 	void updateBanners(List<String> groupId, int i);
 }

@@ -124,9 +124,6 @@ export default {
               } else {
                 this.flage = false;
               }
-              // if (this.homeArticle.length() {
-              //     this.flage = true;
-              // }
             }.bind(this)
           )
           .catch(

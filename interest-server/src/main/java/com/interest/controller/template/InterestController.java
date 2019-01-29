@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.interest.model.entity.InterestEntity;
 import com.interest.model.entity.PageResult;
+import com.interest.model.response.BannerResponse;
+import com.interest.model.response.InterestResponse;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class InterestController {
     private InterestService interestService;
 
     @GetMapping("/public/interests")
-    public ResponseWrapper<List<InterestEntity>> interestGet(@RequestParam(value = "title", required = false) String title) {
+    public ResponseWrapper<List<InterestResponse>> interestGet(@RequestParam(value = "title", required = false) String title) {
         return new ResponseWrapper<>(interestService.getInsterest(title));
     }
 
@@ -72,7 +74,7 @@ public class InterestController {
     }
 
     @GetMapping("/public/banners")
-    public ResponseWrapper<List<InterestEntity>> bannersGet() {
+    public ResponseWrapper<List<BannerResponse>> bannersGet() {
         return new ResponseWrapper<>(interestService.getBanners());
     }
 

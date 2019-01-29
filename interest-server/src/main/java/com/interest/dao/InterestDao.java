@@ -3,13 +3,16 @@ package com.interest.dao;
 import java.util.List;
 
 import com.interest.model.entity.InterestEntity;
+import com.interest.model.response.BannerResponse;
+import com.interest.model.response.InterestResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.boot.Banner;
 
 @Mapper
 public interface InterestDao {
 
-	List<InterestEntity> getInsterest(@Param("title") String title);
+	List<InterestResponse> getInsterest(@Param("title") String title);
 
 	InterestEntity getInsterestById(@Param("id") int id);
 
@@ -23,7 +26,7 @@ public interface InterestDao {
 
 	void deleteInterests(@Param("groupId") List<String> groupId);
 
-    List<InterestEntity> getBanners();
+    List<BannerResponse> getBanners();
 
 	void updateBanners(@Param("groupId") List<String> groupId,@Param("banner") int i);
 }
