@@ -1,6 +1,6 @@
 package com.interest.model.view;
 
-import com.interest.model.MsgRecordEntity;
+import com.interest.model.entity.MsgRecordEntity;
 
 public class MsgRecordModel extends MsgRecordEntity {
 

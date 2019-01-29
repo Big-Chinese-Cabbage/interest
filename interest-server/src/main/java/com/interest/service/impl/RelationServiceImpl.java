@@ -3,7 +3,7 @@ package com.interest.service.impl;
 import java.util.List;
 
 import com.interest.dao.RelationDao;
-import com.interest.model.RelationEntity;
+import com.interest.model.entity.RelationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

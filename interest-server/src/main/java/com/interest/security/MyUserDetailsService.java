@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import com.interest.dao.RoleDao;
 import com.interest.dao.UserDao;
-import com.interest.model.UserEntity;
+import com.interest.model.entity.UserEntity;
 import com.interest.utils.MyStringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

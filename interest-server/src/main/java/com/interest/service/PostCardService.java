@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.PostCardEntity;
+import com.interest.model.entity.PostCardEntity;
 import com.interest.model.view.PostCardModel;
 
 public interface PostCardService {

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.interest.dao.InterestDao;
-import com.interest.model.InterestEntity;
+import com.interest.model.entity.InterestEntity;
 import com.interest.properties.MyProperties;
 import com.interest.utils.DateUtil;
 import com.interest.utils.ImageUtil;

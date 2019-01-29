@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.ReplyCardEntity;
+import com.interest.model.entity.ReplyCardEntity;
 import com.interest.model.view.ReplyCardModel;
 
 public interface ReplyCardService {

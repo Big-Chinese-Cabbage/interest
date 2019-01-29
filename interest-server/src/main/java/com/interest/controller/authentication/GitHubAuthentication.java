@@ -1,9 +1,9 @@
 package com.interest.controller.authentication;
 
 import com.interest.dao.UserDao;
-import com.interest.model.UserEntity;
+import com.interest.model.entity.UserEntity;
 import com.interest.controller.login.LoginFailureExcepiton;
-import com.interest.model.UserGithubEntity;
+import com.interest.model.entity.UserGithubEntity;
 import com.interest.properties.GithubProperties;
 import com.interest.service.UserGithubService;
 import com.interest.utils.DateUtil;

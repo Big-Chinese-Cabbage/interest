@@ -383,7 +383,7 @@ export default {
           }.bind(this)
         )
         .catch(function(error) {
-          alert(error);
+          console.log(error);
         });
     },
     /*搜索按钮点击事件*/

@@ -1,7 +1,7 @@
 package com.interest.service;
 
-import com.interest.model.MsgRecordEntity;
-import com.interest.model.PageResult;
+import com.interest.model.entity.MsgRecordEntity;
+import com.interest.model.entity.PageResult;
 
 public interface MsgRecordsService {
 

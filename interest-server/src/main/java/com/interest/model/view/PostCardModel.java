@@ -1,6 +1,6 @@
 package com.interest.model.view;
 
-import com.interest.model.PostCardEntity;
+import com.interest.model.entity.PostCardEntity;
 
 public class PostCardModel extends PostCardEntity {
 

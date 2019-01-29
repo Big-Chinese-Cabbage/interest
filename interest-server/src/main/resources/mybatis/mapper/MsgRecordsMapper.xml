@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.MsgRecordsDao">
     <resultMap id="msgRecordMap"
-               type="com.interest.model.MsgRecordEntity">
+               type="com.interest.model.entity.MsgRecordEntity">
         <id column="id" property="id"/>
         <result column="ownerid" property="ownerid"/>
         <result column="replyid" property="replyid"/>

@@ -2,7 +2,7 @@ package com.interest.dao;
 
 import java.util.List;
 
-import com.interest.model.MenuEntity;
+import com.interest.model.entity.MenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.InterestEntity;
+import com.interest.model.entity.InterestEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface InterestService {

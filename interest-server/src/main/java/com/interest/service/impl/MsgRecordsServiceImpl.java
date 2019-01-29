@@ -1,8 +1,8 @@
 package com.interest.service.impl;
 
 import com.interest.dao.MsgRecordsDao;
-import com.interest.model.MsgRecordEntity;
-import com.interest.model.PageResult;
+import com.interest.model.entity.MsgRecordEntity;
+import com.interest.model.entity.PageResult;
 import com.interest.model.view.MsgRecordModel;
 import com.interest.service.MsgRecordsService;
 import com.interest.utils.SecurityAuthenUtil;

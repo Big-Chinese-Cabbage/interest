@@ -2,12 +2,9 @@ package com.interest.controller.authentication;
 
 import com.interest.controller.login.LoginFailureExcepiton;
 import com.interest.dao.UserDao;
-import com.interest.model.UserEntity;
-import com.interest.model.UserGithubEntity;
-import com.interest.model.UserQQEntity;
-import com.interest.properties.GithubProperties;
+import com.interest.model.entity.UserEntity;
+import com.interest.model.entity.UserQQEntity;
 import com.interest.properties.QQProperties;
-import com.interest.service.UserGithubService;
 import com.interest.service.UserQQService;
 import com.interest.utils.DateUtil;
 import org.slf4j.Logger;
@@ -18,8 +15,6 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 

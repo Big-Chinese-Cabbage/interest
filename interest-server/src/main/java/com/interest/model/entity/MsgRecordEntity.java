@@ -1,4 +1,4 @@
-package com.interest.model;
+package com.interest.model.entity;
 
 public class MsgRecordEntity {
 

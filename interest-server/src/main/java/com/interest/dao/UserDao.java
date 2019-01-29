@@ -3,7 +3,7 @@ package com.interest.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.interest.model.UserEntity;
+import com.interest.model.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

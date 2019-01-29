@@ -1,7 +1,7 @@
 package com.interest.controller.sys;
 
-import com.interest.model.PageResult;
-import com.interest.model.UserEntity;
+import com.interest.model.entity.PageResult;
+import com.interest.model.entity.UserEntity;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.service.UserService;
 import com.interest.utils.SecurityAuthenUtil;

@@ -31,6 +31,20 @@ axios.defaults.baseURL = "/interest";
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
+    switch (response.data.status){
+      case "4001":
+        store.commit("users/clearUser");
+        location.reload();
+        router.replace({
+          path: "/",
+        });
+        break;
+      case "4003":
+        router.replace({
+          path: "/",
+        });
+        break;
+    }
     return response;
   },
   error => {
@@ -39,16 +53,15 @@ axios.interceptors.response.use(
         case 401:
           // 401 清除token信息并跳转到登录页面
           store.commit("users/clearUser");
+          location.reload();
           router.replace({
             path: "/",
-            query: { redirect: router.currentRoute.fullPath }
           });
           break;
         case 403:
           // 403 无权限，跳转到首页
           router.replace({
             path: "/",
-            query: { redirect: router.currentRoute.fullPath }
           });
           break;
       }

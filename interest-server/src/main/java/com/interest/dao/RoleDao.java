@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.interest.model.RoleEntity;
+import com.interest.model.entity.RoleEntity;
 
 @Mapper
 public interface RoleDao {

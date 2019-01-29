@@ -1,6 +1,6 @@
 package com.interest.model.view;
 
-import com.interest.model.EmailEntity;
+import com.interest.model.entity.EmailEntity;
 
 public class EmailModel extends EmailEntity {
 

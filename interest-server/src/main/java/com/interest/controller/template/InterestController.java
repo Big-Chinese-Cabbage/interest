@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.interest.model.InterestEntity;
-import com.interest.model.PageResult;
+import com.interest.model.entity.InterestEntity;
+import com.interest.model.entity.PageResult;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;

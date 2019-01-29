@@ -1,21 +1,17 @@
-package com.interest.model;
+package com.interest.model.entity;
 
 /**
  * @author wanghuan
  *
  */
-public class PostCardEntity {
+public class ReplyCardEntity {
 	private Integer id;
-
-	private String title;
 
 	private String content;
 
-	private Integer interestid;
+	private Integer postcardid;
 
 	private String createtime;
-	
-	private String replytime;
 
 	private Integer userid;
 
@@ -27,14 +23,6 @@ public class PostCardEntity {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -43,12 +31,12 @@ public class PostCardEntity {
 		this.content = content;
 	}
 
-	public Integer getInterestid() {
-		return interestid;
+	public Integer getPostcardid() {
+		return postcardid;
 	}
 
-	public void setInterestid(Integer interestid) {
-		this.interestid = interestid;
+	public void setPostcardid(Integer postcardid) {
+		this.postcardid = postcardid;
 	}
 
 	public String getCreatetime() {
@@ -57,14 +45,6 @@ public class PostCardEntity {
 
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
-	}
-
-	public String getReplytime() {
-		return replytime;
-	}
-
-	public void setReplytime(String replytime) {
-		this.replytime = replytime;
 	}
 
 	public Integer getUserid() {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.interest.dao.PostCardDao;
 import com.interest.dao.ReplyCardDao;
-import com.interest.model.PostCardEntity;
+import com.interest.model.entity.PostCardEntity;
 import com.interest.model.view.PostCardModel;
 import com.interest.service.PostCardService;
 import org.springframework.beans.factory.annotation.Autowired;

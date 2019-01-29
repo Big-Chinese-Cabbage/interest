@@ -2,7 +2,7 @@ package com.interest.dao;
 
 import java.util.List;
 
-import com.interest.model.PostCardEntity;
+import com.interest.model.entity.PostCardEntity;
 import com.interest.model.view.PostCardModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

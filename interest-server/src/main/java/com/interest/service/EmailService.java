@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.EmailEntity;
+import com.interest.model.entity.EmailEntity;
 
 public interface EmailService {
 

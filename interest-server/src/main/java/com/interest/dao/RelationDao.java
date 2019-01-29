@@ -2,7 +2,7 @@ package com.interest.dao;
 
 import java.util.List;
 
-import com.interest.model.RelationEntity;
+import com.interest.model.entity.RelationEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

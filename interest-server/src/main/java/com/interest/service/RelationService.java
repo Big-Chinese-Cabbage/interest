@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.RelationEntity;
+import com.interest.model.entity.RelationEntity;
 
 public interface RelationService {
 

@@ -1,7 +1,7 @@
 package com.interest.controller.template;
 
-import com.interest.model.EmailEntity;
-import com.interest.model.PageResult;
+import com.interest.model.entity.EmailEntity;
+import com.interest.model.entity.PageResult;
 import com.interest.model.utils.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

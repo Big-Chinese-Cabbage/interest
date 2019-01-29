@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.MenuEntity;
+import com.interest.model.entity.MenuEntity;
 
 public interface MenuService {
 

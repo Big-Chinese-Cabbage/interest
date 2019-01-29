@@ -1,6 +1,6 @@
 package com.interest.dao;
 
-import com.interest.model.MsgRecordEntity;
+import com.interest.model.entity.MsgRecordEntity;
 import com.interest.model.view.MsgRecordModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

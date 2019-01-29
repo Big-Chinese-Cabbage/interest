@@ -1,6 +1,6 @@
 package com.interest.model.view;
 
-import com.interest.model.ReplyCardEntity;
+import com.interest.model.entity.ReplyCardEntity;
 
 public class ReplyCardModel extends ReplyCardEntity {
 

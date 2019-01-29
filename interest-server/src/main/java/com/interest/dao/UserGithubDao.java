@@ -1,6 +1,6 @@
 package com.interest.dao;
 
-import com.interest.model.UserGithubEntity;
+import com.interest.model.entity.UserGithubEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

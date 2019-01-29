@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.UserGithubDao">
-	<resultMap id="userMap" type="com.interest.model.UserGithubEntity">
+	<resultMap id="userMap" type="com.interest.model.entity.UserGithubEntity">
 		<id column="login" property="login" />
 		<result column="avatar_url" property="avatarUrl" />
 		<result column="html_url" property="htmlUrl" />

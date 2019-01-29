@@ -15,4 +15,9 @@ public class OtherTest {
         System.out.println(rulBuilder.toString());
     }
 
+    @Test
+    public void testPassword(){
+
+    }
+
 }

@@ -4,13 +4,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.interest.model.MenuEntity;
-import com.interest.model.PageResult;
-import com.interest.model.UserEntity;
+import com.interest.model.entity.MenuEntity;
+import com.interest.model.entity.PageResult;
 import com.interest.model.utils.ResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.interest.service.MenuService;
-import com.interest.service.UserService;
 import com.interest.utils.SecurityAuthenUtil;
 
 @RestController

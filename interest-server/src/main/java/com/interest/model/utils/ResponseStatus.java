@@ -5,12 +5,23 @@ public enum ResponseStatus {
     /**
      *  请求成功状态码
      */
-    OK("1001","success"),
+    OK("2000","success"),
 
     /**
-     *  请求失败状态码
+     * 请求失败
      */
-    FAIL("4001","fail");
+    FAIL_4000("4000","FILE"),
+
+    /**
+     *  未认证
+     */
+    FAIL_4001("4001","未认证"),
+
+    /**
+     * 无权限
+     */
+    FAIL_4003("4003","无权限");
+
 
     private final String value;
 

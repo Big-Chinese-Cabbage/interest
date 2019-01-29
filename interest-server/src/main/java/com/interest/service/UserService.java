@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.UserEntity;
+import com.interest.model.entity.UserEntity;
 
 public interface UserService {
 	void insert(UserEntity userEntity);
