@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.InterestDao">
 	<resultMap id="interestMap"
-		type="com.interest.model.InterestEntity">
+		type="com.interest.model.entity.InterestEntity">
 		<id column="id" property="id" />
 		<result column="title" property="title" />
 		<result column="info" property="info" />
@@ -10,6 +10,20 @@
 		<result column="image" property="image" />
 		<result column="sort" property="sort" />
         <result column="banner" property="banner" />
+	</resultMap>
+
+	<resultMap id="interestResponse"
+			   type="com.interest.model.response.InterestResponse">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="info" property="info" />
+		<result column="image" property="image" />
+	</resultMap>
+
+	<resultMap id="bannerResponse"
+			   type="com.interest.model.response.BannerResponse">
+		<id column="id" property="id" />
+		<result column="image" property="image" />
 	</resultMap>
 
 	<select id="interestList" resultMap="interestMap">
@@ -24,8 +38,8 @@
 		<![CDATA[select count(*) from interest]]>
 	</select>
 
-	<select id="getInsterest" resultMap="interestMap">
-		select * from interest
+	<select id="getInsterest" resultMap="interestResponse">
+		select id,title,image,info from interest
 		<where>
 			<if test="title != null and title != ''">
 				title like CONCAT('%',#{title},'%')
@@ -66,8 +80,8 @@
 		</where>
 	</delete>
 
-	<select id="getBanners" resultMap="interestMap">
-		<![CDATA[select * from interest]]>
+	<select id="getBanners" resultMap="bannerResponse">
+		select id,image from interest
 		<where>
 			banner = 1
 		</where>

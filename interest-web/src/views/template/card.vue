@@ -1,3 +1,26 @@
+<style scoped>
+  .content{
+    /*padding-right: 88px;*/
+    width: 85%;
+  }
+  .content .content-text{
+    border-right: 1px solid #e8eaec;
+    padding-right: 16px;
+  }
+  .content .content-text p{
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+  }
+  .content-right{
+    width: 15%;
+    text-align: center;
+    position: absolute;
+    right: 0px;
+    top: 14px;
+    padding-right: 10px;
+  }
+</style>
 <template>
     <div id="mywork">
 	    <div class="page-header-main">
@@ -7,44 +30,54 @@
                     <p>{{postcard.title}}</p>
                 </div>
                 <Card>
-                    <div slot="extra">
+                    <!-- <div slot="extra">
                     	<div>
                             <a :href="postcard.githuburl" target="_blank">
                                 <img :src="postcard.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
                                 {{postcard.username}}
                             </a>
-                    		<!-- <Icon type="ios-person"></Icon>
-                        	{{postcard.username}} -->
                     	</div>
                     	<div style="background: #5cadff;text-align: center;color: #fff;border-radius: 10px;">
                     		楼主
                     	</div>
+                    </div> -->
+                    <div class="content-right">
+                      <div>
+                            <a :href="postcard.githuburl" target="_blank">
+                                <img :src="postcard.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
+                                {{postcard.username}}
+                            </a>
+                      </div>
+                      <div style="background: #5cadff;text-align: center;color: #fff;border-radius: 10px;">
+                        楼主
+                      </div>
                     </div>
-                    <div>
-                        <p>{{postcard.content}}</p>
-                        <span>
-                            <Icon type="ios-time"></Icon>
-                            {{postcard.createtime}}
-                        </span>
+                    <div class="content">
+                        <div class="content-text">
+                          <p>{{postcard.content}}</p>
+                          <span>
+                              <Icon type="ios-time"></Icon>
+                              {{postcard.createtime}}
+                          </span>
+                        </div>
                     </div>
                 </Card>
 
                 <Card v-for="(item,index) in replyCardList" :key="index">
-                    <div slot="extra">
+                    <div class="content-right">
                         <a :href="item.githuburl" target="_blank">
-                        <!-- <Icon type="ios-person"></Icon> -->
                             <img :src="item.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
                             {{item.username}}
                         </a>
-                        <!-- <Icon type="ios-person"></Icon>
-                        {{item.username}} -->
                     </div>
-                    <div>
+                    <div class="content">
+                      <div class="content-text">
                         <p>{{item.content}}</p>
                         <span>
                             <Icon type="ios-time"></Icon>
                             {{item.createtime}}
                         </span>
+                      </div>
                     </div>
                 </Card>
                 <div style="margin-top: 20px">
@@ -60,7 +93,7 @@
                     <span><Icon type="edit"></Icon>发表回复</span>
                   </div>
                   <div class="box-flex flex-6 width-100 padding-all-5x">
-                    <Input v-model="textarea" type="textarea" :rows="6" placeholder="内容"></Input>
+                    <Input v-model="textarea" type="textarea" :rows="6" placeholder="内容" />
                   </div>
                 </div>
                 <div class="box-flex width-100 margin-top-2 flex-items-flex-end flex-justify-flex-end margin-bottom-3">
@@ -72,119 +105,136 @@
   </div>
 </template>
 <script>
-    export default {
-        data(){
-            return {
-                total:0,
-                pageInfo:{
-                    page:0,
-                    pageSize:20
-                },
-                textarea:'',
-                postcardid: null,
-                postcard:{
-                    id:'',
-                    username:'',
-                    title:'',
-                    content:'',
-                    interestid:'',
-                    createtime:'',
-                    headimg:'',
-                    githuburl:''
-                },
-                replyCardList:[]
-            }
-        },
-        mounted(){
-            this.postcardid = this.$route.params.id;
-            this.axios({
-                method: 'get',
-                url: '/public/postcards/postcard',
-                params:{
-                    "id": this.postcardid
-                }
-            }).then(function (response) {
-                this.postcardSet(response.data);
-            }.bind(this)).catch(function (error) {
-                alter(error);
-            }.bind(this));
-            this.replyCardListGet({
-                "pageInfo":this.pageInfo,
-                "postcardid":this.postcardid
-            });
-        },
-        methods: {
-            replyCardListGet(e){
-                this.axios({
-                  method: 'get',
-                  url: '/public/replycards',
-                  params: {
-                    'page':e.pageInfo.page,
-                    'pageSize':e.pageInfo.pageSize,
-                    'postcardid':e.postcardid
-                  }
-                }).then(function (response) {
-                    this.replyCardList=response.data.data;
-                    this.listDateSet(this.replyCardList);
-                    this.total=response.data.totalCount;
-                }.bind(this)).catch(function (error) {
-                  alert(error);
-                });
-            },
-
-            listDateSet(e){
-                for (var i = e.length - 1; i >= 0; i--) {
-                    e[i].createtime = this.dateGet(e[i].createtime);
-                }
-            },
-            postcardSet(e){
-                this.postcard.id = e.id;
-                this.postcard.username = e.username;
-                this.postcard.title = e.title;
-                this.postcard.content = e.content;
-                this.postcard.interestid = e.interestid;
-                // this.postcard.createtime = e.createtime;
-                this.postcard.createtime = this.dateGet(e.createtime);
-                this.postcard.headimg = e.headimg;
-                this.postcard.githuburl = e.githuburl;
-            },
-            pageSearch(e){
-                this.pageInfo.page = e-1;
-                this.replyCardListGet({  
-                    "pageInfo":this.pageInfo,
-                    "postcardid":this.postcardid
-                });
-            },
-            sendCard(){
-                if(this.textarea != null && this.textarea != ''){
-                    if(this.axios.defaults.headers.common['Authorization'] != null && this.axios.defaults.headers.common['Authorization'] != ''){
-                        this.axios({
-                            method: 'post',
-                            url: '/replycards/replycard',
-                            data:{
-                                "postcardid": this.postcardid,
-                                "content":this.textarea
-                            }
-                        }).then(function (response) {
-                            this.$Message.info('回复成功');
-                            this.textarea = '';
-                            // this.pageInfo.page = 0;
-                            this.replyCardListGet({
-                                "pageInfo":this.pageInfo,
-                                "postcardid":this.postcardid
-                            });
-                        }.bind(this)).catch(function (error) {
-                            this.$Message.error('请重新登录');
-                        }.bind(this));
-                    }else{
-                        this.$Message.error('登录后，才能回复！');
-                    }
-                    
-                }else{
-                    this.$Message.error('请填写回复内容');
-                }
-                
-            }
-        }
+export default {
+  data() {
+    return {
+      total: 0,
+      pageInfo: {
+        page: 0,
+        pageSize: 20
+      },
+      textarea: "",
+      postcardid: null,
+      postcard: {
+        id: "",
+        username: "",
+        title: "",
+        content: "",
+        interestid: "",
+        createtime: "",
+        headimg: "",
+        githuburl: ""
+      },
+      replyCardList: []
     };
+  },
+  mounted() {
+    this.postcardid = this.$route.params.id;
+    this.axios({
+      method: "get",
+      url: "/public/postcards/postcard",
+      params: {
+        id: this.postcardid
+      }
+    })
+      .then(
+        function(response) {
+          this.postcardSet(response.data.data);
+        }.bind(this)
+      )
+      .catch(
+        function(error) {
+          alter(error);
+        }.bind(this)
+      );
+    this.replyCardListGet({
+      pageInfo: this.pageInfo,
+      postcardid: this.postcardid
+    });
+  },
+  methods: {
+    replyCardListGet(e) {
+      this.axios({
+        method: "get",
+        url: "/public/replycards",
+        params: {
+          page: e.pageInfo.page,
+          pageSize: e.pageInfo.pageSize,
+          postcardid: e.postcardid
+        }
+      })
+        .then(
+          function(response) {
+            this.replyCardList = response.data.data.data;
+            this.listDateSet(this.replyCardList);
+            this.total = response.data.data.totalCount;
+          }.bind(this)
+        )
+        .catch(function(error) {
+          alert(error);
+        });
+    },
+
+    listDateSet(e) {
+      for (var i = e.length - 1; i >= 0; i--) {
+        e[i].createtime = this.dateGet(e[i].createtime);
+      }
+    },
+    postcardSet(e) {
+      this.postcard.id = e.id;
+      this.postcard.username = e.username;
+      this.postcard.title = e.title;
+      this.postcard.content = e.content;
+      this.postcard.interestid = e.interestid;
+      // this.postcard.createtime = e.createtime;
+      this.postcard.createtime = this.dateGet(e.createtime);
+      this.postcard.headimg = e.headimg;
+      this.postcard.githuburl = e.githuburl;
+    },
+    pageSearch(e) {
+      this.pageInfo.page = e - 1;
+      this.replyCardListGet({
+        pageInfo: this.pageInfo,
+        postcardid: this.postcardid
+      });
+    },
+    sendCard() {
+      if (this.textarea != null && this.textarea != "") {
+        if (
+          this.axios.defaults.headers.common["Authorization"] != null &&
+          this.axios.defaults.headers.common["Authorization"] != ""
+        ) {
+          this.axios({
+            method: "post",
+            url: "/replycards/replycard",
+            data: {
+              postcardid: this.postcardid,
+              content: this.textarea
+            }
+          })
+            .then(
+              function(response) {
+                this.$Message.info("回复成功");
+                this.textarea = "";
+                // this.pageInfo.page = 0;
+                this.replyCardListGet({
+                  pageInfo: this.pageInfo,
+                  postcardid: this.postcardid
+                });
+              }.bind(this)
+            )
+            .catch(
+              function(error) {
+                this.$Message.error("请重新登录");
+              }.bind(this)
+            );
+        } else {
+          this.$Message.error("登录后，才能回复！");
+        }
+      } else {
+        this.$Message.error("请填写回复内容");
+      }
+    }
+  }
+};
 </script>

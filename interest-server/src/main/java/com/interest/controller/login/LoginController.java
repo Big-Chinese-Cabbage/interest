@@ -54,9 +54,7 @@ public class LoginController {
 
 		authRequest.setDetails(new OAuth2AuthenticationDetails(request));
 
-		OAuth2AccessToken oAuth2AccessToken = loginSuccessHandler.getAccessToken(request, response, authRequest);
-
-		return oAuth2AccessToken;
+		return loginSuccessHandler.getAccessToken(request, response, authRequest);
 	}
 
 }

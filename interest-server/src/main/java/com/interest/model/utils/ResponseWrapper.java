@@ -7,29 +7,29 @@ package com.interest.model.utils;
  */
 public class ResponseWrapper<T> {
 
-    private String status;
+    private String status = ResponseStatus.OK.getValue();
 
-    private String message;
+    private String message = "success";
 
     private T data;
 
-    public ResponseWrapper(String status) {
-        this.status = status;
-    }
-
-    public ResponseWrapper(String status, String message) {
-        this.status = status;
+    public ResponseWrapper(ResponseStatus status, String message) {
+        this.status = status.getValue();
         this.message = message;
     }
 
-    public ResponseWrapper(String status, T data) {
-        this.status = status;
+    public ResponseWrapper(ResponseStatus status, T data) {
+        this.status = status.getValue();
         this.data = data;
     }
 
-    public ResponseWrapper(String status, String message, T data) {
-        this.status = status;
+    public ResponseWrapper(ResponseStatus status, String message, T data) {
+        this.status = status.getValue();
         this.message = message;
+        this.data = data;
+    }
+
+    public ResponseWrapper(T data) {
         this.data = data;
     }
 
@@ -37,8 +37,8 @@ public class ResponseWrapper<T> {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(ResponseStatus status) {
+        this.status = status.getValue();
     }
 
     public String getMessage() {

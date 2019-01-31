@@ -2,28 +2,31 @@ package com.interest.dao;
 
 import java.util.List;
 
-import com.interest.model.InterestEntity;
+import com.interest.model.entity.InterestEntity;
+import com.interest.model.response.BannerResponse;
+import com.interest.model.response.InterestResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.boot.Banner;
 
 @Mapper
 public interface InterestDao {
 
-	public List<InterestEntity> getInsterest(@Param("title") String title);
+	List<InterestResponse> getInsterest(@Param("title") String title);
 
-	public InterestEntity getInsterestById(@Param("id") int id);
+	InterestEntity getInsterestById(@Param("id") int id);
 
-    public void insertEntity(InterestEntity interestEntity);
+    void insertEntity(InterestEntity interestEntity);
 
-	public void updateEntity(InterestEntity interestEntity);
+	void updateEntity(InterestEntity interestEntity);
 
-	public List<InterestEntity> interestList(@Param("pageSize") int pageSize,@Param("start") int start);
+	List<InterestEntity> interestList(@Param("pageSize") int pageSize,@Param("start") int start);
 
-	public Integer interestSize();
+	Integer interestSize();
 
-	public void deleteInterests(@Param("groupId") List<String> groupId);
+	void deleteInterests(@Param("groupId") List<String> groupId);
 
-    public List<InterestEntity> getBanners();
+    List<BannerResponse> getBanners();
 
-	public void updateBanners(@Param("groupId") List<String> groupId,@Param("banner") int i);
+	void updateBanners(@Param("groupId") List<String> groupId,@Param("banner") int i);
 }

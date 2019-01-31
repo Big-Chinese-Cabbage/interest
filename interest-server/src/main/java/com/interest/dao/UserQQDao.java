@@ -1,6 +1,6 @@
 package com.interest.dao;
 
-import com.interest.model.UserQQEntity;
+import com.interest.model.entity.UserQQEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -2,7 +2,7 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.RelationEntity;
+import com.interest.model.entity.RelationEntity;
 
 public interface RelationService {
 
@@ -11,13 +11,13 @@ public interface RelationService {
 	 * @param userId
 	 * @return
 	 */
-	public List<RelationEntity> getRelationByUserId(int userId);
+	List<RelationEntity> getRelationByUserId(int userId);
 
 	/**
 	 * 批量插入关系数据
 	 * @param relationList
 	 */
-	public void insertRelations(List<RelationEntity> relationList);
+	void insertRelations(List<RelationEntity> relationList);
 
 	
 }

@@ -1,13 +1,25 @@
 package com.interest.oauth2;
 
+import com.interest.exception.InterestAuthenticationEntryPoint;
+import com.interest.exception.handler.InterestAccessDeniedHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 @Configuration
 @EnableResourceServer
 public class MyResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {
+
+	@Autowired
+	private InterestAccessDeniedHandler interestAccessDeniedHandler;
+
+	@Override
+	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+		resources.authenticationEntryPoint(new InterestAuthenticationEntryPoint()).accessDeniedHandler(interestAccessDeniedHandler);
+	}
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -20,6 +32,7 @@ public class MyResourceServerConfigurerAdapter extends ResourceServerConfigurerA
 		.antMatchers("/users/**","/menus/**","/roles/**","/admin/**").hasRole("ADMIN")
 		.anyRequest()
 		.authenticated();
+
 	}
 
 }

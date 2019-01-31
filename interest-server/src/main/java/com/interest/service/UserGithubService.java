@@ -1,6 +1,6 @@
 package com.interest.service;
 
-import com.interest.model.UserGithubEntity;
+import com.interest.model.entity.UserGithubEntity;
 
 public interface UserGithubService {
 

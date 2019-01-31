@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.PostCardDao">
 	<resultMap id="postCardMap"
-		type="com.interest.model.PostCardEntity">
+		type="com.interest.model.entity.PostCardEntity">
 		<id column="id" property="id" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
@@ -13,7 +13,7 @@
 	</resultMap>
 
 	<resultMap id="postCardModelMap"
-			   type="com.interest.model.view.PostCardModel">
+			   type="com.interest.model.response.PostCardResponse">
 		<id column="id" property="id" />
 		<result column="username" property="username" />
 		<result column="title" property="title" />
@@ -23,6 +23,7 @@
 		<result column="replytime" property="replytime" />
 		<result column="headimg" property="headimg" />
 		<result column="githuburl" property="githuburl" />
+		<association property="replyCount" column="id" select="com.interest.dao.ReplyCardDao.replyCardCountByPostId"/>
 	</resultMap>
 
 	<select id="postcardList" resultMap="postCardModelMap">

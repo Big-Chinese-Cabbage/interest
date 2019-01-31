@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.ReplyCardDao">
 	<resultMap id="replyCardMap"
-		type="com.interest.model.ReplyCardEntity">
+		type="com.interest.model.entity.ReplyCardEntity">
 		<id column="id" property="id" />
 		<result column="userid" property="userid" />
 		<result column="content" property="content" />
@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<resultMap id="replyCardModelMap"
-			   type="com.interest.model.view.ReplyCardModel">
+			   type="com.interest.model.response.ReplyCardResponse">
 		<id column="id" property="id" />
 		<result column="username" property="username" />
 		<result column="content" property="content" />
@@ -72,5 +72,12 @@
 			</if>
 		</where>
 	</delete>
+
+	<select id="replyCardCountByPostId" resultType="Integer">
+		select count(1) from reply_card
+		<where>
+			postcardid = #{postcardid}
+		</where>
+	</select>
 
 </mapper>

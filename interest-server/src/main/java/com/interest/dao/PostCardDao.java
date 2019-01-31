@@ -2,28 +2,28 @@ package com.interest.dao;
 
 import java.util.List;
 
-import com.interest.model.PostCardEntity;
-import com.interest.model.view.PostCardModel;
+import com.interest.model.entity.PostCardEntity;
+import com.interest.model.response.PostCardResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface PostCardDao {
 
-	public List<PostCardModel> postcardList(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
-											@Param("start") int start);
+    List<PostCardResponse> postcardList(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
+                                        @Param("start") int start);
 
-	public Integer postcardSize(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
-			@Param("start") int start);
+    Integer postcardSize(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
+                         @Param("start") int start);
 
-	public void insertEntity(PostCardEntity postCardEntity);
+    void insertEntity(PostCardEntity postCardEntity);
 
-	public PostCardModel getPostcard(@Param("id") int id);
+    PostCardResponse getPostcard(@Param("id") int id);
 
-	public void updateCreatetiem(@Param("id") int id, @Param("replytime") String replytime);
+    void updateCreatetiem(@Param("id") int id, @Param("replytime") String replytime);
 
-	public void deletePostcards(@Param("groupId") List<String> groupId);
+    void deletePostcards(@Param("groupId") List<String> groupId);
 
-	public List<PostCardEntity> getALL();
+    List<PostCardEntity> getALL();
 
 }

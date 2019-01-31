@@ -1,7 +1,8 @@
 package com.interest.controller.template;
 
-import com.interest.model.PageResult;
-import com.interest.model.ReplyCardEntity;
+import com.interest.model.entity.PageResult;
+import com.interest.model.entity.ReplyCardEntity;
+import com.interest.model.utils.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,27 +15,22 @@ import com.interest.service.ReplyCardService;
 @RestController
 public class ReplyCardController {
 
-	@Autowired
-	private ReplyCardService replyCardService;
+    @Autowired
+    private ReplyCardService replyCardService;
 
-	@GetMapping("/public/replycards")
-	public PageResult replycardList(@RequestParam("postcardid") int postcardid,
-                                    @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(replyCardService.replycardList(postcardid, pageSize, page * pageSize));
-		pageResult.setTotalCount(replyCardService.replycardSize(postcardid, pageSize, page * pageSize));
-		return pageResult;
-	}
-	
-//	@GetMapping("/replycards/replycard")
-//	public ReplyCardEntity preplyardGet(@RequestParam("id") int id) {
-//		return replyCardService.getReplycard(id);
-//	}
-//	
-	@PostMapping("/replycards/replycard")
-	public ReplyCardEntity insertEntity(@RequestBody ReplyCardEntity replyCardEntity ) {
-		replyCardService.insertEntity(replyCardEntity);
-		return replyCardEntity;
-	}
+    @GetMapping("/public/replycards")
+    public ResponseWrapper<PageResult> replycardList(@RequestParam("postcardid") int postcardid,
+                                                     @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
+        PageResult pageResult = new PageResult();
+        pageResult.setData(replyCardService.replycardList(postcardid, pageSize, page * pageSize));
+        pageResult.setTotalCount(replyCardService.replycardSize(postcardid, pageSize, page * pageSize));
+        return new ResponseWrapper<>(pageResult);
+    }
+
+    @PostMapping("/replycards/replycard")
+    public ResponseWrapper<ReplyCardEntity> insertEntity(@RequestBody ReplyCardEntity replyCardEntity) {
+        replyCardService.insertEntity(replyCardEntity);
+        return new ResponseWrapper<>(replyCardEntity);
+    }
 
 }

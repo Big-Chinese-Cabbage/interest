@@ -2,19 +2,19 @@ package com.interest.service;
 
 import java.util.List;
 
-import com.interest.model.PostCardEntity;
-import com.interest.model.view.PostCardModel;
+import com.interest.model.entity.PostCardEntity;
+import com.interest.model.response.PostCardResponse;
 
 public interface PostCardService {
 
-	public List<PostCardModel> postcardList(String interestid, int pageSize, int start);
+	List<PostCardResponse> postcardList(String interestid, int pageSize, int start);
 
-	public Integer postcardSize(String interestid, int pageSize, int start);
+	Integer postcardSize(String interestid, int pageSize, int start);
 
-	public void insertEntity(PostCardEntity postCardEntity);
+	void insertEntity(PostCardEntity postCardEntity);
 
-	public PostCardModel getPostcard(int id);
+	PostCardResponse getPostcard(int id);
 
-	public void deletePostcards(List<String> groupId);
+	void deletePostcards(List<String> groupId);
 
 }

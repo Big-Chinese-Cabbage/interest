@@ -1,5 +1,6 @@
 package com.interest.security;
 
+import com.interest.exception.handler.InterestAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,7 @@ public class WebsecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.exceptionHandling().accessDeniedHandler(new InterestAccessDeniedHandler());
 		http.authorizeRequests().anyRequest().authenticated();
 		http.formLogin().failureUrl("/login?error").permitAll();
 		http.logout().permitAll();

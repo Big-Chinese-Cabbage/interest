@@ -1,9 +1,9 @@
 package com.interest.service.impl;
 
 import com.interest.dao.MsgRecordsDao;
-import com.interest.model.MsgRecordEntity;
-import com.interest.model.PageResult;
-import com.interest.model.view.MsgRecordModel;
+import com.interest.model.entity.MsgRecordEntity;
+import com.interest.model.entity.PageResult;
+import com.interest.model.response.MsgRecordResponse;
 import com.interest.service.MsgRecordsService;
 import com.interest.utils.SecurityAuthenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class MsgRecordsServiceImpl implements MsgRecordsService {
     @Transactional
     public PageResult getUserMegsResult(int pageSize, int start) {
         int userid = SecurityAuthenUtil.getId();
-        List<MsgRecordModel> list = msgRecordsDao.getMsgListByUserid(userid,pageSize,start);
+        List<MsgRecordResponse> list = msgRecordsDao.getMsgListByUserid(userid,pageSize,start);
         int size = msgRecordsDao.getMsgSizeByUserid(userid);
 
         PageResult pageResult = new PageResult();

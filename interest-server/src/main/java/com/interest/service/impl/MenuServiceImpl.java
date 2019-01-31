@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.interest.dao.MenuDao;
 import com.interest.dao.RoleDao;
-import com.interest.model.MenuEntity;
+import com.interest.model.entity.MenuEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

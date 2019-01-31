@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.interest.dao.RelationDao;
 import com.interest.dao.UserDao;
-import com.interest.model.RelationEntity;
-import com.interest.model.UserEntity;
+import com.interest.model.entity.RelationEntity;
+import com.interest.model.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

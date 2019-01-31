@@ -3,7 +3,7 @@ package com.interest.service.impl;
 import java.util.List;
 
 import com.interest.dao.RoleDao;
-import com.interest.model.RoleEntity;
+import com.interest.model.entity.RoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

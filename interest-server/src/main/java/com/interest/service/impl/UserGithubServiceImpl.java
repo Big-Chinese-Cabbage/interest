@@ -1,7 +1,7 @@
 package com.interest.service.impl;
 
 import com.interest.dao.UserGithubDao;
-import com.interest.model.UserGithubEntity;
+import com.interest.model.entity.UserGithubEntity;
 import com.interest.service.UserGithubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,7 @@ package com.interest.service.impl;
 import java.util.List;
 
 import com.interest.dao.EmailDao;
-import com.interest.model.EmailEntity;
+import com.interest.model.entity.EmailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
