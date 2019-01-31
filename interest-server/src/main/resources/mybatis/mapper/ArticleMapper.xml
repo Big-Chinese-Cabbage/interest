@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.ArticleDao">
+    <resultMap id="emailMap" type="com.interest.model.entity.ArticleEntity">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="info" property="info"/>
+        <result column="content" property="content"/>
+        <result column="click_rate" property="clickRate"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="top" property="top"/>
+        <result column="create_time" property="createTime"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="userid" property="userid"/>
+    </resultMap>
+
+
+</mapper>
