@@ -250,6 +250,31 @@ const routers = [
         }
       }
     ]
+  },
+  {
+    path: "/article",
+    meta: {
+      title: "smallsnail-wh"
+    },
+    component: resolve => require(["./views/template/index.vue"], resolve),
+    children: [
+      {
+        path: "qwe",
+        name: "article-home",
+        component: resolve => require(["./views/article/pc/home.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "create",
+        name: "article-create",
+        component: resolve => require(["./views/article/pc/create-article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      }
+    ]
   }
 ];
 
