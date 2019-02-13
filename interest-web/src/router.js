@@ -259,7 +259,7 @@ const routers = [
     component: resolve => require(["./views/template/index.vue"], resolve),
     children: [
       {
-        path: "qwe",
+        path: "",
         name: "article-home",
         component: resolve => require(["./views/article/pc/home.vue"], resolve),
         meta: {
@@ -270,6 +270,14 @@ const routers = [
         path: "create",
         name: "article-create",
         component: resolve => require(["./views/article/pc/create-article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "create/success",
+        name: "article-create",
+        component: resolve => require(["./views/article/pc/create-article-success.vue"], resolve),
         meta: {
           title: "article"
         }

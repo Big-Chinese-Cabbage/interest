@@ -1,5 +1,10 @@
 package com.interest.properties;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+@ConfigurationProperties(prefix="interest.paths-properties")
+@Configuration
 public class PathsProperties {
 
 	/**

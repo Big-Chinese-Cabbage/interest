@@ -1,6 +1,8 @@
 package com.interest.controller.authentication;
 
 import com.interest.dao.UserDao;
+import com.interest.dao.UserDetailDao;
+import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.entity.UserEntity;
 import com.interest.controller.login.LoginFailureExcepiton;
 import com.interest.model.entity.UserGithubEntity;
@@ -27,6 +29,9 @@ public class GitHubAuthentication implements MyAuthentication {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserDetailDao userDetailDao;
 
     @Autowired
     private UserGithubService userGithubService;
@@ -111,6 +116,10 @@ public class GitHubAuthentication implements MyAuthentication {
         userGithubEntity.setEmail(githubToken.getString("email"));
         userGithubEntity.setUserid(userEntity.getId());
         userGithubService.insertEntity(userGithubEntity);
+
+        UserDetailEntity userDetailEntity = new UserDetailEntity();
+        userDetailEntity.setUserid(userEntity.getId());
+        userDetailDao.insert(userDetailEntity);
 
         return String.valueOf(userEntity.getId());
     }

@@ -3,7 +3,7 @@ package com.interest.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-@ConfigurationProperties(prefix="github")
+@ConfigurationProperties(prefix="interest.github")
 @Configuration
 public class GithubProperties {
 

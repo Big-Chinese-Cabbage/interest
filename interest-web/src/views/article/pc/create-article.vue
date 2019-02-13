@@ -8,19 +8,31 @@
 </style>
 <template>
 	<div style="margin: 20px;">
-        <Form ref="entity" :model="entity" :rules="ruleNew" :label-width="80" >
-            <Form-item label="标题：" prop="title">
-                <Input v-model="entity.title" />
-            </Form-item>
-            <Form-item label="详情：" prop="content">
-                <interest-quill-editor class="editor" v-bind:interestContent="interestContent" @editor-change="e=>{contentGet(e)}"></interest-quill-editor>
-            </Form-item>
-            <FormItem>
-                <Button type="primary" @click="submit('entity')">提交</Button>
-                <Button @click="reset()" style="margin-left: 8px">重置</Button>
-            </FormItem>
-        </Form>
-    </div>
+      <Form ref="entity" :model="entity" :rules="ruleNew" :label-width="80" >
+          <Form-item label="标题：" prop="title">
+              <Input v-model="entity.title" />
+          </Form-item>
+          <Form-item label="详情：" prop="content">
+              <interest-quill-editor class="editor" v-bind:interestContent="interestContent" @editor-change="e=>{contentGet(e)}"></interest-quill-editor>
+          </Form-item>
+          <FormItem>
+              <Button type="primary" @click="submit('entity')">发布</Button>
+              <Button @click="reset()" style="margin-left: 8px">重置</Button>
+          </FormItem>
+      </Form>
+      <Modal v-model="modal" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+            <Icon type="ios-information-circle"></Icon>
+            <span>温馨提示</span>
+        </p>
+        <div style="text-align:center">
+            <p>为保证服务正常运行，每个用户每日只能发布一篇文章，是否确认发布？</p>
+        </div>
+        <div slot="footer">
+            <Button type="error" size="large" long :loading="modal_loading" @click="publish()">确认</Button>
+        </div>
+      </Modal>
+  </div>
 </template>
 <script>
 import InterestQuillEditor from "../../sys/interest/interest-quill-editor";
@@ -30,16 +42,13 @@ export default {
   },
   data() {
     return {
+      modal:false,
+      modal_loading: false,
       interestContent: "",
       content: null,
-      headers: {
-        Authorization: "bearer " + localStorage.getItem("currentUser_token")
-      },
       /*entity实体*/
       entity: {
         title: null,
-        info: null,
-        image: null,
         content: null
       },
       /*新建验证*/
@@ -49,22 +58,6 @@ export default {
             type: "string",
             required: true,
             message: "填写标题",
-            trigger: "blur"
-          }
-        ],
-        info: [
-          {
-            type: "string",
-            required: true,
-            message: "填写介绍",
-            trigger: "blur"
-          }
-        ],
-        image: [
-          {
-            type: "string",
-            required: true,
-            message: "上传图片",
             trigger: "blur"
           }
         ],
@@ -88,50 +81,12 @@ export default {
     /*entity实体初始化*/
     initEntity() {
       this.entity.title = null;
-      this.entity.info = null;
-      this.entity.image = null;
       this.entity.content = null;
     },
     /*entityNew设置*/
     entitySet(e) {
       this.entity.title = e.title;
-      this.entity.info = e.info;
-      this.entity.image = e.image;
       this.entity.content = e.content;
-    },
-    dateGet(e) {
-      var time = new Date(parseInt(e));
-      return (
-        time.getFullYear() +
-        "-" +
-        (time.getMonth() + 1) +
-        "-" +
-        time.getDate() +
-        " " +
-        time.getHours() +
-        ":" +
-        time.getMinutes()
-      );
-    },
-    listDateSet(e) {
-      for (var i = e.length - 1; i >= 0; i--) {
-        e[i].time = this.dateGet(e[i].time);
-      }
-    },
-    handleSuccess(res, file) {
-      this.entity.image = res.url;
-      file.url = res.url;
-      file.name = res.url;
-    },
-    handleBeforeUpload() {
-      this.$refs.upload.fileList.splice(0, this.$refs.upload.fileList.length);
-      return true;
-    },
-    handleFormatError(file) {
-      this.$Notice.warning({
-        title: "图片格式不对",
-        desc: "图片格式只能为jpg,jpeg,png"
-      });
     },
     contentGet(e) {
       this.entity.content = e;
@@ -139,25 +94,37 @@ export default {
     submit(entity) {
       this.$refs[entity].validate(valid => {
         if (valid) {
-          this.axios({
-            method: "post",
-            url: "/admin/interests/interest",
-            data: this.entity
-          })
-            .then(
-              function(response) {
-                this.interestContent = this.interestContent + ".";
-                this.initEntity();
-                this.$Message.info("新建成功");
-              }.bind(this)
-            )
-            .catch(
-              function(error) {
-                this.$Message.error("新建失败");
-              }.bind(this)
-            );
+          this.modal = true;
         }
       });
+    },
+    publish(){
+      this.modal_loading =  true;
+      this.axios({
+        method: "post",
+        url: "/article",
+        data: this.entity
+      }).then(
+          function(response) {
+            if(response.data.status == "2000"){
+              this.interestContent = this.interestContent + ".";
+              this.initEntity();
+              setTimeout(() => {
+                  this.modal_loading = false;
+                  this.modal = false;
+                  this.$router.push("/article/create/success");
+              }, 2000);
+            }else if(response.data.status == "6001"){
+              this.modal_loading = false;
+              this.$Message.error(response.data.message);
+            }
+            
+          }.bind(this)
+        ).catch(
+          function(error) {
+            this.$Message.error("新建失败");
+          }.bind(this)
+        );
     },
     reset() {
       this.interestContent = this.interestContent + ".";

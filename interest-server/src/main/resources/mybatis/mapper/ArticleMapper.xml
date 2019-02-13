@@ -14,5 +14,9 @@
         <result column="userid" property="userid"/>
     </resultMap>
 
+    <insert id="insertArticle" parameterType="ArticleEntity">
+        insert into article(title,info,content,create_time,reply_time,userid)
+        values (#{title},#{info},#{content},#{createTime},#{replyTime},#{userid})
+    </insert>
 
 </mapper>

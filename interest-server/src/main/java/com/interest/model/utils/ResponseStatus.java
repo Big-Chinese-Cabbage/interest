@@ -20,7 +20,9 @@ public enum ResponseStatus {
     /**
      * 无权限
      */
-    FAIL_4003("4003","无权限");
+    FAIL_4003("4003","无权限"),
+
+    FAIL_6001("6001","发布文章超过当日次数");
 
 
     private final String value;
