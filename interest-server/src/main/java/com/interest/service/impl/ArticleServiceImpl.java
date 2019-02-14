@@ -3,8 +3,11 @@ package com.interest.service.impl;
 import com.interest.dao.ArticleDao;
 import com.interest.exception.ArticleException;
 import com.interest.model.entity.ArticleEntity;
+import com.interest.model.entity.PageResult;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.request.ArticleCreateRequest;
+import com.interest.model.response.ArticleResponse;
+import com.interest.model.utils.PageWrapper;
 import com.interest.model.utils.ResponseStatus;
 import com.interest.service.ArticleService;
 import com.interest.service.UserDetailService;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
@@ -32,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         UserDetailEntity userDetailEntity = userDetailService.getEntityByUserid(userid);
         if (userDetailEntity.getArticleSign() == 1) {
-            throw new ArticleException(ResponseStatus.FAIL_6001.getValue(),ResponseStatus.FAIL_6001.getReasonPhrase());
+            throw new ArticleException(ResponseStatus.FAIL_6001.getValue(), ResponseStatus.FAIL_6001.getReasonPhrase());
         }
 
         ArticleEntity articleEntity = new ArticleEntity();
@@ -50,7 +54,14 @@ public class ArticleServiceImpl implements ArticleService {
 
         articleDao.insertArticle(articleEntity);
 
-        userDetailService.updateArticleSign(1,userid);
+        userDetailService.updateArticleSign(1, userid);
+    }
+
+    @Override
+    public PageResult getArticle(String searchContent, PageWrapper pageWrapper) {
+        List<ArticleResponse> list = articleDao.getArticleList(searchContent, pageWrapper);
+        int size = articleDao.getArticleSize(searchContent);
+        return new PageResult(list,size);
     }
 
     public String htmlText(String htmlStr) {

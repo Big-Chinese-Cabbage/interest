@@ -4,32 +4,39 @@ import java.util.List;
 
 /**
  * 用于包装list数据的类
- * @author wanghuan
  *
+ * @author wanghuan
  */
 public class PageResult {
-	private List<?> data;
+    private List<?> data;
 
-	private Integer totalCount;
+    private Integer totalCount;
 
-	public List<?> getData() {
-		return data;
-	}
+    public PageResult(){}
 
-	public void setData(List<?> data) {
-		this.data = data;
-	}
+    public PageResult(List<?> data,Integer totalCount){
+        this.data = data;
+        this.totalCount = totalCount;
+    }
 
-	public Integer getTotalCount() {
-		return totalCount;
-	}
+    public List<?> getData() {
+        return data;
+    }
 
-	public void setTotalCount(Integer totalCount) {
-		this.totalCount = totalCount;
-	}
+    public void setData(List<?> data) {
+        this.data = data;
+    }
 
-	@Override
-	public String toString() {
-		return "PageResult [data=" + data + ", totalCount=" + totalCount + "]";
-	}
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(Integer totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    @Override
+    public String toString() {
+        return "PageResult [data=" + data + ", totalCount=" + totalCount + "]";
+    }
 }

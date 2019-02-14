@@ -1,155 +1,177 @@
+<style scoped>
+  .card-body {
+    padding: 10px;
+  }
+  .content{
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+  }
+  .chat{
+    display: inline;
+    margin-right: 50px;
+    color:#f90;
+  }
+  .chat span{
+    margin-left: 2px;
+  }
+  .title {
+    margin-bottom: 8px;
+  }
+  .title span{
+    color: #2d64b3;
+  }
+  .info {
+    margin-bottom: 5px;
+  }
+  .info p{
+    width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis; 
+    white-space:nowrap;
+  }
+  .list-user-other {
+    height: 24px;
+    line-height: 24px;
+  }
+  .list-user-other dt{
+    float: left;
+    margin: 0 6px 0 0;
+  }
+  .list-user-other dd{
+    float: left;
+    font-size: 14px;
+    color: #8a8a8a;
+    line-height: 24px;
+  }
+  .list-user-other .right-info {
+    line-height: 24px;
+    float: right;
+  }
+  .list-user-other .right-info .text {
+    margin-right: 4px;
+    color: #8a8a8a;
+  }
+  .list-user-other .right-info .num {
+    color: #3399ea;
+  }
+  .interval {
+    float: left;
+    width: 1px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    margin-top: 6px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+</style>
 <template>
-    <div class="home">
-        <div>
-            <Carousel autoplay v-model="value2" loop>
-                <CarouselItem v-for="(item,index) in bannerList" :key="index">
-                    <router-link :to="('/page/detail/'+item.id)">
-                        <img :style="{height:'550px'}" class="images-con" v-bind:src="(item.image)">
+    <div id="mywork">
+      <div class="page-header-main">
+        <div class="box-flex width-80 margin-auto margin-top-2 flex-direction-column flex-justify-center flex-items-center" >
+          <div style="width: 100%;margin: 0 0 20px 0">
+              <Card v-for="(item,index) in articleList" :key="index" class="card-body">
+                  <div class="title">
+                    <router-link :to="('/article/detail/'+item.id)">
+                      <span class="tirtleFont lineThrou ">{{item.title}}</span>
                     </router-link>
-                </CarouselItem>
-            </Carousel>
+                  </div>
+                  <div class="info">
+                    <p>{{item.info}}</p>
+                  </div>
+                  <dl class="list-user-other">
+                    <dt>
+                      <a :href="item.githuburl" target="_blank">
+                          <img :src="item.userHeadImg" style="width: 25px;height: 25px;border-radius: 100%;">
+                      </a>
+                    </dt>
+                    <dd>
+                      <a :href="item.githuburl" target="_blank">
+                          {{item.userName}}
+                      </a>
+                    </dd>
+                    <div class="interval"></div>
+                    <dd>{{dateGet(item.createTime)}}</dd>
+                    <div class="right-info">
+                      <dd>
+                        <router-link :to="('/article/detail/'+item.id)">
+                          <span class="text">阅读数</span>
+                          <span class="num">{{item.clickRate}}</span>
+                        </router-link>
+                      </dd>
+                      <div class="interval"></div>
+                      <dd>
+                        <router-link :to="('/article/detail/'+item.id)">
+                          <span class="text">评论数</span>
+                          <span class="num">{{item.commentCount}}</span>
+                        </router-link>
+                      </dd>
+                    </div>
+                  </dl>
+              </Card>
+              <div style="margin-top: 20px">
+                  <Page :total="total" :page-size="pageInfo.pageSize" show-elevator show-total @on-change="e=>{pageSearch(e)}"></Page>
+              </div>
+          </div>
         </div>
-        <div v-if="flage"
-             style="background: #f5f7f9;padding: 24px 50px;color: #495060;font-size: 14px;text-align: center;">
-            <span>未找到符合条件的结果</span>
-        </div>
-        <div class="box-flex flex-direction-column margin-top-2">
-            <div class="box-flex width-80 margin-auto" v-for="(A,index) in homeArticle">
-                <div class="box-flex width-100" v-if="index%2==0">
-                    <div class="flex-1">
-                        <router-link :to="('/page/detail/'+A.id)">
-                            <img class="images-con imgpic" v-bind:src="(A.image)">
-                        </router-link>
-                    </div>
-                    <div class="box-flex flex-1 padding-all flex-direction-column">
-                        <router-link :to="('/page/detail/'+A.id)">
-                            <span class="tirtleFont lineThrou">{{A.title}}</span>
-                        </router-link>
-                        <span class="contentFont">{{A.info}}</span>
-                    </div>
-                </div>
-                <div class="box-flex width-100" v-else>
-                    <div class="box-flex flex-1 padding-all flex-direction-column">
-                        <router-link :to="('/page/detail/'+A.id)">
-                            <span class="tirtleFont lineThrou">{{A.title}}</span>
-                        </router-link>
-                        <span class="contentFont">{{A.info}}</span>
-                    </div>
-                    <div class="flex-1">
-                        <router-link :to="('/page/detail/'+A.id)">
-                            <img class="images-con imgpic" v-bind:src="(A.image)">
-                        </router-link>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+      </div>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      flage: false,
-      value2: 0,
-      homeArticle: [],
-      bannerList: []
+      searchContent:null,
+      articleList: [],
+      total: 0,
+      pageInfo: {
+        page: 0,
+        pageSize: 20
+      }
     };
   },
   mounted() {
-    this.getHomeArticle();
-    this.getBanner();
+    this.getArticle({
+      pageInfo: this.pageInfo
+    });
   },
   watch: {
-    $route: ["getHomeArticle"]
+    $route: ["search"]
   },
   methods: {
-    getBanner() {
+    search(){
+      this.searchContent = this.$route.query.searchValue;
+      this.getArticle({
+        pageInfo: this.pageInfo
+      });
+    },
+    getArticle(e) {
       this.axios({
         method: "get",
-        url: "/public/banners"
+        url: "/public/articles",
+        params: {
+          page: e.pageInfo.page,
+          pageSize: e.pageInfo.pageSize,
+          searchContent: this.searchContent
+        }
       })
         .then(
           function(response) {
-            this.bannerList = response.data.data;
+            this.articleList = response.data.data.data;
+            this.total = response.data.data.totalCount;
           }.bind(this)
         )
-        .catch(
-          function(error) {
-            this.$Message.error("无权限");
-          }.bind(this)
-        );
+        .catch(function(error) {
+          alert(error);
+        });
     },
-    getHomeArticle() {
-      if (this.$route.params.title == null) {
-        this.axios({
-          method: "get",
-          url: "/public/interests"
-        })
-          .then(
-            function(response) {
-              this.homeArticle = response.data.data;
-            }.bind(this)
-          )
-          .catch(
-            function(error) {
-              this.$Message.error("无权限");
-            }.bind(this)
-          );
-      } else {
-        this.axios({
-          method: "get",
-          url: "/public/interests",
-          params: {
-            title: this.$route.params.title
-          }
-        })
-          .then(
-            function(response) {
-              this.homeArticle = response.data.data;
-              if (this.homeArticle.length == 0) {
-                this.flage = true;
-              } else {
-                this.flage = false;
-              }
-            }.bind(this)
-          )
-          .catch(
-            function(error) {
-              this.$Message.error("无权限");
-            }.bind(this)
-          );
-      }
+    pageSearch(e) {
+      this.pageInfo.page = e - 1;
+      this.getArticle({
+        pageInfo: this.pageInfo,
+      });
     }
-    // login(formLogin){
-    //     this.$refs[formLogin].validate((valid) => {
-    //         if(valid){
-    //             this.$store.dispatch('users/userLogin',{"user_name":this.formLogin.userName,"user_password":this.formLogin.password,"router":this.$router});
-    //         }
-    //     })
-    // }
   }
 };
 </script>
-<style>
-.box-flex .imgpic {
-  transition: 0.7s all;
-  opacity: 0.8;
-}
-
-.box-flex .imgpic:hover {
-  opacity: 1;
-  box-shadow: 1px 1px 20px #333;
-  transform: scale(1.1, 1.1);
-  cursor: pointer;
-}
-
-.lineThrou {
-  transition: 0.8s all;
-}
-
-.lineThrou:hover {
-  text-decoration: line-through;
-  cursor: pointer;
-}
-</style>

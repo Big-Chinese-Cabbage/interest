@@ -292,8 +292,10 @@ export default {
       this.user.name = e.name;
     },
     search() {
-      if (this.searchValue != null && this.searchValue != "") {
+      if(this.$route.name == "home" || this.$route.name == "page-home-title"|| this.$route.name == "page-home"){
         this.$router.push("/page/home/" + this.searchValue);
+      }else if(this.$route.name == "article-home"){
+        this.$router.push("/article" + "?searchValue=" + this.searchValue);
       }
     },
     menuSelect(e) {

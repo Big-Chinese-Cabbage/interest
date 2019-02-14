@@ -281,6 +281,14 @@ const routers = [
         meta: {
           title: "article"
         }
+      },
+      {
+        path: "detail/:id",
+        name: "article-detail-id",
+        component: resolve => require(["./views/article/pc/article-detail.vue"], resolve),
+        meta: {
+          title: "article"
+        }
       }
     ]
   }
