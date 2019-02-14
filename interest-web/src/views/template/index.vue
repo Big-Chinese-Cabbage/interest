@@ -46,6 +46,7 @@
 
 .layout-footer-center {
   text-align: center;
+  background: #fff;
 }
 
 .demo-spin-icon-load {
@@ -145,7 +146,7 @@
                   </div>
               </Menu>
             </Header>
-            <Content :style="{margin: '80px 0 0 0', background: '#fff'}">
+            <Content :style="{margin: '80px 0 40px 0'}">
                 <router-view></router-view>
             </Content>
             <Footer class="layout-footer-center">

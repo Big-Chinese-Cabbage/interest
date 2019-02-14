@@ -1,4 +1,7 @@
 <style scoped>
+  .content-background {
+    background: #fff;
+  }
   .content{
     word-wrap: break-word;
     word-break: break-all;
@@ -18,12 +21,11 @@
 </style>
 <template>
     <div id="mywork">
-	    <div class="page-header-main">
+	    <div class="page-header-main content-background">
 	      <div class="box-flex width-80 margin-auto margin-top-2 flex-direction-column flex-justify-center flex-items-center" >
 	        <div class="line-height-50 font-size-22">{{insterest.title}}</div>
 	        <div class="text-align-center margin-top-2">
 	        </div>
-            <!-- <div class="detailContent ql-editor" v-html="insterest.content" style="width: 80%;margin-top: 20px"></div> -->
             <div style="width: 80%;margin-top: 20px">
               <div class="ql-container">
                   <div class="ql-editor">

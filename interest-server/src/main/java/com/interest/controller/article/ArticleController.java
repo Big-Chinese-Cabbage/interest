@@ -2,6 +2,7 @@ package com.interest.controller.article;
 
 import com.interest.model.entity.PageResult;
 import com.interest.model.request.ArticleCreateRequest;
+import com.interest.model.response.ArticleDetailResponse;
 import com.interest.model.response.ArticleResponse;
 import com.interest.model.utils.PageWrapper;
 import com.interest.model.utils.ResponseWrapper;
@@ -31,6 +32,12 @@ public class ArticleController {
         PageWrapper pageWrapper = new PageWrapper(pageSize,page);
         PageResult pageResult = articleService.getArticle(searchContent,pageWrapper);
         return new ResponseWrapper<>(pageResult);
+    }
+
+    @GetMapping("/public/articles/article/{id}")
+    public ResponseWrapper<ArticleDetailResponse> getArticleById(@PathVariable("id") int id) {
+        ArticleDetailResponse articleDetailResponse = articleService.getArticleById(id);
+        return new ResponseWrapper<>(articleDetailResponse);
     }
 
 }

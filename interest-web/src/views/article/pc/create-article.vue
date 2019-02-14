@@ -1,4 +1,10 @@
 <style type="text/css">
+.content-background {
+  background: #fff;
+}
+.form {
+  padding: 20px;
+}
 .editor {
   width: 100%;
 }
@@ -7,8 +13,8 @@
 }
 </style>
 <template>
-	<div style="margin: 20px;">
-      <Form ref="entity" :model="entity" :rules="ruleNew" :label-width="80" >
+	<div class="content-background">
+      <Form class="form" ref="entity" :model="entity" :rules="ruleNew" :label-width="80" >
           <Form-item label="标题：" prop="title">
               <Input v-model="entity.title" />
           </Form-item>

@@ -28,6 +28,20 @@
         <result column="githuburl" property="githuburl"/>
     </resultMap>
 
+    <resultMap id="articleDetailResponse" type="com.interest.model.response.ArticleDetailResponse">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="click_rate" property="clickRate"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="top" property="top"/>
+        <result column="create_time" property="createTime"/>
+        <result column="userid" property="userid"/>
+        <result column="userName" property="userName"/>
+        <result column="userHeadImg" property="userHeadImg"/>
+        <result column="githuburl" property="githuburl"/>
+    </resultMap>
+
     <insert id="insertArticle" parameterType="ArticleEntity">
         insert into article(title,info,content,create_time,reply_time,userid)
         values (#{title},#{info},#{content},#{createTime},#{replyTime},#{userid})
@@ -55,6 +69,16 @@
                 title like CONCAT('%',#{searchContent},'%') or
                 info like CONCAT('%',#{searchContent},'%')
             </if>
+        </where>
+    </select>
+
+    <select id="getArticleById" resultMap="articleDetailResponse">
+        select a.id,a.title,a.content,a.click_rate,a.comment_count,a.create_time,a.userid,b.login_name userName,b.headimg userHeadImg,c.html_url githuburl
+        from article a
+        left join sys_user b on a.userid = b.id
+        left join user_github c on a.userid = c.userid
+        <where>
+            a.id = #{id}
         </where>
     </select>
 

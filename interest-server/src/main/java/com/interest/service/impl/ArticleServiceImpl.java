@@ -6,6 +6,7 @@ import com.interest.model.entity.ArticleEntity;
 import com.interest.model.entity.PageResult;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.request.ArticleCreateRequest;
+import com.interest.model.response.ArticleDetailResponse;
 import com.interest.model.response.ArticleResponse;
 import com.interest.model.utils.PageWrapper;
 import com.interest.model.utils.ResponseStatus;
@@ -62,6 +63,11 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleResponse> list = articleDao.getArticleList(searchContent, pageWrapper);
         int size = articleDao.getArticleSize(searchContent);
         return new PageResult(list,size);
+    }
+
+    @Override
+    public ArticleDetailResponse getArticleById(int id) {
+        return articleDao.getArticleById(id);
     }
 
     public String htmlText(String htmlStr) {
