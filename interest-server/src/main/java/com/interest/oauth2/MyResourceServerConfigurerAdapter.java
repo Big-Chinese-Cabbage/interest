@@ -30,8 +30,13 @@ public class MyResourceServerConfigurerAdapter extends ResourceServerConfigurerA
 		.antMatchers("/register").permitAll()
 		.antMatchers("/**/*.jpg","/**/*.png","/**/*.jpeg").permitAll()
 		.antMatchers("/users/**","/menus/**","/roles/**","/admin/**").hasRole("ADMIN")
+		.antMatchers("/**/*.html","/**/*.css","/**/*.js","/**/swagger-resources/**","/**/*.woff2","/**/v2/**").permitAll()
 		.anyRequest()
 		.authenticated();
+
+		http.cors()
+			.and()
+			.csrf().disable();
 
 	}
 
