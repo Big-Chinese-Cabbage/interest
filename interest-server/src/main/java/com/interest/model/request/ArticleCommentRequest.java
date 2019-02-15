@@ -1,43 +1,23 @@
-package com.interest.model.entity;
+package com.interest.model.request;
 
 import io.swagger.annotations.ApiModelProperty;
 
-/**
- * @author wanghuan
- */
-public class ArticleCommentEntity {
-
-    @ApiModelProperty("id")
-    private Integer id;
+public class ArticleCommentRequest {
 
     @ApiModelProperty("文章id")
     private Integer articleid;
 
-    @ApiModelProperty("用户id")
-    private Integer userid;
-
-    @ApiModelProperty("父级id")
+    @ApiModelProperty("一级回复不传值或者传null，二级回复必须传一级回复id")
     private Integer parentid;
 
     @ApiModelProperty("评论")
     private String comment;
 
-    @ApiModelProperty("评论时间")
-    private String createTime;
-
-    @ApiModelProperty("回复评论人id")
+    @ApiModelProperty("回复评论人id（一级回复无需传值）")
     private Integer replierId;
 
-    @ApiModelProperty("回复评论人的姓名")
+    @ApiModelProperty("回复评论人的姓名（一级回复无需传值）")
     private String replierName;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getArticleid() {
         return articleid;
@@ -45,14 +25,6 @@ public class ArticleCommentEntity {
 
     public void setArticleid(Integer articleid) {
         this.articleid = articleid;
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
     }
 
     public Integer getParentid() {
@@ -69,14 +41,6 @@ public class ArticleCommentEntity {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
     }
 
     public Integer getReplierId() {

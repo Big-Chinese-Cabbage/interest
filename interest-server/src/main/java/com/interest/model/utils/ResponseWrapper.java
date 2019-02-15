@@ -1,5 +1,7 @@
 package com.interest.model.utils;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 返回的JSON数据结构标准
  *
@@ -7,10 +9,13 @@ package com.interest.model.utils;
  */
 public class ResponseWrapper<T> {
 
+    @ApiModelProperty("状态码")
     private String status = ResponseStatus.OK.getValue();
 
+    @ApiModelProperty("信息")
     private String message = "success";
 
+    @ApiModelProperty("接口返回数据")
     private T data;
 
     public ResponseWrapper(ResponseStatus status, String message) {

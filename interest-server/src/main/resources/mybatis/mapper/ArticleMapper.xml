@@ -48,7 +48,7 @@
     </insert>
 
     <select id="getArticleList" resultMap="articleResponse">
-        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.login_name userName,b.headimg userHeadImg,c.html_url githuburl
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg,c.html_url githuburl
         from article a
         left join sys_user b on a.userid = b.id
         left join user_github c on a.userid = c.userid
@@ -73,7 +73,7 @@
     </select>
 
     <select id="getArticleById" resultMap="articleDetailResponse">
-        select a.id,a.title,a.content,a.click_rate,a.comment_count,a.create_time,a.userid,b.login_name userName,b.headimg userHeadImg,c.html_url githuburl
+        select a.id,a.title,a.content,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg,c.html_url githuburl
         from article a
         left join sys_user b on a.userid = b.id
         left join user_github c on a.userid = c.userid
@@ -81,5 +81,19 @@
             a.id = #{id}
         </where>
     </select>
+
+    <update id="addClickRateById">
+        update article set click_rate = click_rate+${number}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <update id="addCommentCountById">
+        update article set comment_count = comment_count+${number}
+        <where>
+            id = #{id}
+        </where>
+    </update>
 
 </mapper>
