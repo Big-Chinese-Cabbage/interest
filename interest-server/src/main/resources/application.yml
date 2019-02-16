@@ -4,9 +4,9 @@ server:
     context-path: /interest
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&useSSL=false&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull
-    username: root
-    password: wanghuan
+    url: jdbc:mysql://123.206.215.203:3306/interest_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull
+    username: interest_test
+    password: qwe123
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
