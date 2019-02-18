@@ -19,4 +19,8 @@ public interface ArticleDao {
     Integer getArticleSize(@Param("searchContent") String searchContent);
 
     ArticleDetailResponse getArticleById(@Param("id") int id);
+
+    void addClickRateById(@Param("number") int number,@Param("id") int id);
+
+    void addCommentCountById(@Param("number") int number,@Param("id") Integer articleid);
 }

@@ -15,6 +15,7 @@ import com.interest.service.UserDetailService;
 import com.interest.utils.DateUtil;
 import com.interest.utils.SecurityAuthenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private UserDetailService userDetailService;
+
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     @Override
     @Transactional
@@ -67,7 +71,18 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDetailResponse getArticleById(int id) {
+        threadPoolTaskExecutor.execute(()->{
+            articleDao.addClickRateById(1,id);
+        });
+
         return articleDao.getArticleById(id);
+    }
+
+    @Override
+    public void addCommentCountById(Integer articleid) {
+        threadPoolTaskExecutor.execute(()->{
+            articleDao.addCommentCountById(1,articleid);
+        });
     }
 
     public String htmlText(String htmlStr) {

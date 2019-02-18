@@ -1,5 +1,7 @@
 package com.interest.model.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 /**
@@ -8,8 +10,11 @@ import java.util.List;
  * @author wanghuan
  */
 public class PageResult {
+
+    @ApiModelProperty("分页数据")
     private List<?> data;
 
+    @ApiModelProperty("分页数据总量")
     private Integer totalCount;
 
     public PageResult(){}
