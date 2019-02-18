@@ -31,7 +31,7 @@ spring:
       - classpath:/resources/
       - classpath:/static/
       - classpath:/public/
-      - file:${interest.paths-properties.image}
+      - file :$ {interest.paths-properties.image}
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.interest.model
