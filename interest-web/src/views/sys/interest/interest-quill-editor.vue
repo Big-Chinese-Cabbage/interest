@@ -117,7 +117,7 @@
                 // 获取光标所在位置
                 let length = quill.getSelection().index;
                 // 插入图片  res.info为服务器返回的图片地址
-                quill.insertEmbed(length, 'image', res.url);
+                quill.insertEmbed(length, 'image', res.data.url);
                 // 调整光标到最后
                 //quill.setSelection(length + 1)
             },
