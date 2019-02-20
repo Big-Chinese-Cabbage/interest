@@ -9,4 +9,6 @@ public interface UserDetailService {
     UserDetailEntity getEntityByUserid(int userid);
 
     void updateArticleSign(int articleSign, int userid);
+
+    void updateUserInfo(int userId, String info, String location, String skill);
 }

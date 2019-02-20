@@ -5,6 +5,7 @@
   position: relative;
   border-radius: 4px;
   overflow: hidden;
+  min-width: 1000px;
 }
 
 .layout-logo {
@@ -85,7 +86,7 @@
 <template>
     <div class="layout">
         <Layout>
-            <Header style="position: fixed;width: 100%;background:#fff;padding:0 0;z-index: 1000; ">
+            <Header style="position: absolute;width: 100%;background:#fff;padding:0 0;z-index: 1000; ">
               <Menu mode="horizontal" theme="light" class="menu-layout" active-name="interest"
                     @on-select="m=>{menuSelect(m)}">
                   <div style="width: 95%;margin: 0 auto">
@@ -301,6 +302,7 @@ export default {
     },
     menuSelect(e) {
       if (e == 1) {
+        this.$router.push("/page/user");
       } else if (e == 2) {
         this.emailModal = true;
       } else if (e == 3) {

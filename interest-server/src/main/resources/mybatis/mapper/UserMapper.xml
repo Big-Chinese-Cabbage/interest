@@ -1,161 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.interest.dao.UserDao">
-	<resultMap id="userMap" type="com.interest.model.entity.UserEntity">
-		<id column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="login_name" property="loginName" />
-		<result column="password" property="password" />
-		<result column="email" property="email" />
-		<result column="usertype" property="usertype" />
-		<result column="headimg" property="headimg" />
-		<result column="url" property="url" />
-		<result column="create_time" property="createTime" />
-		<result column="githubid" property="githubid" />
-		<result column="qqid" property="qqid" />
-	</resultMap>
-	<!-- 获取user列表 -->
-	<select id="usersList" resultMap="userMap">
-	<![CDATA[select * from sys_user]]>
-		<where>
-			<if test="name != null and name != ''">
-				name = #{name}
-			</if>
-		</where>
-	    <![CDATA[ order by id desc ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
-	</select>
-	<!-- 获取user列表的总量 -->
-	<select id="usersSize" resultType="Integer">  
-	    <![CDATA[select count(*) from sys_user]]>
-		<where>
-			<if test="name != null and name != ''">
-				name = #{name}
-			</if>
-		</where>
-	</select>
-	<insert id="insert">
-		<if test="userEntity != null">
-			insert into sys_user (name,sex,age) values
-			(#{userEntity.name},#{userEntity.sex},#{userEntity.age})
-		</if>
-	</insert>
-	<delete id="del">
-		delete from sys_user
-		<where>
-			<if test="userEntity.id != null and userEntity.id != ''">id = #{userEntity.id}</if>
-			<if test="userEntity.name != null and userEntity.name != ''">and name = #{userEntity.name}</if>
-			<if test="userEntity.sex != null and userEntity.sex != ''">and sex = #{userEntity.sex }</if>
-			<if test="userEntity.age != null and userEntity.age != ''">and age = #{userEntity.age}</if>
-		</where>
-	</delete>
-	<update id="update">
-		update sys_user set name = #{name},sex = #{sex},age = #{age}
-		<where>
-			id = #{id}
-		</where>
-	</update>
-	<select id="select">
-		select * from sys_user
-		<where>
-			<if test="id != null">id = #{id}</if>
-			<if test="name != null">and name = #{name}</if>
-			<if test="sex != null">and sex = #{sex}</if>
-			<if test="age != null">and age = #{age}</if>
-		</where>
-	</select>
-	<select id="getUserEntityByLoginName" resultMap="userMap">
-		select * from sys_user
-		<where>
-			login_name = #{loginName}
-		</where>
-	</select>
-	<!-- 新建用户信息 -->
-	<insert id="insertUser" parameterType="UserEntity">
-		<selectKey keyProperty="id" resultType="java.lang.Integer"
-				   order="AFTER">
-			select LAST_INSERT_ID()
-		</selectKey>
-		insert into sys_user (name,email,usertype,headimg,url,create_time,githubid)
-		values
-		(#{name},#{email},#{usertype},#{headimg},#{url},#{createTime},#{githubid})
-	</insert>
-	<!-- 更新用户信息 -->
-	<update id="updateUser" parameterType="UserEntity">
-		update sys_user set
-		name = #{name},
-		password = #{password},
-		sex = #{sex},
-		age = #{age},
-		college = #{college},
-		info = #{info}
-		<where>
-			login_name = #{loginName}
-		</where>
-	</update>
-	<update id="updateUsertype">
-		update sys_user set
-		usertype = #{usertype}
-		<where>
-			login_name = #{loginName}
-		</where>
-	</update>
+    <resultMap id="userMap" type="com.interest.model.entity.UserEntity">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="usertype" property="usertype"/>
+        <result column="headimg" property="headimg"/>
+        <result column="url" property="url"/>
+        <result column="create_time" property="createTime"/>
+        <result column="githubid" property="githubid"/>
+        <result column="qqid" property="qqid"/>
+    </resultMap>
 
-	<update id="updateUsertypeById">
-		update sys_user set
-		usertype = #{usertype}
-		<where>
-			id = #{id}
-		</where>
-	</update>
-	<!-- 删除用户信息 -->
-	<delete id="deleteUsers">
-		delete from sys_user
-		<where>
-			<if test="groupId !=null">
-				id in
-				<foreach collection="groupId" item="item" index="index"
-					open="(" separator="," close=")">
-					#{item}
-				</foreach>
-			</if>
-		</where>
-	</delete>
-	<select id="getUserEntityById" resultMap="userMap">
-		SELECT * FROM sys_user
-		<where>
-			id = #{id}
-		</where>
-	</select>
+    <resultMap id="userInfo" type="com.interest.model.response.UserInfoResponse">
+        <id column="headimg" property="headimg"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="email" property="email"/>
+        <result column="info" property="info"/>
+        <result column="location" property="location"/>
+        <result column="skill" property="skill"/>
+    </resultMap>
+    <!-- 获取user列表 -->
+    <select id="usersList" resultMap="userMap">
+        <![CDATA[select * from sys_user]]>
+        <where>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+        </where>
+        <![CDATA[ order by id desc ]]>
+        <if test="pageSize != null and start != null ">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <!-- 获取user列表的总量 -->
+    <select id="usersSize" resultType="Integer">
+        <![CDATA[select count(*) from sys_user]]>
+        <where>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+        </where>
+    </select>
+    <insert id="insert">
+        <if test="userEntity != null">
+            insert into sys_user (name,sex,age) values
+            (#{userEntity.name},#{userEntity.sex},#{userEntity.age})
+        </if>
+    </insert>
+    <delete id="del">
+        delete from sys_user
+        <where>
+            <if test="userEntity.id != null and userEntity.id != ''">id = #{userEntity.id}</if>
+            <if test="userEntity.name != null and userEntity.name != ''">and name = #{userEntity.name}</if>
+            <if test="userEntity.sex != null and userEntity.sex != ''">and sex = #{userEntity.sex }</if>
+            <if test="userEntity.age != null and userEntity.age != ''">and age = #{userEntity.age}</if>
+        </where>
+    </delete>
+    <update id="update">
+        update sys_user set name = #{name},sex = #{sex},age = #{age}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <select id="select">
+        select * from sys_user
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="name != null">and name = #{name}</if>
+            <if test="sex != null">and sex = #{sex}</if>
+            <if test="age != null">and age = #{age}</if>
+        </where>
+    </select>
+    <select id="getUserEntityByLoginName" resultMap="userMap">
+        select * from sys_user
+        <where>
+            login_name = #{loginName}
+        </where>
+    </select>
+    <!-- 新建用户信息 -->
+    <insert id="insertUser" parameterType="UserEntity">
+        <selectKey keyProperty="id" resultType="java.lang.Integer"
+                   order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_user (name,email,usertype,headimg,url,create_time,githubid)
+        values
+        (#{name},#{email},#{usertype},#{headimg},#{url},#{createTime},#{githubid})
+    </insert>
+    <!-- 更新用户信息 -->
+    <update id="updateUser" parameterType="UserEntity">
+        update sys_user set
+        name = #{name},
+        password = #{password},
+        sex = #{sex},
+        age = #{age},
+        college = #{college},
+        info = #{info}
+        <where>
+            login_name = #{loginName}
+        </where>
+    </update>
+    <update id="updateUsertype">
+        update sys_user set
+        usertype = #{usertype}
+        <where>
+            login_name = #{loginName}
+        </where>
+    </update>
 
-	<select id="getEntityByGithubid" resultMap="userMap">
-		select * from sys_user
-		<where>
-			githubid = #{githubid}
-		</where>
-	</select>
+    <update id="updateUsertypeById">
+        update sys_user set
+        usertype = #{usertype}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <!-- 删除用户信息 -->
+    <delete id="deleteUsers">
+        delete from sys_user
+        <where>
+            <if test="groupId !=null">
+                id in
+                <foreach collection="groupId" item="item" index="index"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </delete>
+    <select id="getUserEntityById" resultMap="userMap">
+        SELECT * FROM sys_user
+        <where>
+            id = #{id}
+        </where>
+    </select>
 
-	<select id="getEntityByQqid" resultMap="userMap">
-		select * from sys_user
-		<where>
-			qqid = #{qqid}
-		</where>
-	</select>
+    <select id="getEntityByGithubid" resultMap="userMap">
+        select * from sys_user
+        <where>
+            githubid = #{githubid}
+        </where>
+    </select>
 
-	<insert id="insertUserByQq" parameterType="UserEntity">
-		<selectKey keyProperty="id" resultType="java.lang.Integer"
-				   order="AFTER">
-			select LAST_INSERT_ID()
-		</selectKey>
-		insert into sys_user (name,usertype,headimg,create_time,qqid)
-		values
-		(#{name},#{usertype},#{headimg},#{createTime},#{qqid})
-	</insert>
+    <select id="getEntityByQqid" resultMap="userMap">
+        select * from sys_user
+        <where>
+            qqid = #{qqid}
+        </where>
+    </select>
+
+    <insert id="insertUserByQq" parameterType="UserEntity">
+        <selectKey keyProperty="id" resultType="java.lang.Integer"
+                   order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_user (name,usertype,headimg,create_time,qqid)
+        values
+        (#{name},#{usertype},#{headimg},#{createTime},#{qqid})
+    </insert>
 
     <select id="getALl" resultMap="userMap">
         select * from sys_user
     </select>
+
+    <select id="getUserInfoById" resultMap="userInfo">
+        select a.headimg,a.name,a.email,a.url,b.info,b.location,b.skill
+        from sys_user a
+        left join sys_user_detail b on a.id = b.userid
+        <where>
+            a.id = #{userId}
+        </where>
+    </select>
+
+    <update id="updateUserInfo">
+        update sys_user set name = #{name},url = #{url},email = #{email}
+        <where>
+            id = #{userId}
+        </where>
+    </update>
 
 </mapper>

@@ -35,4 +35,9 @@ public class UserDetailServiceImpl implements UserDetailService {
     public void updateArticleSign(int articleSign, int userid) {
         userDetailDao.updateUseridArticleSign(articleSign,userid);
     }
+
+    @Override
+    public void updateUserInfo(int userId, String info, String location, String skill) {
+        userDetailDao.updateUserInfo(userId,info,location,skill);
+    }
 }

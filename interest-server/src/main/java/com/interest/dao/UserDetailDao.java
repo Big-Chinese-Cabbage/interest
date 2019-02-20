@@ -14,4 +14,6 @@ public interface UserDetailDao {
     UserDetailEntity getEntityByUserid(@Param("userid") int userid);
 
     void updateUseridArticleSign(@Param("articleSign") int articleSign,@Param("userid") int userid);
+
+    void updateUserInfo(@Param("userId")int userId,@Param("info") String info,@Param("location") String location,@Param("skill") String skill);
 }

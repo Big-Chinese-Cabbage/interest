@@ -34,7 +34,8 @@ axios.interceptors.response.use(
     switch (response.data.status){
       case "4001":
         store.commit("users/clearUser");
-        location.reload();
+        //location.reload();
+        setTimeout("location.reload()",100);
         router.replace({
           path: "/",
         });
@@ -53,7 +54,8 @@ axios.interceptors.response.use(
         case 401:
           // 401 清除token信息并跳转到登录页面
           store.commit("users/clearUser");
-          location.reload();
+          //location.reload();
+          setTimeout("location.reload()",100);
           router.replace({
             path: "/",
           });

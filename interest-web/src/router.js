@@ -89,7 +89,6 @@ const routers = [
           title: "card"
         }
       },
-
       {
         path: "messages",
         name: "page-messages",
@@ -97,6 +96,24 @@ const routers = [
           require(["./views/template/messages.vue"], resolve),
         meta: {
           title: "messages"
+        }
+      },
+      {
+        path: "user",
+        name: "page-user",
+        component: resolve =>
+          require(["./views/template/user-info.vue"], resolve),
+        meta: {
+          title: "user"
+        }
+      },
+      {
+        path: "user/:id",
+        name: "page-user-id",
+        component: resolve =>
+          require(["./views/template/user-page.vue"], resolve),
+        meta: {
+          title: "user"
         }
       }
     ]

@@ -7,6 +7,9 @@ import com.interest.dao.RelationDao;
 import com.interest.dao.UserDao;
 import com.interest.model.entity.RelationEntity;
 import com.interest.model.entity.UserEntity;
+import com.interest.model.request.UserInfoRequest;
+import com.interest.model.response.UserInfoResponse;
+import com.interest.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private RelationDao relationDao;
+
+	@Autowired
+	private UserDetailService userDetailService;
 	
 	@Override
 	public void insert(UserEntity userEntity) {
@@ -96,6 +102,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserEntity getEntityById(int userid) {
 		return userDao.getUserEntityById(userid);
+	}
+
+	@Override
+	public UserInfoResponse getUserInfoById(int userId) {
+		return userDao.getUserInfoById(userId);
+	}
+
+	@Override
+	public void updateUserInfoByUserId(int userId, UserInfoRequest userInfoRequest) {
+		userDao.updateUserInfo(userId,userInfoRequest.getName(),userInfoRequest.getUrl(),userInfoRequest.getEmail());
+		userDetailService.updateUserInfo(userId,userInfoRequest.getInfo(),userInfoRequest.getLocation(),userInfoRequest.getSkill());
 	}
 
 }
