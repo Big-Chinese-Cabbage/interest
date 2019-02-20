@@ -22,7 +22,7 @@
 	</select>
 	<!-- 新建角色信息 -->
 	<insert id="insertRole">
-		insert into sys_role (role,name,modules,`describe`)
+		insert into sys_role (role,name,modules,describe)
 		values
 		(#{roleEntity.role},#{roleEntity.name},#{roleEntity.modules},#{roleEntity.describe})
 	</insert>
@@ -33,7 +33,7 @@
 		name = #{roleEntity.name},
 		modules =
 		#{roleEntity.modules},
-		`describe` =
+		describe =
 		#{roleEntity.describe}
 		<where>
 			id = #{roleEntity.id}
@@ -60,7 +60,7 @@
 	</select>
 	<!-- 通过UserId得到对应的role -->
 	<select id="getRolesByUserId" resultType="String">
-		select `role` from
+		select role from
 		sys_role where id in (select role_id from r_user_role where user_id =
 		#{id})
 	</select>

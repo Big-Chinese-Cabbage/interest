@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+#  db:
+#    image: postgres:11-alpine
+#    volumes:
+#      - ./data:/var/lib/postgresql/data
+#    restart: always
+#    environment:
+#      - POSTGRESQL_USER=pgsql
+#      - POSTGRESQL_PASSWORD=pgsql
+#      - POSTGRESQL_DATABASE=briver
+#    ports:
+#      - "5432:5432"
+#
+#  web:
+#    image: nginx:1.15-alpine
+#    volumes:
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - ./nginx/html:/usr/share/nginx/html
+#    restart: always
+#    ports:
+#      - "8080:80"
+      
+  redis:
+    image: redis:5.0.3-alpine
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    restart: always
+    command: redis-server --requirepass 123456
+    ports:
+      - "6379:6379"
+
+#  openjdk:
+#    image: openjdk:8-jdk-alpine
+

@@ -2,23 +2,34 @@ server:
   port: 8080
   servlet:
     context-path: /interest
+
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&useSSL=false&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull
+#    username: root
+#    password: wanghuan
+#    hikari:
+#      minimum-idle: 5
+#      maximum-pool-size: 15
+#      connection-test-query: SELECT 1
+#      max-lifetime: 1800000
+#      connection-timeout: 30000
+#      pool-name: DatebookHikariCP
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&useSSL=false&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull
-    username: root
-    password: wanghuan
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 15
-      connection-test-query: SELECT 1
-      max-lifetime: 1800000
-      connection-timeout: 30000
-      pool-name: DatebookHikariCP
+    initialization-mode: always
+    platform: hsqldb
+    url:  jdbc:hsqldb:file:./data/intestdb
+    username: sa
+    data-password:
+    driver-class-name: org.hsqldb.jdbcDriver
+    sql-script-encoding: UTF-8
+
   redis:
     database: 0
-    host: 127.0.0.1
+    host: 10.140.1.106
     port: 6379
-    password: null
+    password: 123456
     timeout: 5000ms
     jedis:
       pool:
@@ -32,12 +43,13 @@ spring:
       - classpath:/static/
       - classpath:/public/
       - file:${interest.properties.paths-properties.image}
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.interest.model
 
 logging:
-  file: D:/interest/file/log/interest.log
+  file: ./log/interest.log
   level:
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
@@ -47,7 +59,7 @@ logging:
 interest:
   properties:
     paths-properties:
-      image: D:/interest/file/image
+      image: ./file/image
 #      domain-name: http://www.lovemtt.com/interest
       domain-name: http://127.0.0.1:8080/interest
 github:

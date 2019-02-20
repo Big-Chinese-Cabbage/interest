@@ -38,8 +38,8 @@
 	</select>
 	<insert id="insert">
 		<if test="userEntity != null">
-			insert into sys_user (name,sex,age) values
-			(#{userEntity.name},#{userEntity.sex},#{userEntity.age})
+			insert into sys_user (name,login_name,password,email,usertype,headimg,url) values
+			(#{userEntity.name},#{userEntity.loginName},#{userEntity.password},#{userEntity.email},#{userEntity.usertype},#{userEntity.headimg},#{userEntity.url})
 		</if>
 	</insert>
 	<delete id="del">
@@ -47,12 +47,10 @@
 		<where>
 			<if test="userEntity.id != null and userEntity.id != ''">id = #{userEntity.id}</if>
 			<if test="userEntity.name != null and userEntity.name != ''">and name = #{userEntity.name}</if>
-			<if test="userEntity.sex != null and userEntity.sex != ''">and sex = #{userEntity.sex }</if>
-			<if test="userEntity.age != null and userEntity.age != ''">and age = #{userEntity.age}</if>
 		</where>
 	</delete>
 	<update id="update">
-		update sys_user set name = #{name},sex = #{sex},age = #{age}
+		update sys_user set name = #{name},password = #{password},email = #{email}
 		<where>
 			id = #{id}
 		</where>
@@ -62,8 +60,7 @@
 		<where>
 			<if test="id != null">id = #{id}</if>
 			<if test="name != null">and name = #{name}</if>
-			<if test="sex != null">and sex = #{sex}</if>
-			<if test="age != null">and age = #{age}</if>
+			<if test="login_name != null">and login_name = #{loginName}</if>
 		</where>
 	</select>
 	<select id="getUserEntityByLoginName" resultMap="userMap">
@@ -87,8 +84,6 @@
 		update sys_user set
 		name = #{name},
 		password = #{password},
-		sex = #{sex},
-		age = #{age},
 		college = #{college},
 		info = #{info}
 		<where>

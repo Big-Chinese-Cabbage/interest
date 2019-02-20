@@ -1,6 +1,6 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
-D:/
+log
 ### STS ###
 .apt_generated
 .classpath
@@ -24,3 +24,5 @@ nbdist/
 .nb-gradle/
 
 /**/*.yml
+
+data

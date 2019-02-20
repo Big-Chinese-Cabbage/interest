@@ -2,8 +2,8 @@
 
 ## 项目版本升级
 
-1. spring boot 2.0.0.M5 --> spring boot 2.0.0.M7
-2. spring security 4 --> spring security 5
+1. spring boot 2.1.0
+2. spring security 5
 3. 用户token信息，从内存存储变为redis存储
 4. 客户的详细资料由手动在MyAuthorizationServerConfigurerAdapter中配置的，改为使用数据库配置（添加了oauth_client_details表）
 5. 用户密码加密由md5加密改为BCrypt加密
@@ -15,9 +15,6 @@ spring boot项目,与我的另外一个前端项目[interest-web](https://github
 
 ## 项目展示
 
-地址：http://www.lovemtt.com/
-可使用github登录
-（第一次打开可能会有点慢）
 
 项目目录结构
 --
@@ -60,7 +57,7 @@ spring boot项目,与我的另外一个前端项目[interest-web](https://github
 
 ## 数据库：
 
-使用mysql。（表与表数据在interest-server\src\main\resources\createTable中,用户密码为BCrypt加密，用户admin的密码为admin）
+使用mysql。（表与表数据在interest-server\src\main\resources\中的data.sql和schema.sql,用户密码为BCrypt加密，用户admin的密码为admin）
 
 **设计思路** 
 
@@ -78,11 +75,11 @@ spring boot项目,与我的另外一个前端项目[interest-web](https://github
   
  **数据库配置：**
  
- 数据库mysql（表与表数据在interest-server\src\main\resources\createTable中,用户密码为BCrypt加密，用户admin的密码为admin） 
+ 内存数据库hsqldb（表与表数据在interest-server\src\main\resources\schema.sql, data.sql,用户密码为BCrypt加密，用户admin的密码为admin） 
  
  **缓存配置：** 
  
-  配置redis，且redis服务必须开启。
+  配置redis，且redis服务必须开启（通过docker开启）。
  
 ## 注：
 

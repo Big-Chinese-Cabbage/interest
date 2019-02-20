@@ -2,7 +2,8 @@ var webpack = require('webpack');
 
 module.exports = {
   // 基本路径
-  publicPath: "/",
+  // publicPath: "/",
+  baseUrl: "/",
   // 当运行 vue-cli-service build 时生成的生产环境构建文件的目录。
   outputDir: "dist",
   // eslint-loader 是否在保存的时候检查
