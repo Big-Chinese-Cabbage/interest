@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.ArticleDao">
+    <resultMap id="articleMap" type="com.interest.model.entity.ArticleEntity">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="info" property="info"/>
+        <result column="content" property="content"/>
+        <result column="click_rate" property="clickRate"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="top" property="top"/>
+        <result column="create_time" property="createTime"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="userid" property="userid"/>
+    </resultMap>
+
+    <resultMap id="articleResponse" type="com.interest.model.response.ArticleResponse">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="info" property="info"/>
+        <result column="click_rate" property="clickRate"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="top" property="top"/>
+        <result column="create_time" property="createTime"/>
+        <result column="userid" property="userid"/>
+        <result column="userName" property="userName"/>
+        <result column="userHeadImg" property="userHeadImg"/>
+        <result column="githuburl" property="githuburl"/>
+    </resultMap>
+
+    <resultMap id="articleDetailResponse" type="com.interest.model.response.ArticleDetailResponse">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="click_rate" property="clickRate"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="top" property="top"/>
+        <result column="create_time" property="createTime"/>
+        <result column="userid" property="userid"/>
+        <result column="userName" property="userName"/>
+        <result column="userHeadImg" property="userHeadImg"/>
+        <result column="githuburl" property="githuburl"/>
+    </resultMap>
+
+    <insert id="insertArticle" parameterType="ArticleEntity">
+        insert into article(title,info,content,create_time,reply_time,userid)
+        values (#{title},#{info},#{content},#{createTime},#{replyTime},#{userid})
+    </insert>
+
+    <select id="getArticleList" resultMap="articleResponse">
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg,c.html_url githuburl
+        from article a
+        left join sys_user b on a.userid = b.id
+        left join user_github c on a.userid = c.userid
+        <where>
+            <if test="searchContent != '' and searchContent != null">
+                a.title like CONCAT('%',#{searchContent},'%') or
+                a.info like CONCAT('%',#{searchContent},'%')
+            </if>
+        </where>
+        order by a.reply_time desc
+        limit #{pageWrapper.start},#{pageWrapper.pageSize}
+    </select>
+
+    <select id="getArticleSize" resultType="Integer">
+        select count(1) from article
+        <where>
+            <if test="searchContent != '' and searchContent != null">
+                title like CONCAT('%',#{searchContent},'%') or
+                info like CONCAT('%',#{searchContent},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getArticleById" resultMap="articleDetailResponse">
+        select a.id,a.title,a.content,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg,c.html_url githuburl
+        from article a
+        left join sys_user b on a.userid = b.id
+        left join user_github c on a.userid = c.userid
+        <where>
+            a.id = #{id}
+        </where>
+    </select>
+
+    <update id="addClickRateById">
+        update article set click_rate = click_rate+${number}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <update id="addCommentCountById">
+        update article set comment_count = comment_count+${number}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>

@@ -2,9 +2,12 @@ package com.interest.controller.sys;
 
 import com.interest.model.entity.PageResult;
 import com.interest.model.entity.UserEntity;
+import com.interest.model.request.UserInfoRequest;
+import com.interest.model.response.UserInfoResponse;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.service.UserService;
 import com.interest.utils.SecurityAuthenUtil;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -102,5 +105,21 @@ public class UserController {
     public ResponseWrapper<List<String>> deleteUsers(@RequestBody List<String> groupId) {
         userService.deleteUsers(groupId);
         return new ResponseWrapper<>(groupId);
+    }
+
+    @GetMapping("/users/user/info")
+    @ApiOperation("获取用户详情")
+    public ResponseWrapper<UserInfoResponse> getUserInfo(){
+        int userId = SecurityAuthenUtil.getId();
+        UserInfoResponse userInfoResponse = userService.getUserInfoById(userId);
+        return new ResponseWrapper<>(userInfoResponse);
+    }
+
+    @PutMapping("/users/user/info")
+    @ApiOperation("修改用户详情")
+    public ResponseWrapper<UserInfoResponse> updateUserInfo(@RequestBody UserInfoRequest userInfoRequest){
+        int userId = SecurityAuthenUtil.getId();
+        userService.updateUserInfoByUserId(userId,userInfoRequest);
+        return new ResponseWrapper<>(userInfoRequest);
     }
 }

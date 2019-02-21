@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.UserDetailDao">
+    <resultMap id="userDetailMap" type="com.interest.model.entity.UserDetailEntity">
+        <id column="id" property="id"/>
+        <result column="userid" property="userid"/>
+        <result column="article_sign" property="articleSign"/>
+        <result column="info" property="info"/>
+        <result column="location" property="location"/>
+        <result column="skill" property="skill"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="UserDetailEntity">
+		insert into sys_user_detail(userid)
+		values (#{userid})
+	</insert>
+
+    <update id="updateArticleSign">
+		update sys_user_detail set article_sign = #{articleSign}
+	</update>
+
+    <select id="getEntityByUserid" resultMap="userDetailMap">
+        select * from sys_user_detail
+        <where>
+            userid = #{userid}
+        </where>
+    </select>
+
+    <update id="updateUseridArticleSign">
+        update sys_user_detail set article_sign = #{articleSign}
+        <where>
+            userid = #{userid}
+        </where>
+    </update>
+
+    <update id="updateUserInfo">
+        update sys_user_detail set info = #{info},location = #{location},skill = #{skill}
+        <where>
+            userid = #{userId}
+        </where>
+    </update>
+
+</mapper>

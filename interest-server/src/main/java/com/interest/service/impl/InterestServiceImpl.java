@@ -7,7 +7,7 @@ import com.interest.dao.InterestDao;
 import com.interest.model.entity.InterestEntity;
 import com.interest.model.response.BannerResponse;
 import com.interest.model.response.InterestResponse;
-import com.interest.properties.MyProperties;
+import com.interest.properties.PathsProperties;
 import com.interest.utils.DateUtil;
 import com.interest.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class InterestServiceImpl implements InterestService {
 	private InterestDao interestDao;
 
 	@Autowired
-	private MyProperties myProperties;
+	private PathsProperties pathsProperties;
 
 	@Override
 	public List<InterestResponse> getInsterest(String title) {
@@ -43,8 +43,8 @@ public class InterestServiceImpl implements InterestService {
 		String pictureUrl = null;
 		try {
 			if (picture != null) {
-				String fileName = ImageUtil.saveImg(picture, myProperties.getPathsProperties().getImage() + path);
-				pictureUrl = myProperties.getPathsProperties().getDomainName() + path + "/" + fileName;
+				String fileName = ImageUtil.saveImg(picture, pathsProperties.getImage() + path);
+				pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
