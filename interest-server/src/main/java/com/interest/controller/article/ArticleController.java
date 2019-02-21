@@ -6,14 +6,23 @@ import com.interest.model.response.ArticleDetailResponse;
 import com.interest.model.utils.PageWrapper;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.service.ArticleService;
+import com.interest.service.InterestService;
+import com.interest.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private InterestService interestService;
 
     @PostMapping("/article")
     public ResponseWrapper<String> createArticle(@RequestBody ArticleCreateRequest articleCreateRequest) {
@@ -34,6 +43,13 @@ public class ArticleController {
     public ResponseWrapper<ArticleDetailResponse> getArticleById(@PathVariable("id") int id) {
         ArticleDetailResponse articleDetailResponse = articleService.getArticleById(id);
         return new ResponseWrapper<>(articleDetailResponse);
+    }
+
+    @PostMapping("/upload/picture")
+    public ResponseWrapper<String> uploadPicture(@RequestParam("picture") MultipartFile picture) {
+
+        String pictureUrl = interestService.savePicture(picture);
+        return new ResponseWrapper<>(pictureUrl);
     }
 
 }

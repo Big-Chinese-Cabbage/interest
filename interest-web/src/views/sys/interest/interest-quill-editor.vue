@@ -7,7 +7,7 @@
             id="interest-editor"
             ref="upload"
             :headers="headers"
-            action="/interest/admin/interest/upload/picture"
+            action="/interest/upload/picture"
             name="picture"
             :show-upload-list="false"
             :before-upload="handleBeforeUpload"
@@ -120,7 +120,7 @@
                 let length = quill.getSelection().index;
                 // 插入图片  res.info为服务器返回的图片地址
                 console.log(res);
-                quill.insertEmbed(length, 'image', res.data.url);
+                quill.insertEmbed(length, 'image', res.data);
                 // 调整光标到最后
                 //quill.setSelection(length + 1)
             },

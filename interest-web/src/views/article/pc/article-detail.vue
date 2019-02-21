@@ -43,7 +43,7 @@
 
     .comment-section {
         flex-direction: column;
-        margin-top: 30px;
+        margin-top: 5px;
         background-color: #fff;
         overflow: hidden;
 
@@ -77,9 +77,75 @@
                 display: flex;
                 padding: 12px 15px;
                 border-bottom: 1px solid #f0f0f0;
+                flex-direction: column;
 
                 .user {
                     flex: 0 0 26px;
+
+                    .avatar {
+                        margin-right: 6px;
+                        border-radius: 20px;
+                        width: 26px;
+                        height: 26px;
+                        float: left;
+                    }
+                    .title-info {
+                        font-size: 12px;
+                        float:left;
+                        margin-top: 4px;
+
+                        .user-name {
+                            margin: 0 4px;
+                            color: #666;
+
+                            &:hover {
+                                color: #385f8a;
+                            }
+                        }
+                    }
+                    .title-info-other {
+                        font-size: 12px;
+                        float:left;
+                        margin: 4px 0 0 20px;
+
+                        a {
+                            margin: 0 5px;
+                        }
+                    }
+                }
+                .reply-child-list {
+                    margin-left: 32px;
+                    border-left: 4px solid #c5c5c5;
+
+                    .title-info {
+                        font-size: 12px;
+                        float:left;
+                        margin-top: 4px;
+
+                        .user-name {
+                            margin: 0 4px;
+                            color: #666;
+
+                            &:hover {
+                                color: #385f8a;
+                            }
+                        }
+                        .avatar {
+                            margin-right: 6px;
+                            border-radius: 20px;
+                            width: 26px;
+                            height: 26px;
+                            float: left;
+                        }
+                        .title-info-right {
+                            float: left;
+                            margin-top: 4px;
+
+                            .reply-time {
+                                padding: 0 20px;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -93,19 +159,6 @@
 
                 text {
                     margin-left: 20px;
-                }
-            }
-
-            .title-info {
-                font-size: 12px;
-
-                .user-name {
-                    margin: 0 4px;
-                    color: #666;
-
-                    &:hover {
-                        color: #385f8a;
-                    }
                 }
             }
 
@@ -167,47 +220,65 @@
                     </div>
                 </div>
 
-                <div class="comment-append-section">
-                    <Input v-model="commentAppend" v-show="!appendActive" @on-focus="toggleInput"
+                <div class="comment-append-section" id="commentAppendArea">
+                    <!-- <Input v-model="commentAppend" v-show="!appendActive" @on-focus="toggleInput"
                             prefix="ios-create" placeholder="添加评论" />
 
                     <Input v-show="appendActive" v-model="commentAppend"
                            @on-blur="toggleInput" ref="commentInputDom"
-                           type="textarea" :autosize="{minRows: 3,maxRows: 10}" placeholder="添加评论" />
+                           type="textarea" :autosize="{minRows: 3,maxRows: 10}" placeholder="添加评论" /> -->
+                    <Input v-model="commentAppend" @on-blur="toggleInput" @on-focus="focusInput" ref="commentInputDom" type="textarea" :rows="commentAppendInput" placeholder="添加评论" />
 
-                    <Button v-show="appendActive" style="margin-top: 10px" type="primary">发表评论</Button>
+                    <Button style="margin-top: 10px" type="primary" @click="publishComment()">发表评论</Button>
                 </div>
 
                 <div class="comment-section">
-                    <div class="reply-count">
+                    <!-- <div class="reply-count">
                         {{total}}条回复
-                    </div>
+                    </div> -->
 
                     <ul class="reply-list">
                         <li v-for="(comment, index) in comments" class="reply-item" :key="comment.id">
-                            <div class="user">
-                                <img class="avatar" :src="comment.userHeadImg" :title="comment.replierName" />
-                            </div>
-
-                            <div class="reply-info">
-                                <div class="title-info">
-                                    <span class="user-name">{{comment.replierName}}</span>
-                                    <span># {{index + 1}} 楼 • {{comment.creatTimeBy}}</span>
-                                    <!--<div v-if="reply.ups && reply.ups.length" class="up-info">
-                                        <image src="../../static/up.svg" mode=""></image>
-                                        <span class="up-count">{{reply.ups.length}}</span>
-                                    </div>-->
-
+                                <div class="user">
+                                    <img class="avatar" :src="comment.userHeadImg" :title="comment.userName" />
+                                    <div class="title-info">
+                                        <span class="user-name">{{comment.userName}}</span>
+                                        <span># {{index + 1}} 楼 • {{comment.creatTimeBy}}</span>
+                                    </div>
+                                    <div class="title-info-other">
+                                        <span>
+                                            <a v-show="!comment.showContent" @click="changeContent(index)">查看回复({{comment.childCommentsCount}})</a>
+                                            <a v-show="comment.showContent" @click="changeContent(index)">收起回复</a>
+                                            <a @click="writeComment(comment,1)">回复</a>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="reply-content">
-                                    {{comment.comment}}
+                                <div class="reply-info">
+                                    <div class="reply-content">
+                                        {{comment.comment}}
+                                    </div>
                                 </div>
-                            </div>
+                            <ul v-show="comment.showContent" class="reply-child-list">
+                                <li v-for="(replyComment,replyIndex) in comment.childComments" class="reply-item" :key="replyComment.id">
+                                    <div class="reply-info">
+                                        <div class="title-info">
+                                            <img class="avatar" :src="replyComment.userHeadImg" :title="replyComment.userName" />
+                                            <div class="title-info-right">
+                                                <span class="user-name">{{replyComment.userName}}</span>
+                                                <span>回复</span>
+                                                <span class="user-name">{{replyComment.replierName}}:</span>
+                                                <span>{{replyComment.comment}}</span>
+                                                <span class="reply-time">({{replyComment.creatTimeBy}})</span>
+                                                <a @click="writeComment(replyComment,2)">回复</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
 
-                    <Page v-if="total > 0" class="pagin" :total="total"
-                          size="small" show-elevator  />
+                    <Page v-if="total > 10" class="pagin" :total="total" size="small" show-elevator @on-change="e=>{pageSearch(e)}" />
                 </div>
             </div>
         </div>
@@ -230,13 +301,20 @@
                     userHeadImg: "",
                     githuburl: ""
                 },
-
                 comments: [],
                 page: 0,
                 pageSize: 10,
                 total: 0,
                 commentAppend: '',
-                appendActive: false
+                commentAppendInput:1,
+                appendActive: false,
+                articleComment: {
+                    articleid: null,
+                    parentid: null,
+                    comment: null,
+                    replierId: null,
+                    replierName: null
+                }
             };
         },
         mounted() {
@@ -271,7 +349,20 @@
                 this.article.userHeadImg = e.userHeadImg;
                 this.article.githuburl = e.githuburl;
             },
-
+            articleCommentSet(e) {
+                this.articleComment.articleid = e.articleid;
+                this.articleComment.parentid = e.parentid;
+                this.articleComment.comment = e.comment;
+                this.articleComment.replierId = e.replierId;
+                this.articleComment.replierName = e.replierName;
+            },
+            articleCommentInit() {
+                this.articleComment.articleid = null;
+                this.articleComment.parentid = null;
+                this.articleComment.comment = null;
+                this.articleComment.replierId = null;
+                this.articleComment.replierName = null;
+            },
             getComments() {
                 this.axios({
                     method: 'get',
@@ -286,6 +377,10 @@
                         let data = response.data.data;
                         for (let comment of data.data) {
                             comment.creatTimeBy = this.latestTimeFormat(comment.createTime)
+                            comment.showContent = false;
+                            for (let replyComment of comment.childComments) {
+                                replyComment.creatTimeBy = this.latestTimeFormat(replyComment.createTime);
+                            }
                         }
                         this.comments = data.data;
                         this.total = data.totalCount;
@@ -295,28 +390,81 @@
                     }.bind(this)
                 );
             },
-
-            toggleInput(event) {
-                console.log(event.target);
-                this.appendActive = !this.appendActive;
-                /*if (event.type === 'focus') {
-                    this.$refs.commentInputDom.$refs.textarea.focus();
-                }*/
+            focusInput(event){
+                this.commentAppendInput = 3;
             },
+            writeComment(e,sign){
+                this.commentAppendInput = 3;
 
+                var anchor = this.$el.querySelector("#commentAppendArea")
+                document.body.scrollTop = anchor.offsetTop; // chrome
+                this.appendActive = true;
+                //document.documentElement.scrollTop = anchor.offsetTop; // firefox
+
+                if(sign == 1){
+                    this.articleComment.articleid = this.articleId;
+                    this.articleComment.parentid = e.id;
+                    this.articleComment.comment = null;
+                    this.articleComment.replierId = e.userid;
+                    this.articleComment.replierName = e.userName;
+                }else if(sign == 2){
+                    this.articleComment.articleid = this.articleId;
+                    this.articleComment.parentid = e.parentid;
+                    this.articleComment.comment = null;
+                    this.articleComment.replierId = e.userid;
+                    this.articleComment.replierName = e.userName;
+                }
+                this.commentAppend = "[reply]"+e.userName+"[/reply]\n";
+            },
             publishComment() {
+                if (this.axios.defaults.headers.common["Authorization"] == null ||this.axios.defaults.headers.common["Authorization"] == ""){
+                    this.$Message.error('请登录');
+                    return;
+                }
+                if(this.commentAppend == null || this.commentAppend == ''){
+                    this.$Message.error('请输入评论');
+                    return;
+                }
+
+                if(this.articleComment.replierName != null){
+                    var str = this.commentAppend.substring(0,15+this.articleComment.replierName.length);
+                    var validate = "[reply]"+this.articleComment.replierName+"[/reply]";
+                    if(str == validate){
+                        this.articleComment.comment = this.commentAppend.substring(str.length);
+                        this.postComment(this.articleComment);
+                    }else {
+                        this.postComment({
+                        articleid:this.articleId,
+                        comment:this.commentAppend});
+                    }
+                }else {
+                    this.postComment({
+                        articleid:this.articleId,
+                        comment:this.commentAppend});
+                }
+            },
+            postComment(e){
                 this.axios({
                     method: 'post',
-                    url: '/user/12345',
-                    data: {
-                        firstName: 'Fred',
-                        lastName: 'Flintstone'
-                    }
+                    url: '/article/comment',
+                    data: e
                 }).then(function (response) {
+                    this.$Message.success('评论成功');
+                    this.getComments();
+                    this.articleCommentInit();
+                    this.commentAppend = null;
+                }.bind(this)).catch(function () {
                     this.$Message.error('评论失败，请稍后重试！');
-                }).catch(function () {
-                    this.$Message.error('评论失败，请稍后重试！');
-                });
+                }.bind(this));
+            },
+            changeContent(index){
+                var temp = this.comments[index];
+                temp.showContent = ! temp.showContent;
+                this.comments.splice(index,1,temp);
+            },
+            pageSearch(e) {
+              this.page = e - 1;
+              this.getComments();
             }
         }
     };
