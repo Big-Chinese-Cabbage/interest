@@ -14,10 +14,10 @@ export default new Vuex.Store({
     ],
     /*域名*/
     // 测试
-    // domainName: 'http://127.0.0.1:8088',
+    domainName: 'http://127.0.0.1:8088',
     userUrlPre: "http://127.0.0.1:8088/page/user/",
     //生产
-    domainName: "https://www.lovemtt.com",
+    //domainName: "https://www.lovemtt.com",
     //userUrlPre: "https://www.lovemtt.com/page/user/",
     count: 0,
     /*登录界面判断是否显示错误提示*/

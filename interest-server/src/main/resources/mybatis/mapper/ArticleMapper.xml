@@ -12,6 +12,7 @@
         <result column="create_time" property="createTime"/>
         <result column="reply_time" property="replyTime"/>
         <result column="userid" property="userid"/>
+        <result column="del" property="del"/>
     </resultMap>
 
     <resultMap id="articleResponse" type="com.interest.model.response.ArticleResponse">
@@ -48,14 +49,16 @@
     </insert>
 
     <select id="getArticleList" resultMap="articleResponse">
-        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg
+        userHeadImg
         from article a
         left join sys_user b on a.userid = b.id
         <where>
             <if test="searchContent != '' and searchContent != null">
-                a.title like CONCAT('%',#{searchContent},'%') or
-                a.info like CONCAT('%',#{searchContent},'%')
+                (a.title like CONCAT('%',#{searchContent},'%') or
+                a.info like CONCAT('%',#{searchContent},'%')) and
             </if>
+            a.del = 0
         </where>
         order by a.reply_time desc
         limit #{pageWrapper.start},#{pageWrapper.pageSize}
@@ -65,19 +68,21 @@
         select count(1) from article
         <where>
             <if test="searchContent != '' and searchContent != null">
-                title like CONCAT('%',#{searchContent},'%') or
-                info like CONCAT('%',#{searchContent},'%')
+                (title like CONCAT('%',#{searchContent},'%') or
+                info like CONCAT('%',#{searchContent},'%')) and
             </if>
+            del = 0
         </where>
     </select>
 
     <select id="getArticleById" resultMap="articleDetailResponse">
-        select a.id,a.title,a.content,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg,c.html_url githuburl
+        select a.id,a.title,a.content,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg
+        userHeadImg,c.html_url githuburl
         from article a
         left join sys_user b on a.userid = b.id
         left join user_github c on a.userid = c.userid
         <where>
-            a.id = #{id}
+            a.id = #{id} and del = 0
         </where>
     </select>
 
@@ -96,11 +101,12 @@
     </update>
 
     <select id="getArticlesListByUserId" resultMap="articleResponse">
-        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg
+        userHeadImg
         from article a
         left join sys_user b on a.userid = b.id
         <where>
-          a.userid = #{userId}
+            a.userid = #{userId} and a.del = 0
         </where>
         order by a.reply_time desc
         limit #{pageWrapper.start},#{pageWrapper.pageSize}
@@ -109,8 +115,53 @@
     <select id="getArticlesSizeByUserId" resultType="Integer">
         select count(1) from article
         <where>
-            userid = #{userId}
+            userid = #{userId} and del = 0
         </where>
     </select>
+
+    <select id="getArticleListOnManagement" resultMap="articleResponse">
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg
+        userHeadImg
+        from article a
+        left join sys_user b on a.userid = b.id
+        <where>
+            <if test="searchContent != '' and searchContent != null">
+                (a.title like CONCAT('%',#{searchContent},'%') or
+                a.info like CONCAT('%',#{searchContent},'%')) and
+            </if>
+            a.del = #{del}
+            <if test="dayStart != '' and dayStart != null and dayEnd != '' and dayEnd != null">
+                and a.create_time > #{dayStart} and a.create_time &lt; #{dayEnd}
+            </if>
+        </where>
+        order by a.create_time desc
+        limit #{pageWrapper.start},#{pageWrapper.pageSize}
+    </select>
+
+    <select id="getArticleSizeOnManagement" resultType="Integer">
+        select count(1) from article
+        <where>
+            <if test="searchContent != '' and searchContent != null">
+                (title like CONCAT('%',#{searchContent},'%') or
+                info like CONCAT('%',#{searchContent},'%')) and
+            </if>
+            del = #{del}
+            <if test="dayStart != '' and dayStart != null and dayEnd != '' and dayEnd != null">
+                and create_time > #{dayStart} and create_time &lt; #{dayEnd}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateArticlesDelByIds">
+        update article set del = #{del}
+        <where>
+            <if test="groupId !=null">
+                id in
+                <foreach collection="groupId" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </update>
 
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -37,6 +38,29 @@ public class ArticleController {
         PageWrapper pageWrapper = new PageWrapper(pageSize, page);
         PageResult pageResult = articleService.getArticle(searchContent, pageWrapper);
         return new ResponseWrapper<>(pageResult);
+    }
+
+    @GetMapping("/admin/articles")
+    public ResponseWrapper<PageResult> getArticles(@RequestParam(value = "searchContent", required = false) String searchContent,
+                                                   @RequestParam(value = "dateTimestamp", required = false) String dateTimestamp,
+                                                   @RequestParam(value = "del", required = false) int del,
+                                                  @RequestParam("pageSize") int pageSize,
+                                                  @RequestParam("page") int page) {
+        PageWrapper pageWrapper = new PageWrapper(pageSize, page);
+        PageResult pageResult = articleService.getArticleOnManagement(searchContent,dateTimestamp,del, pageWrapper);
+        return new ResponseWrapper<>(pageResult);
+    }
+
+    @DeleteMapping("/admin/articles")
+    public ResponseWrapper delArticles(@RequestBody List<String> groupId){
+        articleService.updateArticlesDelByIds(groupId,1);
+        return new ResponseWrapper<>(groupId);
+    }
+
+    @PatchMapping("/admin/articles")
+    public ResponseWrapper republishArticles(@RequestBody List<String> groupId){
+        articleService.updateArticlesDelByIds(groupId,0);
+        return new ResponseWrapper<>(groupId);
     }
 
     @GetMapping("/public/users/user/{userId}/articles")

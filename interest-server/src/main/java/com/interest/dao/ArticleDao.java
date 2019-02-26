@@ -27,4 +27,10 @@ public interface ArticleDao {
     List<ArticleResponse> getArticlesListByUserId(@Param("userId")int userId,@Param("pageWrapper") PageWrapper pageWrapper);
 
     Integer getArticlesSizeByUserId(@Param("userId")int userId);
+
+    List<ArticleResponse> getArticleListOnManagement(@Param("searchContent")String searchContent,@Param("dayStart") String dayStart,@Param("dayEnd") String dayEnd,@Param("del") int del,@Param("pageWrapper") PageWrapper pageWrapper);
+
+    int getArticleSizeOnManagement(@Param("searchContent")String searchContent,@Param("dayStart") String dayStart,@Param("dayEnd") String dayEnd,@Param("del") int del);
+
+    void updateArticlesDelByIds(@Param("groupId") List<String> groupId,@Param("del") int del);
 }

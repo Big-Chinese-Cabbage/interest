@@ -265,6 +265,14 @@ const routers = [
         meta: {
           title: "banner"
         }
+      },
+      {
+        path: "article",
+        name: "article",
+        component: resolve => require(["./views/sys/article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
       }
     ]
   },

@@ -66,13 +66,13 @@ public class ArticleServiceImpl implements ArticleService {
     public PageResult getArticle(String searchContent, PageWrapper pageWrapper) {
         List<ArticleResponse> list = articleDao.getArticleList(searchContent, pageWrapper);
         int size = articleDao.getArticleSize(searchContent);
-        return new PageResult(list,size);
+        return new PageResult(list, size);
     }
 
     @Override
     public ArticleDetailResponse getArticleById(int id) {
-        threadPoolTaskExecutor.execute(()->{
-            articleDao.addClickRateById(1,id);
+        threadPoolTaskExecutor.execute(() -> {
+            articleDao.addClickRateById(1, id);
         });
 
         return articleDao.getArticleById(id);
@@ -80,8 +80,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void addCommentCountById(Integer articleid) {
-        threadPoolTaskExecutor.execute(()->{
-            articleDao.addCommentCountById(1,articleid);
+        threadPoolTaskExecutor.execute(() -> {
+            articleDao.addCommentCountById(1, articleid);
         });
     }
 
@@ -89,7 +89,25 @@ public class ArticleServiceImpl implements ArticleService {
     public PageResult getArticlesByUserId(int userId, PageWrapper pageWrapper) {
         List<ArticleResponse> list = articleDao.getArticlesListByUserId(userId, pageWrapper);
         int size = articleDao.getArticlesSizeByUserId(userId);
-        return new PageResult(list,size);
+        return new PageResult(list, size);
+    }
+
+    @Override
+    public PageResult getArticleOnManagement(String searchContent, String dateTimestamp, int del, PageWrapper pageWrapper) {
+        String dayStart = null;
+        String dayEnd = null;
+        if (dateTimestamp != null && !"".equals(dateTimestamp)) {
+            dayStart = DateUtil.daystart(dateTimestamp);
+            dayEnd = DateUtil.dayend(dateTimestamp);
+        }
+        List<ArticleResponse> list = articleDao.getArticleListOnManagement(searchContent, dayStart, dayEnd, del, pageWrapper);
+        int size = articleDao.getArticleSizeOnManagement(searchContent, dayStart, dayEnd, del);
+        return new PageResult(list, size);
+    }
+
+    @Override
+    public void updateArticlesDelByIds(List<String> groupId, int del) {
+        articleDao.updateArticlesDelByIds(groupId,del);
     }
 
     public String htmlText(String htmlStr) {

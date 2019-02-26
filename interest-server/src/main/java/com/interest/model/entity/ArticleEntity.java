@@ -25,6 +25,8 @@ public class ArticleEntity {
 
     private Integer userid;
 
+    private Integer del;
+
     public Integer getId() {
         return id;
     }
@@ -103,5 +105,13 @@ public class ArticleEntity {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public Integer getDel() {
+        return del;
+    }
+
+    public void setDel(Integer del) {
+        this.del = del;
     }
 }
