@@ -23,4 +23,8 @@ public interface ArticleDao {
     void addClickRateById(@Param("number") int number,@Param("id") int id);
 
     void addCommentCountById(@Param("number") int number,@Param("id") Integer articleid);
+
+    List<ArticleResponse> getArticlesListByUserId(@Param("userId")int userId,@Param("pageWrapper") PageWrapper pageWrapper);
+
+    Integer getArticlesSizeByUserId(@Param("userId")int userId);
 }

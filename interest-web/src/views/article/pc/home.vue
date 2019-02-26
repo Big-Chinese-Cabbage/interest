@@ -82,12 +82,12 @@
                   </div>
                   <dl class="list-user-other">
                     <dt>
-                      <a :href="item.githuburl" target="_blank">
+                      <a :href="$store.state.userUrlPre+item.userid" target="_blank">
                           <img :src="item.userHeadImg" style="width: 25px;height: 25px;border-radius: 100%;">
                       </a>
                     </dt>
                     <dd>
-                      <a :href="item.githuburl" target="_blank">
+                      <a :href="$store.state.userUrlPre+item.userid" target="_blank">
                           {{item.userName}}
                       </a>
                     </dd>

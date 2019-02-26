@@ -5,30 +5,33 @@
                type="com.interest.model.entity.MsgRecordEntity">
         <id column="id" property="id"/>
         <result column="ownerid" property="ownerid"/>
-        <result column="replyid" property="replyid"/>
-        <result column="cardid" property="cardid"/>
+        <result column="reply_card_id" property="replyCardId"/>
         <result column="replytime" property="replytime"/>
         <result column="isread" property="isread"/>
+        <result column="form" property="form"/>
+        <result column="comment_id" property="commentId"/>
     </resultMap>
 
     <resultMap id="msgModelMap"
                type="com.interest.model.response.MsgRecordResponse">
         <id column="id" property="id"/>
         <result column="ownerid" property="ownerid"/>
-        <result column="replyid" property="replyid"/>
-        <result column="cardid" property="cardid"/>
+        <result column="reply_card_id" property="replyCardId"/>
         <result column="replytime" property="replytime"/>
         <result column="isread" property="isread"/>
         <result column="replyUserid" property="replyUserid"/>
         <result column="replyUserHeadimg" property="replyUserHeadimg"/>
         <result column="replyUsername" property="replyUsername"/>
         <result column="replyContent" property="replyContent"/>
-        <result column="postCardTitle" property="postCardTitle"/>
+        <result column="title" property="title"/>
+        <result column="form" property="form"/>
+        <result column="comment_id" property="commentId"/>
+        <result column="to_id" property="toId"/>
     </resultMap>
 
     <insert id="addMsg" parameterType="MsgRecordEntity">
-		insert into msg_records(ownerid, replyid, cardid, replytime, isread)
-			values(#{ownerid}, #{replyid}, #{cardid}, #{replytime}, #{isread});
+		insert into msg_records(ownerid, form, comment_id, reply_card_id, replytime, isread)
+			values(#{ownerid}, #{form}, #{commentId}, #{replyCardId}, #{replytime}, #{isread});
 	</insert>
 
 
@@ -40,14 +43,22 @@
     </select>
 
     <select id="getMsgListByUserid" resultMap="msgModelMap">
-        select a.*,b.content replyContent,c.id replyUserid,c.headimg replyUserHeadimg,c.name replyUsername,d.title
-        postCardTitle
+        select a.*,b.content replyContent,c.id replyUserid,c.headimg replyUserHeadimg,c.name replyUsername,d.title title,d.id to_id
         from msg_records a
-        left join reply_card b on a.replyid = b.id
+        left join reply_card b on a.reply_card_id = b.id
         left join sys_user c on b.userid = c.id
         left join post_card d on b.postcardid = d.id
         <where>
-            ownerid = #{userid}
+            a.ownerid = #{userid} and a.form = 0
+        </where>
+        union all
+        select a.*,b.comment replyContent,c.id replyUserid,c.headimg replyUserHeadimg,c.name replyUsername,d.title title,d.id to_id
+        from msg_records a
+        left join article_comment b on a.comment_id = b.id
+        left join sys_user c on b.userid = c.id
+        left join article d on b.articleid = d.id
+        <where>
+            a.ownerid = #{userid} and a.form = 1
         </where>
         order by replytime desc
         limit #{start},#{pageSize}

@@ -85,6 +85,13 @@ public class ArticleServiceImpl implements ArticleService {
         });
     }
 
+    @Override
+    public PageResult getArticlesByUserId(int userId, PageWrapper pageWrapper) {
+        List<ArticleResponse> list = articleDao.getArticlesListByUserId(userId, pageWrapper);
+        int size = articleDao.getArticlesSizeByUserId(userId);
+        return new PageResult(list,size);
+    }
+
     public String htmlText(String htmlStr) {
         String textStr = "";
         java.util.regex.Pattern p_script;

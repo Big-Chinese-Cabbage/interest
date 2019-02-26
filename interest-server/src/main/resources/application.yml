@@ -31,7 +31,7 @@ spring:
       - classpath:/resources/
       - classpath:/static/
       - classpath:/public/
-      - file :$ {interest.paths-properties.image}
+      - file:${interest.paths-properties.image}
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.interest.model
@@ -50,7 +50,7 @@ interest:
     image: D:/interest/file/image
 #    image: 你需要存储图片的目录，如上
     domain-name: http://127.0.0.1:8080/interest
-#   domain-name: http://www.lovemtt.com/interest
+#   domain-name: https://www.lovemtt.com/interest
 #   domain-name: 你的域名或者（ip+端口）+/interest，如上
   github:
     client-id: 你在github中注册的client id

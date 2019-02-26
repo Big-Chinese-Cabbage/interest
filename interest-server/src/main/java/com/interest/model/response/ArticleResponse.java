@@ -20,8 +20,6 @@ public class ArticleResponse {
 
     private String userHeadImg;
 
-    private String githuburl;
-
     public int getId() {
         return id;
     }
@@ -92,13 +90,5 @@ public class ArticleResponse {
 
     public void setUserHeadImg(String userHeadImg) {
         this.userHeadImg = userHeadImg;
-    }
-
-    public String getGithuburl() {
-        return githuburl;
-    }
-
-    public void setGithuburl(String githuburl) {
-        this.githuburl = githuburl;
     }
 }

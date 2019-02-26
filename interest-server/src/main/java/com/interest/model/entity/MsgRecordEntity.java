@@ -6,9 +6,11 @@ public class MsgRecordEntity {
 
     private Integer ownerid;
 
-    private Integer replyid;
+    private Integer form;
 
-    private Integer cardid;
+    private Integer replyCardId;
+
+    private Integer commentId;
 
     private String replytime;
 
@@ -30,22 +32,6 @@ public class MsgRecordEntity {
         this.ownerid = ownerid;
     }
 
-    public Integer getReplyid() {
-        return replyid;
-    }
-
-    public void setReplyid(Integer replyid) {
-        this.replyid = replyid;
-    }
-
-    public Integer getCardid() {
-        return cardid;
-    }
-
-    public void setCardid(Integer cardid) {
-        this.cardid = cardid;
-    }
-
     public String getReplytime() {
         return replytime;
     }
@@ -62,4 +48,27 @@ public class MsgRecordEntity {
         this.isread = isread;
     }
 
+    public Integer getForm() {
+        return form;
+    }
+
+    public void setForm(Integer form) {
+        this.form = form;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public Integer getReplyCardId() {
+        return replyCardId;
+    }
+
+    public void setReplyCardId(Integer replyCardId) {
+        this.replyCardId = replyCardId;
+    }
 }

@@ -14,4 +14,6 @@ public interface ArticleService {
     ArticleDetailResponse getArticleById(int id);
 
     void addCommentCountById(Integer articleid);
+
+    PageResult getArticlesByUserId(int userId, PageWrapper pageWrapper);
 }

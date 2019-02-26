@@ -18,70 +18,52 @@ import com.interest.utils.SecurityAuthenUtil;
 @Service
 public class ReplyCardServiceImpl implements ReplyCardService {
 
-	@Autowired
-	private ReplyCardDao replyCardDao;
-	
-	@Autowired
-	private PostCardDao postCardDao;
+    @Autowired
+    private ReplyCardDao replyCardDao;
 
-	@Autowired
-	private MsgRecordsService msgRecordsService;
+    @Autowired
+    private PostCardDao postCardDao;
 
-	@Override
-	public List<ReplyCardResponse> replycardList(int postcardid, int pageSize, int start) {
-		return replyCardDao.replycardList(postcardid,pageSize,start);
-	}
+    @Autowired
+    private MsgRecordsService msgRecordsService;
 
-	@Override
-	public Integer replycardSize(int postcardid, int pageSize, int start) {
-		return replyCardDao.replycardSize(postcardid,pageSize,start);
-	}
+    @Override
+    public List<ReplyCardResponse> replycardList(int postcardid, int pageSize, int start) {
+        return replyCardDao.replycardList(postcardid, pageSize, start);
+    }
 
-	@Override
-	public void insertEntity(ReplyCardEntity replyCardEntity) {
+    @Override
+    public Integer replycardSize(int postcardid, int pageSize, int start) {
+        return replyCardDao.replycardSize(postcardid, pageSize, start);
+    }
 
-		//User user = SecurityAuthenUtil.getAuthenticationUser();
-		//replyCardEntity.setUsername(user.getUsername());
-		//replyCardEntity.setUserid(user.);
+    @Override
+    public void insertEntity(ReplyCardEntity replyCardEntity) {
 
-		int userid = SecurityAuthenUtil.getId();
+        //User user = SecurityAuthenUtil.getAuthenticationUser();
+        //replyCardEntity.setUsername(user.getUsername());
+        //replyCardEntity.setUserid(user.);
 
-		replyCardEntity.setUserid(userid);
+        int userid = SecurityAuthenUtil.getId();
 
-		replyCardEntity.setCreatetime(DateUtil.currentTimestamp());
-		
-		postCardDao.updateCreatetiem(replyCardEntity.getPostcardid(),replyCardEntity.getCreatetime());
-		replyCardDao.insertEntity(replyCardEntity);
+        replyCardEntity.setUserid(userid);
+
+        replyCardEntity.setCreatetime(DateUtil.currentTimestamp());
+
+        postCardDao.updateCreatetiem(replyCardEntity.getPostcardid(), replyCardEntity.getCreatetime());
+        replyCardDao.insertEntity(replyCardEntity);
 
 
-		MsgRecordEntity msgRecordEntity = new MsgRecordEntity();
-		msgRecordEntity.setReplyid(replyCardEntity.getId());
+        MsgRecordEntity msgRecordEntity = new MsgRecordEntity();
+        Integer cardId = replyCardEntity.getPostcardid();
+        msgRecordEntity.setOwnerid(postCardDao.getPostcard(cardId).getUserid());
+        msgRecordEntity.setForm(0);
+        msgRecordEntity.setReplyCardId(replyCardEntity.getId());
+        msgRecordEntity.setReplytime(replyCardEntity.getCreatetime());
+        msgRecordEntity.setIsread(0);
 
-		Integer cardId = replyCardEntity.getPostcardid();
-		msgRecordEntity.setCardid(cardId);
+        msgRecordsService.addMsg(msgRecordEntity);
 
-		msgRecordEntity.setOwnerid(postCardDao.getPostcard(cardId).getUserid());
-		msgRecordEntity.setIsread(0);
-		msgRecordEntity.setReplytime(DateUtil.currentTimestamp());
-
-		msgRecordsService.addMsg(msgRecordEntity);
-
-	}
-	
-//	@Override
-//	public List<PostCardEntity> postcardList(int interestid, int pageSize, int start) {
-//		return replyCardDao.postcardList(interestid,pageSize,start);
-//	}
-//
-//	@Override
-//	public Integer postcardSize(int interestid, int pageSize, int start) {
-//		return replyCardDao.postcardSize(interestid,pageSize,start);
-//	}
-
-//
-//	@Override
-//	public PostCardEntity getPostcard(int id) {
-//		return replyCardDao.getPostcard(id);
-//	}
+    }
 
 }

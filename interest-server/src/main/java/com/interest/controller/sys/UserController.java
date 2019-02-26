@@ -115,6 +115,13 @@ public class UserController {
         return new ResponseWrapper<>(userInfoResponse);
     }
 
+    @GetMapping("/public/users/user/info")
+    @ApiOperation("通过用户id来获取用户详情")
+    public ResponseWrapper<UserInfoResponse> getUserInfoById(@RequestParam("userId") int userId){
+        UserInfoResponse userInfoResponse = userService.getUserInfoById(userId);
+        return new ResponseWrapper<>(userInfoResponse);
+    }
+
     @PutMapping("/users/user/info")
     @ApiOperation("修改用户详情")
     public ResponseWrapper<UserInfoResponse> updateUserInfo(@RequestBody UserInfoRequest userInfoRequest){

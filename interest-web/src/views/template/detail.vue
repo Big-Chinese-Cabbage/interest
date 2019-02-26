@@ -50,7 +50,7 @@
 
                     </div>
                     <div slot="extra">
-                        <a :href="item.githuburl" target="_blank">
+                        <a :href="$store.state.userUrlPre+item.userid" target="_blank">
                             <!-- <Icon type="ios-person"></Icon> -->
                             <img :src="item.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
                             {{item.username}}

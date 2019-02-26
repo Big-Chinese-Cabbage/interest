@@ -41,6 +41,10 @@
     </resultMap>
 
     <insert id="insertEntity" parameterType="ArticleCommentEntity">
+        <selectKey keyProperty="id" resultType="java.lang.Integer"
+                   order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
         insert into article_comment (articleid,userid,parentid,comment,create_time,replier_id,replier_name)
         values (#{articleid},#{userid},#{parentid},#{comment},#{createTime},#{replierId},#{replierName})
     </insert>

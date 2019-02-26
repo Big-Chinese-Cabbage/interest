@@ -200,13 +200,13 @@
                             <div class="title line-height-40 font-size-22">{{article.title}}</div>
                             <dl class="list-user-other">
                                 <dt>
-                                    <a :href="article.githuburl" target="_blank">
+                                    <a :href="$store.state.userUrlPre+article.userid" target="_blank">
                                         <img :src="article.userHeadImg"
                                              style="width: 25px;height: 25px;border-radius: 100%;">
                                     </a>
                                 </dt>
                                 <dd>
-                                    <a :href="article.githuburl" target="_blank">{{article.userName}}</a>
+                                    <a :href="$store.state.userUrlPre+article.userid" target="_blank">{{article.userName}}</a>
                                 </dd>
                                 <dd>
                                     <span class="text">阅读数:</span>
@@ -240,9 +240,13 @@
                     <ul class="reply-list">
                         <li v-for="(comment, index) in comments" class="reply-item" :key="comment.id">
                                 <div class="user">
-                                    <img class="avatar" :src="comment.userHeadImg" :title="comment.userName" />
+                                    <a :href="$store.state.userUrlPre+comment.userid" target="_blank">
+                                        <img class="avatar" :src="comment.userHeadImg" :title="comment.userName" />
+                                    </a>
                                     <div class="title-info">
-                                        <span class="user-name">{{comment.userName}}</span>
+                                        <a :href="$store.state.userUrlPre+comment.userid" target="_blank">
+                                            <span class="user-name">{{comment.userName}}</span>
+                                        </a>
                                         <span># {{index + 1}} 楼 • {{comment.creatTimeBy}}</span>
                                     </div>
                                     <div class="title-info-other">
@@ -262,9 +266,13 @@
                                 <li v-for="(replyComment,replyIndex) in comment.childComments" class="reply-item" :key="replyComment.id">
                                     <div class="reply-info">
                                         <div class="title-info">
-                                            <img class="avatar" :src="replyComment.userHeadImg" :title="replyComment.userName" />
+                                            <a :href="$store.state.userUrlPre+comment.userid" target="_blank">
+                                                <img class="avatar" :src="replyComment.userHeadImg" :title="replyComment.userName" />
+                                            </a>
                                             <div class="title-info-right">
-                                                <span class="user-name">{{replyComment.userName}}</span>
+                                                <a :href="$store.state.userUrlPre+comment.userid" target="_blank">
+                                                    <span class="user-name">{{replyComment.userName}}</span>
+                                                </a>
                                                 <span>回复</span>
                                                 <span class="user-name">{{replyComment.replierName}}:</span>
                                                 <span>{{replyComment.comment}}</span>
@@ -310,6 +318,7 @@
                 appendActive: false,
                 articleComment: {
                     articleid: null,
+                    articleOwnerId:null,
                     parentid: null,
                     comment: null,
                     replierId: null,
@@ -355,6 +364,7 @@
                 this.articleComment.comment = e.comment;
                 this.articleComment.replierId = e.replierId;
                 this.articleComment.replierName = e.replierName;
+                this.articleComment.articleOwnerId = this.article.userid;
             },
             articleCommentInit() {
                 this.articleComment.articleid = null;
@@ -362,6 +372,7 @@
                 this.articleComment.comment = null;
                 this.articleComment.replierId = null;
                 this.articleComment.replierName = null;
+                this.articleComment.articleOwnerId = null;
             },
             getComments() {
                 this.axios({
@@ -431,16 +442,19 @@
                     var validate = "[reply]"+this.articleComment.replierName+"[/reply]";
                     if(str == validate){
                         this.articleComment.comment = this.commentAppend.substring(str.length);
+                        this.articleComment.articleOwnerId = this.article.userid;
                         this.postComment(this.articleComment);
                     }else {
                         this.postComment({
                         articleid:this.articleId,
-                        comment:this.commentAppend});
+                        comment:this.commentAppend,
+                        articleOwnerId:this.article.userid});
                     }
                 }else {
                     this.postComment({
                         articleid:this.articleId,
-                        comment:this.commentAppend});
+                        comment:this.commentAppend,
+                        articleOwnerId:this.article.userid});
                 }
             },
             postComment(e){

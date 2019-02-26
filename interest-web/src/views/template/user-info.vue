@@ -85,7 +85,9 @@ export default {
   		})
   		.then(
           function(response) {
-            console.log(response);
+            this.$Notice.success({
+                    title: '修改成功'
+                });
           }.bind(this)
         )
         .catch(

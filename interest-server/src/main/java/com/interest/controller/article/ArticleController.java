@@ -32,10 +32,19 @@ public class ArticleController {
 
     @GetMapping("/public/articles")
     public ResponseWrapper<PageResult> getArticle(@RequestParam(value = "searchContent", required = false) String searchContent,
-                                                   @RequestParam("pageSize") int pageSize,
-                                                   @RequestParam("page") int page) {
-        PageWrapper pageWrapper = new PageWrapper(pageSize,page);
-        PageResult pageResult = articleService.getArticle(searchContent,pageWrapper);
+                                                  @RequestParam("pageSize") int pageSize,
+                                                  @RequestParam("page") int page) {
+        PageWrapper pageWrapper = new PageWrapper(pageSize, page);
+        PageResult pageResult = articleService.getArticle(searchContent, pageWrapper);
+        return new ResponseWrapper<>(pageResult);
+    }
+
+    @GetMapping("/public/users/user/{userId}/articles")
+    public ResponseWrapper<PageResult> getArticle(@PathVariable("userId") int userId,
+                                                  @RequestParam("pageSize") int pageSize,
+                                                  @RequestParam("page") int page) {
+        PageWrapper pageWrapper = new PageWrapper(pageSize, page);
+        PageResult pageResult = articleService.getArticlesByUserId(userId, pageWrapper);
         return new ResponseWrapper<>(pageResult);
     }
 

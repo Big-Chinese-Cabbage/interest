@@ -48,10 +48,9 @@
     </insert>
 
     <select id="getArticleList" resultMap="articleResponse">
-        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg,c.html_url githuburl
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg
         from article a
         left join sys_user b on a.userid = b.id
-        left join user_github c on a.userid = c.userid
         <where>
             <if test="searchContent != '' and searchContent != null">
                 a.title like CONCAT('%',#{searchContent},'%') or
@@ -95,5 +94,23 @@
             id = #{id}
         </where>
     </update>
+
+    <select id="getArticlesListByUserId" resultMap="articleResponse">
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg userHeadImg
+        from article a
+        left join sys_user b on a.userid = b.id
+        <where>
+          a.userid = #{userId}
+        </where>
+        order by a.reply_time desc
+        limit #{pageWrapper.start},#{pageWrapper.pageSize}
+    </select>
+
+    <select id="getArticlesSizeByUserId" resultType="Integer">
+        select count(1) from article
+        <where>
+            userid = #{userId}
+        </where>
+    </select>
 
 </mapper>

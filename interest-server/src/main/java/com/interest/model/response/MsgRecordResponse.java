@@ -12,7 +12,9 @@ public class MsgRecordResponse extends MsgRecordEntity {
 
     private String replyContent;
 
-    private String postCardTitle;
+    private String title;
+
+    private Integer toId;
 
     public Integer getReplyUserid() {
         return replyUserid;
@@ -46,11 +48,19 @@ public class MsgRecordResponse extends MsgRecordEntity {
         this.replyContent = replyContent;
     }
 
-    public String getPostCardTitle() {
-        return postCardTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPostCardTitle(String postCardTitle) {
-        this.postCardTitle = postCardTitle;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getToId() {
+        return toId;
+    }
+
+    public void setToId(Integer toId) {
+        this.toId = toId;
     }
 }
