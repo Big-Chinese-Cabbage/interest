@@ -20,6 +20,8 @@ public class ArticleResponse {
 
     private String userHeadImg;
 
+    private Integer top;
+
     public int getId() {
         return id;
     }
@@ -90,5 +92,13 @@ public class ArticleResponse {
 
     public void setUserHeadImg(String userHeadImg) {
         this.userHeadImg = userHeadImg;
+    }
+
+    public Integer getTop() {
+        return top;
+    }
+
+    public void setTop(Integer top) {
+        this.top = top;
     }
 }

@@ -314,6 +314,22 @@ const routers = [
         meta: {
           title: "article"
         }
+      },
+      {
+        path: "user",
+        name: "article-user",
+        component: resolve => require(["./views/article/pc/user-article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "update/:id",
+        name: "article-update-id",
+        component: resolve => require(["./views/article/pc/update-article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
       }
     ]
   }

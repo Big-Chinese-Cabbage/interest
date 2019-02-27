@@ -115,10 +115,20 @@
                               <Icon type="ios-mail"></Icon>
                               邮件
                           </MenuItem>
-                          <MenuItem name="3">
+                          <Submenu name="3">
+                            <template slot="title">
+                                <Icon type="md-list-box" />
+                                文章
+                            </template>
+                            <MenuItem name="31">
                               <Icon type="md-create" />
                               写文章
-                          </MenuItem>
+                            </MenuItem>
+                            <MenuItem name="32">
+                              <Icon type="md-list" />
+                              我的文章
+                            </MenuItem>
+                        </Submenu>
                           <MenuItem name="4">
                               <Icon type="md-log-out"></Icon>
                               退出
@@ -301,12 +311,15 @@ export default {
       }
     },
     menuSelect(e) {
+      console.log(e);
       if (e == 1) {
         this.$router.push("/page/user");
       } else if (e == 2) {
         this.emailModal = true;
-      } else if (e == 3) {
+      } else if (e == 31) {
         this.$router.push("/article/create");
+      } else if (e == 32) {
+        this.$router.push("/article/user");
       } else if (e == 4) {
         this.$store.dispatch("users/loginOUt", { router: this.$router });
       } else if (e == 5) {

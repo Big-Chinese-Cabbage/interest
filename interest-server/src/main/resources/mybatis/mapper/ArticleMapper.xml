@@ -26,7 +26,6 @@
         <result column="userid" property="userid"/>
         <result column="userName" property="userName"/>
         <result column="userHeadImg" property="userHeadImg"/>
-        <result column="githuburl" property="githuburl"/>
     </resultMap>
 
     <resultMap id="articleDetailResponse" type="com.interest.model.response.ArticleDetailResponse">
@@ -49,7 +48,7 @@
     </insert>
 
     <select id="getArticleList" resultMap="articleResponse">
-        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,a.top,b.name userName,b.headimg
         userHeadImg
         from article a
         left join sys_user b on a.userid = b.id
@@ -60,7 +59,7 @@
             </if>
             a.del = 0
         </where>
-        order by a.reply_time desc
+        order by a.top desc, a.reply_time desc
         limit #{pageWrapper.start},#{pageWrapper.pageSize}
     </select>
 
@@ -101,14 +100,14 @@
     </update>
 
     <select id="getArticlesListByUserId" resultMap="articleResponse">
-        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,a.top,b.name userName,b.headimg
         userHeadImg
         from article a
         left join sys_user b on a.userid = b.id
         <where>
             a.userid = #{userId} and a.del = 0
         </where>
-        order by a.reply_time desc
+        order by a.top desc, a.reply_time desc
         limit #{pageWrapper.start},#{pageWrapper.pageSize}
     </select>
 
@@ -120,7 +119,7 @@
     </select>
 
     <select id="getArticleListOnManagement" resultMap="articleResponse">
-        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,b.name userName,b.headimg
+        select a.id,a.title,a.info,a.click_rate,a.comment_count,a.create_time,a.userid,a.top,b.name userName,b.headimg
         userHeadImg
         from article a
         left join sys_user b on a.userid = b.id
@@ -134,7 +133,7 @@
                 and a.create_time > #{dayStart} and a.create_time &lt; #{dayEnd}
             </if>
         </where>
-        order by a.create_time desc
+        order by a.top desc,a.create_time desc
         limit #{pageWrapper.start},#{pageWrapper.pageSize}
     </select>
 
@@ -161,6 +160,32 @@
                     #{item}
                 </foreach>
             </if>
+        </where>
+    </update>
+
+    <update id="updateArticlesTopByIds">
+        update article set top = #{top}
+        <where>
+            <if test="groupId !=null">
+                id in
+                <foreach collection="groupId" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </update>
+
+    <update id="updateArticlesDelByIdAndUserId">
+        update article set del = 1
+        <where>
+            userid = #{userId} and id = #{articleId}
+        </where>
+    </update>
+
+    <update id="updateArticle" parameterType="ArticleEntity">
+        update article set title = #{title}, info = #{info}, content = #{content}
+        <where>
+            id = #{id} and userid = #{userid}
         </where>
     </update>
 

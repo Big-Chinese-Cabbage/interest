@@ -5,6 +5,9 @@
   .del-select span{
     margin-right: 5px;
   }
+  .botton-layout {
+    margin-right: 5px;
+  }
 </style>
 <template>
 	<div style="margin: 40px;">
@@ -29,8 +32,10 @@
     <div>
         <ul>
         	<li>
-                <Button v-if="!del" type="error" icon="md-trash" @click="clickDel()">删除</Button>
-                <Button v-if="del" type="success" icon="md-build" @click="republish()">恢复</Button>
+                <Button v-if="!del" type="error" icon="md-trash" class="botton-layout" @click="clickDel()">删除</Button>
+                <Button v-if="del" type="success" icon="md-build" class="botton-layout" @click="republish()">恢复</Button>
+                <Button type="info" icon="md-build" class="botton-layout" @click="top(1)">置顶</Button>
+                <Button type="info" icon="md-build" class="botton-layout" @click="top(0)">取消置顶</Button>
             </li>
             <li>
                 <div style="padding: 10px 0;">
@@ -87,6 +92,39 @@ export default {
           title: "标题",
           key: "title",
           width: 150
+        },
+        {
+          title: "置顶",
+          align: "center",
+          key: "action",
+          width: 70,
+          render: (h, params) => {
+            if (params.row.top == 1) {
+              return h("div", [
+                h(
+                  "strong",
+                  {
+                    style: {
+                      color: "#2b85e4"
+                    }
+                  },
+                  "是"
+                )
+              ]);
+            } else if (params.row.top == 0) {
+              return h("div", [
+                h(
+                  "strong",
+                  {
+                    style: {
+                      color: "#f90"
+                    }
+                  },
+                  "否"
+                )
+              ]);
+            }
+          }
         },
         {
           title: "简介",
@@ -215,18 +253,18 @@ export default {
           url: "/admin/articles",
           data: this.groupId
         })
-          .then(
-            function(response) {
-              this.getTable({
-                pageInfo: this.pageInfo
-              });
-              this.groupId = [];
-              this.$Message.info("重新发布成功");
-            }.bind(this)
-          )
-          .catch(function(error) {
-            alert(error);
-          });
+        .then(
+          function(response) {
+            this.getTable({
+              pageInfo: this.pageInfo
+            });
+            this.groupId = [];
+            this.$Message.info("重新发布成功");
+          }.bind(this)
+        )
+        .catch(function(error) {
+          alert(error);
+        });
       }
     },
     change(e) {
@@ -242,6 +280,28 @@ export default {
       this.groupId = [];
       this.getTable({
         pageInfo: this.pageInfo
+      });
+    },
+    top(e){
+      this.axios({
+        method: "patch",
+        url: "/admin/articles/top",
+        data: this.groupId,
+        params: {
+          top: e
+        }
+      })
+      .then(
+        function(response) {
+          this.getTable({
+            pageInfo: this.pageInfo
+          });
+          this.groupId = [];
+          this.$Message.info("修改成功");
+        }.bind(this)
+      )
+      .catch(function(error) {
+        alert(error);
       });
     }
   }

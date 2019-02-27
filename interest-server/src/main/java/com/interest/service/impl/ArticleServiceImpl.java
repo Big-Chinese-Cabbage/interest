@@ -6,6 +6,7 @@ import com.interest.model.entity.ArticleEntity;
 import com.interest.model.entity.PageResult;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.request.ArticleCreateRequest;
+import com.interest.model.request.ArticleUpdateRequest;
 import com.interest.model.response.ArticleDetailResponse;
 import com.interest.model.response.ArticleResponse;
 import com.interest.model.utils.PageWrapper;
@@ -107,7 +108,37 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void updateArticlesDelByIds(List<String> groupId, int del) {
-        articleDao.updateArticlesDelByIds(groupId,del);
+        articleDao.updateArticlesDelByIds(groupId, del);
+    }
+
+    @Override
+    public void updateArticlesTopByIds(List<String> groupId, int top) {
+        articleDao.updateArticlesTopByIds(groupId, top);
+    }
+
+    @Override
+    public void updateArticlesDelById(int articleId) {
+        int userId = SecurityAuthenUtil.getId();
+        articleDao.updateArticlesDelByIdAndUserId(userId,articleId);
+    }
+
+    @Override
+    public void updateArticle(ArticleUpdateRequest articleCreateRequest) {
+        int userId = SecurityAuthenUtil.getId();
+
+        ArticleEntity articleEntity = new ArticleEntity();
+        articleEntity.setId(articleCreateRequest.getId());
+        articleEntity.setTitle(articleCreateRequest.getTitle());
+        articleEntity.setContent(articleCreateRequest.getContent());
+        articleEntity.setUserid(userId);
+        String info = htmlText(articleEntity.getContent());
+        if (info.length() > 100) {
+            info = info.substring(0, 100);
+        }
+        articleEntity.setInfo(info);
+
+        articleDao.updateArticle(articleEntity);
+
     }
 
     public String htmlText(String htmlStr) {
