@@ -44,7 +44,7 @@ logging:
     org.springframework.security: DEBUG
     com.interest: DEBUG
 
-##自定义配置
+#自定义配置
 interest:
   paths-properties:
     image: D:/interest/file/image

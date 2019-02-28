@@ -9,14 +9,7 @@
 }
 
 .layout-logo {
-  /*width: 100px;*/
-  /*height: 30px;*/
-  /*background: #5b6270;*/
-  /*border-radius: 3px;*/
   float: left;
-  /*position: relative;*/
-  /*top: 15px;
-        left: 20px;*/
 }
 
 .layout-search {
@@ -33,14 +26,20 @@
   float: left;
 }
 
+.layout-title .home-text{
+  color: rebeccapurple;
+  font-weight: bold;
+}
+
+.layout-title .home-text:hover{
+  color: #2d8cf0;
+}
+
 .menu-layout {
   height:65px;
   width:100%;
 }
 .layout-nav {
-  /*width: 315px;
-        margin: 0 auto;
-        margin-right: 20px;*/
   height: inherit;
   float: right;
 }
@@ -97,10 +96,14 @@
                       </div>
                       <div class="layout-title">
                           <MenuItem name="interest">
+                            <span class="home-text">
                               主页
+                            </span>
                           </MenuItem>
                           <MenuItem name="article">
+                            <span class="home-text">
                               文章
+                            </span>
                           </MenuItem>
                       </div>
                       <div class="layout-search">
