@@ -1,35 +1,47 @@
 package com.interest.model.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 /**
  * 用于包装list数据的类
- * @author wanghuan
  *
+ * @author wanghuan
  */
 public class PageResult {
-	private List<?> data;
 
-	private Integer totalCount;
+    @ApiModelProperty("分页数据")
+    private List<?> data;
 
-	public List<?> getData() {
-		return data;
-	}
+    @ApiModelProperty("分页数据总量")
+    private Integer totalCount;
 
-	public void setData(List<?> data) {
-		this.data = data;
-	}
+    public PageResult(){}
 
-	public Integer getTotalCount() {
-		return totalCount;
-	}
+    public PageResult(List<?> data,Integer totalCount){
+        this.data = data;
+        this.totalCount = totalCount;
+    }
 
-	public void setTotalCount(Integer totalCount) {
-		this.totalCount = totalCount;
-	}
+    public List<?> getData() {
+        return data;
+    }
 
-	@Override
-	public String toString() {
-		return "PageResult [data=" + data + ", totalCount=" + totalCount + "]";
-	}
+    public void setData(List<?> data) {
+        this.data = data;
+    }
+
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(Integer totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    @Override
+    public String toString() {
+        return "PageResult [data=" + data + ", totalCount=" + totalCount + "]";
+    }
 }

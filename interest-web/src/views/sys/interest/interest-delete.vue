@@ -124,20 +124,20 @@ export default {
     this.getTable({
       pageInfo: this.pageInfo
     });
-    this.axios({
-      method: "get",
-      url: "/public/interests"
-    })
-      .then(
-        function(response) {
-          this.interestList = response.data.data;
-        }.bind(this)
-      )
-      .catch(
-        function(error) {
-          alter(error);
-        }.bind(this)
-      );
+    // this.axios({
+    //   method: "get",
+    //   url: "/public/interests"
+    // })
+    //   .then(
+    //     function(response) {
+    //       this.interestList = response.data.data;
+    //     }.bind(this)
+    //   )
+    //   .catch(
+    //     function(error) {
+    //       alter(error);
+    //     }.bind(this)
+    //   );
   },
   methods: {
     /*pageInfo实体初始化*/

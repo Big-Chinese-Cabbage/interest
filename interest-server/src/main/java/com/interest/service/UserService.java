@@ -3,6 +3,8 @@ package com.interest.service;
 import java.util.List;
 
 import com.interest.model.entity.UserEntity;
+import com.interest.model.request.UserInfoRequest;
+import com.interest.model.response.UserInfoResponse;
 
 public interface UserService {
 	void insert(UserEntity userEntity);
@@ -55,4 +57,8 @@ public interface UserService {
 	void updateUsertype(UserEntity userEntity);
 
     UserEntity getEntityById(int userid);
+
+    UserInfoResponse getUserInfoById(int userId);
+
+	void updateUserInfoByUserId(int userId, UserInfoRequest userInfoRequest);
 }

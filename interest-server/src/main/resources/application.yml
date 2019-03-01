@@ -4,9 +4,9 @@ server:
     context-path: /interest
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/interest?useUnicode=true&characterEncoding=UTF-8&useSSL=false&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull
-    username: root
-    password: wanghuan
+    url: jdbc:mysql://123.206.215.203:3306/interest_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull
+    username: interest_test
+    password: qwe123
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
@@ -31,28 +31,30 @@ spring:
       - classpath:/resources/
       - classpath:/static/
       - classpath:/public/
-      - file:${interest.properties.paths-properties.image}
+      - file:${interest.paths-properties.image}
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.interest.model
 
 logging:
+# 你需要存储日志的目录
   file: D:/interest/file/log/interest.log
   level:
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     com.interest: DEBUG
 
-##自定义配置
+#自定义配置
 interest:
-  properties:
-    paths-properties:
-      image: D:/interest/file/image
-#      domain-name: http://www.lovemtt.com/interest
-      domain-name: http://127.0.0.1:8080/interest
-github:
-  client-id: 你在github中注册的client id
-  client-secret: 你在github中注册的client secret
-qq:
-  appid: 你在qq中注册的appid
-  appkey: 你在qq中注册的appkey
+  paths-properties:
+    image: D:/interest/file/image
+#    image: 你需要存储图片的目录，如上
+    domain-name: http://127.0.0.1:8080/interest
+#   domain-name: https://www.lovemtt.com/interest
+#   domain-name: 你的域名或者（ip+端口）+/interest，如上
+  github:
+    client-id: 你在github中注册的client id
+    client-secret: 你在github中注册的client secret
+  qq:
+    appid: 你在qq中注册的appid
+    appkey: 你在qq中注册的appkey

@@ -7,13 +7,15 @@
             id="interest-editor"
             ref="upload"
             :headers="headers"
-            action="/interest/admin/interest/upload/picture"
+            action="/interest/upload/picture"
             name="picture"
             :show-upload-list="false"
             :before-upload="handleBeforeUpload"
             :on-success="handleSuccess"
             :on-format-error="handleFormatError"
-            :format="['jpg','jpeg','png']">
+            :format="['jpg','jpeg','png']"
+            :max-size="1024"
+            :on-exceeded-size="handleMaxSize">
             <Button icon="ios-cloud-upload-outline">上传图片</Button>
         </Upload>
         <quill-editor
@@ -117,7 +119,8 @@
                 // 获取光标所在位置
                 let length = quill.getSelection().index;
                 // 插入图片  res.info为服务器返回的图片地址
-                quill.insertEmbed(length, 'image', res.data.url);
+                console.log(res);
+                quill.insertEmbed(length, 'image', res.data);
                 // 调整光标到最后
                 //quill.setSelection(length + 1)
             },
@@ -129,6 +132,12 @@
                 this.$Notice.warning({
                     title: '图片格式不对',
                     desc: '图片格式只能为jpg,jpeg,png'
+                });
+            },
+            handleMaxSize (file) {
+                this.$Notice.warning({
+                    title: '图片太大',
+                    desc: '上传图片最大为1M,请优化后在上传。可使用https://zhitu.isux.us/网站优化'
                 });
             },
             onEditorBlur(){//失去焦点事件

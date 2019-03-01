@@ -89,7 +89,6 @@ const routers = [
           title: "card"
         }
       },
-
       {
         path: "messages",
         name: "page-messages",
@@ -97,6 +96,24 @@ const routers = [
           require(["./views/template/messages.vue"], resolve),
         meta: {
           title: "messages"
+        }
+      },
+      {
+        path: "user",
+        name: "page-user",
+        component: resolve =>
+          require(["./views/template/user-info.vue"], resolve),
+        meta: {
+          title: "user"
+        }
+      },
+      {
+        path: "user/:id",
+        name: "page-user-id",
+        component: resolve =>
+          require(["./views/template/user-page.vue"], resolve),
+        meta: {
+          title: "user"
         }
       }
     ]
@@ -247,6 +264,71 @@ const routers = [
         component: resolve => require(["./views/sys/banner.vue"], resolve),
         meta: {
           title: "banner"
+        }
+      },
+      {
+        path: "article",
+        name: "article",
+        component: resolve => require(["./views/sys/article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      }
+    ]
+  },
+  {
+    path: "/article",
+    meta: {
+      title: "smallsnail-wh"
+    },
+    component: resolve => require(["./views/template/index.vue"], resolve),
+    children: [
+      {
+        path: "",
+        name: "article-home",
+        component: resolve => require(["./views/article/pc/home.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "create",
+        name: "article-create",
+        component: resolve => require(["./views/article/pc/create-article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "create/success",
+        name: "article-create",
+        component: resolve => require(["./views/article/pc/create-article-success.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "detail/:id",
+        name: "article-detail-id",
+        component: resolve => require(["./views/article/pc/article-detail.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "user",
+        name: "article-user",
+        component: resolve => require(["./views/article/pc/user-article.vue"], resolve),
+        meta: {
+          title: "article"
+        }
+      },
+      {
+        path: "update/:id",
+        name: "article-update-id",
+        component: resolve => require(["./views/article/pc/update-article.vue"], resolve),
+        meta: {
+          title: "article"
         }
       }
     ]

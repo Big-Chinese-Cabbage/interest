@@ -5,17 +5,11 @@
   position: relative;
   border-radius: 4px;
   overflow: hidden;
+  min-width: 1000px;
 }
 
 .layout-logo {
-  /*width: 100px;*/
-  /*height: 30px;*/
-  /*background: #5b6270;*/
-  /*border-radius: 3px;*/
   float: left;
-  /*position: relative;*/
-  /*top: 15px;
-        left: 20px;*/
 }
 
 .layout-search {
@@ -23,19 +17,36 @@
   border-radius: 3px;
   float: left;
   position: relative;
-  left: 80px;
+  left: 30px;
 }
 
+.layout-title {
+  margin-left: 30px;
+  height: inherit;
+  float: left;
+}
+
+.layout-title .home-text{
+  color: rebeccapurple;
+  font-weight: bold;
+}
+
+.layout-title .home-text:hover{
+  color: #2d8cf0;
+}
+
+.menu-layout {
+  height:65px;
+  width:100%;
+}
 .layout-nav {
-  /*width: 315px;
-        margin: 0 auto;
-        margin-right: 20px;*/
   height: inherit;
   float: right;
 }
 
 .layout-footer-center {
   text-align: center;
+  background: #fff;
 }
 
 .demo-spin-icon-load {
@@ -74,56 +85,82 @@
 <template>
     <div class="layout">
         <Layout>
-            <Header style="position: fixed;width: 100%;background:#fff;padding:0 0;z-index: 1000; ">
-                <Menu mode="horizontal" theme="light" :style="{height:'65px',width:'100%'}"
-                      @on-select="m=>{menuSelect(m)}">
-                    <div style="width: 95%;margin: 0 auto">
-                        <div class="layout-logo">
-                            <a @click="backHome()">
-                                <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle" />
-                            </a>
-                        </div>
-                        <div class="layout-search">
-                            <Input v-model="searchValue" icon="android-search" placeholder="Enter something..."
-                                   @on-enter="search()" />
-                        </div>
-                        <div v-if="loginFlag" class="layout-nav">
-                            <MenuItem name="1">
-                                {{user.name}}
+            <Header style="position: absolute;width: 100%;background:#fff;padding:0 0;z-index: 1000; ">
+              <Menu mode="horizontal" theme="light" class="menu-layout" active-name="interest"
+                    @on-select="m=>{menuSelect(m)}">
+                  <div style="width: 95%;margin: 0 auto">
+                      <div class="layout-logo">
+                          <a @click="backHome()">
+                              <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle" />
+                          </a>
+                      </div>
+                      <div class="layout-title">
+                          <MenuItem name="interest">
+                            <span class="home-text">
+                              主页
+                            </span>
+                          </MenuItem>
+                          <MenuItem name="article">
+                            <span class="home-text">
+                              文章
+                            </span>
+                          </MenuItem>
+                      </div>
+                      <div class="layout-search">
+                          <Input v-model="searchValue" icon="android-search" placeholder="Enter something..."
+                                 @on-enter="search()" />
+                      </div>
+                      <div v-if="loginFlag" class="layout-nav">
+                          <MenuItem name="1">
+                              {{user.name}}
+                          </MenuItem>
+                          <MenuItem name="2">
+                              <Icon type="ios-mail"></Icon>
+                              邮件
+                          </MenuItem>
+                          <Submenu name="3">
+                            <template slot="title">
+                                <Icon type="md-list-box" />
+                                文章
+                            </template>
+                            <MenuItem name="31">
+                              <Icon type="md-create" />
+                              写文章
                             </MenuItem>
-                            <MenuItem name="2">
-                                <Icon type="ios-mail"></Icon>
-                                邮件
+                            <MenuItem name="32">
+                              <Icon type="md-list" />
+                              我的文章
                             </MenuItem>
-                            <MenuItem name="3">
-                                <Icon type="md-log-out"></Icon>
-                                退出
-                            </MenuItem>
-                            <MenuItem name="4" v-if="consoleFlag">
-                                <Icon type="md-settings"></Icon>
-                                控制台
-                            </MenuItem>
-                        </div>
-                        <div  type="success" class="avatar-badge-wrapper" @click="toMessages">
+                        </Submenu>
+                          <MenuItem name="4">
+                              <Icon type="md-log-out"></Icon>
+                              退出
+                          </MenuItem>
+                          <MenuItem name="5" v-if="consoleFlag">
+                              <Icon type="md-settings"></Icon>
+                              控制台
+                          </MenuItem>
+                      </div>
+                      <div  type="success" class="avatar-badge-wrapper" @click="toMessages">
 
-                            <img v-if="loginFlag"
-                                 style="width: 30px;height: 30px; margin-top: 16px;border-radius: 100%;"
-                                 :src="user.headimg" />
+                          <img v-if="loginFlag"
+                               style="width: 30px;height: 30px; margin-top: 16px;border-radius: 100%;"
+                               :src="user.headimg" />
 
-                            <span v-if="unreadMsgCount > 0"  class="msg-num">{{unreadMsgCount}}</span>
+                          <span v-if="unreadMsgCount > 0"  class="msg-num">{{unreadMsgCount}}</span>
 
-                        </div>
+                      </div>
 
-                        <div v-if="!loginFlag" class="layout-nav">
-                            <MenuItem name="5">
-                                <Icon type="md-log-in"></Icon>
-                                登录
-                            </MenuItem>
-                        </div>
-                    </div>
-                </Menu>
+                      <div v-if="!loginFlag" class="layout-nav">
+                          <MenuItem name="6">
+                              <Icon type="md-log-in"></Icon>
+                              登录
+                          </MenuItem>
+                      </div>
+                  </div>
+              </Menu>
             </Header>
-            <Content :style="{margin: '80px 0 0 0', background: '#fff'}">
+            <Content :style="{margin: '80px 0 40px 0'}">
                 <router-view></router-view>
             </Content>
             <Footer class="layout-footer-center">
@@ -270,20 +307,32 @@ export default {
       this.user.name = e.name;
     },
     search() {
-      if (this.searchValue != null && this.searchValue != "") {
+      if(this.$route.name == "home" || this.$route.name == "page-home-title"|| this.$route.name == "page-home"){
         this.$router.push("/page/home/" + this.searchValue);
+      }else if(this.$route.name == "article-home"){
+        this.$router.push("/article" + "?searchValue=" + this.searchValue);
       }
     },
     menuSelect(e) {
+      console.log(e);
       if (e == 1) {
+        this.$router.push("/page/user");
       } else if (e == 2) {
         this.emailModal = true;
-      } else if (e == 3) {
-        this.$store.dispatch("users/loginOUt", { router: this.$router });
+      } else if (e == 31) {
+        this.$router.push("/article/create");
+      } else if (e == 32) {
+        this.$router.push("/article/user");
       } else if (e == 4) {
-        this.$router.push("/base");
+        this.$store.dispatch("users/loginOUt", { router: this.$router });
       } else if (e == 5) {
+        this.$router.push("/base");
+      } else if (e == 6) {
         this.$router.push("/login");
+      } else if (e == "interest") {
+        this.$router.push("/");
+      } else if (e == "article") {
+        this.$router.push("/article");
       }
     },
     backHome() {

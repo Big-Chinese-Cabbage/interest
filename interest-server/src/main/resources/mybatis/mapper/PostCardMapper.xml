@@ -23,6 +23,7 @@
 		<result column="replytime" property="replytime" />
 		<result column="headimg" property="headimg" />
 		<result column="githuburl" property="githuburl" />
+		<result column="userid" property="userid" />
 		<association property="replyCount" column="id" select="com.interest.dao.ReplyCardDao.replyCardCountByPostId"/>
 	</resultMap>
 
@@ -55,8 +56,9 @@
 	</insert>
 
 	<select id="getPostcard" resultMap ="postCardModelMap">
-		select a.*,b.name username, b.headimg headimg, b.url githuburl from post_card a
-			left join sys_user b on a.userid = b.id
+		select a.*,b.name username, b.headimg headimg, b.url githuburl
+		  from post_card a
+		  left join sys_user b on a.userid = b.id
 		<where>
 			a.id = #{id}
 		</where>

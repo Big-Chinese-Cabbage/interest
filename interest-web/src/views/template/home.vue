@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home content-background">
         <div>
             <Carousel autoplay v-model="value2" loop>
                 <CarouselItem v-for="(item,index) in bannerList" :key="index">
@@ -7,18 +7,6 @@
                         <img :style="{height:'550px'}" class="images-con" v-bind:src="(item.image)">
                     </router-link>
                 </CarouselItem>
-                <!-- <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/bg1.jpg">
-                </CarouselItem>
-                <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/view2.jpg">
-                </CarouselItem>
-                <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/view3.jpg">
-                </CarouselItem>
-                <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/view4.jpg">
-                </CarouselItem> -->
             </Carousel>
         </div>
         <div v-if="flage"
@@ -144,6 +132,9 @@ export default {
 };
 </script>
 <style>
+.content-background {
+  background: #fff;
+}
 .box-flex .imgpic {
   transition: 0.7s all;
   opacity: 0.8;

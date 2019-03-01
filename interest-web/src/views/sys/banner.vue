@@ -95,7 +95,7 @@ export default {
                   "strong",
                   {
                     style: {
-                      color: "blue"
+                      color: "#2b85e4"
                     }
                   },
                   "轮播"
@@ -107,7 +107,7 @@ export default {
                   "strong",
                   {
                     style: {
-                      color: "red"
+                      color: "#f90"
                     }
                   },
                   "非轮播"

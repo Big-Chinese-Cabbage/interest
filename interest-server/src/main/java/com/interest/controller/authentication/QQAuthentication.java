@@ -2,6 +2,8 @@ package com.interest.controller.authentication;
 
 import com.interest.controller.login.LoginFailureExcepiton;
 import com.interest.dao.UserDao;
+import com.interest.dao.UserDetailDao;
+import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.entity.UserEntity;
 import com.interest.model.entity.UserQQEntity;
 import com.interest.properties.QQProperties;
@@ -25,6 +27,9 @@ public class QQAuthentication implements MyAuthentication {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserDetailDao userDetailDao;
 
     @Autowired
     private UserQQService userQQService;
@@ -114,13 +119,10 @@ public class QQAuthentication implements MyAuthentication {
         userQQEntity.setGender(qqUserInfo.getString("gender"));
         userQQEntity.setUserid(userEntity.getId());
         userQQService.insertEntity(userQQEntity);
-//        UserGithubEntity userGithubEntity = new UserGithubEntity();
-//        userGithubEntity.setLogin(githubToken.getString("login"));
-//        userGithubEntity.setAvatarUrl(githubToken.getString("avatar_url"));
-//        userGithubEntity.setHtmlUrl(githubToken.getString("html_url"));
-//        userGithubEntity.setEmail(githubToken.getString("email"));
-//        userGithubEntity.setUserid(userEntity.getId());
-//        userGithubService.insertEntity(userGithubEntity);
+
+        UserDetailEntity userDetailEntity = new UserDetailEntity();
+        userDetailEntity.setUserid(userEntity.getId());
+        userDetailDao.insert(userDetailEntity);
 
         return String.valueOf(userEntity.getId());
     }

@@ -7,6 +7,7 @@ import com.interest.model.response.MsgRecordResponse;
 import com.interest.service.MsgRecordsService;
 import com.interest.utils.SecurityAuthenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +19,14 @@ public class MsgRecordsServiceImpl implements MsgRecordsService {
     @Autowired
     private MsgRecordsDao msgRecordsDao;
 
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
     @Override
-    public boolean addMsg(MsgRecordEntity entity) {
-        msgRecordsDao.addMsg(entity);
-        return false;
+    public void addMsg(MsgRecordEntity entity) {
+        threadPoolTaskExecutor.execute(()->{
+            msgRecordsDao.addMsg(entity);
+        });
     }
 
     @Override

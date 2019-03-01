@@ -30,20 +30,9 @@
                     <p>{{postcard.title}}</p>
                 </div>
                 <Card>
-                    <!-- <div slot="extra">
-                    	<div>
-                            <a :href="postcard.githuburl" target="_blank">
-                                <img :src="postcard.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
-                                {{postcard.username}}
-                            </a>
-                    	</div>
-                    	<div style="background: #5cadff;text-align: center;color: #fff;border-radius: 10px;">
-                    		楼主
-                    	</div>
-                    </div> -->
                     <div class="content-right">
                       <div>
-                            <a :href="postcard.githuburl" target="_blank">
+                            <a :href="$store.state.userUrlPre+postcard.userid" target="_blank">
                                 <img :src="postcard.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
                                 {{postcard.username}}
                             </a>
@@ -65,7 +54,7 @@
 
                 <Card v-for="(item,index) in replyCardList" :key="index">
                     <div class="content-right">
-                        <a :href="item.githuburl" target="_blank">
+                        <a :href="$store.state.userUrlPre+item.userid" target="_blank">
                             <img :src="item.headimg" style="width: 25px;height: 25px;border-radius: 100%;">
                             {{item.username}}
                         </a>
@@ -123,7 +112,8 @@ export default {
         interestid: "",
         createtime: "",
         headimg: "",
-        githuburl: ""
+        githuburl: "",
+        userid: ""
       },
       replyCardList: []
     };
@@ -190,6 +180,7 @@ export default {
       this.postcard.createtime = this.dateGet(e.createtime);
       this.postcard.headimg = e.headimg;
       this.postcard.githuburl = e.githuburl;
+      this.postcard.userid = e.userid;
     },
     pageSearch(e) {
       this.pageInfo.page = e - 1;

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.ArticleCommentDao">
+    <resultMap id="articleCommentEntity" type="com.interest.model.entity.ArticleCommentEntity">
+        <id column="id" property="id"/>
+        <result column="articleid" property="articleid"/>
+        <result column="userid" property="userid"/>
+        <result column="parentid" property="parentid"/>
+        <result column="comment" property="comment"/>
+        <result column="create_time" property="createTime"/>
+        <result column="replier_id" property="replierId"/>
+        <result column="replier_name" property="replierName"/>
+    </resultMap>
+
+    <resultMap id="articleCommentResponse" type="com.interest.model.response.ArticleCommentResponse">
+        <id column="id" property="id"/>
+        <result column="articleid" property="articleid"/>
+        <result column="userid" property="userid"/>
+        <result column="parentid" property="parentid"/>
+        <result column="comment" property="comment"/>
+        <result column="create_time" property="createTime"/>
+        <result column="replier_id" property="replierId"/>
+        <result column="replier_name" property="replierName"/>
+        <result column="userName" property="userName"/>
+        <result column="userHeadImg" property="userHeadImg"/>
+        <collection property="childComments" column="{parentId = id}"
+                    select="com.interest.dao.ArticleCommentDao.getChildCommentsById"/>
+    </resultMap>
+
+    <resultMap id="articleReplyCommentResponse" type="com.interest.model.response.ArticleReplyCommentResponse">
+        <id column="id" property="id"/>
+        <result column="articleid" property="articleid"/>
+        <result column="userid" property="userid"/>
+        <result column="parentid" property="parentid"/>
+        <result column="comment" property="comment"/>
+        <result column="create_time" property="createTime"/>
+        <result column="replier_id" property="replierId"/>
+        <result column="replier_name" property="replierName"/>
+        <result column="userName" property="userName"/>
+        <result column="userHeadImg" property="userHeadImg"/>
+    </resultMap>
+
+    <insert id="insertEntity" parameterType="ArticleCommentEntity">
+        <selectKey keyProperty="id" resultType="java.lang.Integer"
+                   order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into article_comment (articleid,userid,parentid,comment,create_time,replier_id,replier_name)
+        values (#{articleid},#{userid},#{parentid},#{comment},#{createTime},#{replierId},#{replierName})
+    </insert>
+
+    <select id="getArticleCommentByArticleId" resultMap="articleCommentResponse">
+        select a.*,b.name userName,b.headimg userHeadImg
+        from article_comment a
+        left join sys_user b on a.userid = b.id
+        <where>
+            articleid = #{articleId} and parentid is null
+        </where>
+        order by a.create_time desc
+        limit #{pageWrapper.start},#{pageWrapper.pageSize}
+    </select>
+
+    <select id="getChildCommentsById" resultMap="articleReplyCommentResponse">
+        select a.*,b.name userName,b.headimg userHeadImg
+        from article_comment a
+        left join sys_user b on a.userid = b.id
+        <where>
+            parentid = #{parentId}
+        </where>
+        order by a.create_time asc
+    </select>
+
+    <select id="getArticleCommentSizeByArticleId" resultType="Integer">
+        select count(1) from article_comment
+        <where>
+            articleid = #{articleId} and parentid is null
+        </where>
+    </select>
+
+</mapper>

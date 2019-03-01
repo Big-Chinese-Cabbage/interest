@@ -17,7 +17,9 @@ public class OtherTest {
 
     @Test
     public void testPassword(){
-
+        String s = "123456787654231345677654333543232543123123eqwdasdqwe1312123456787654231345677654333543232543123123eqwdasdqwe1312123456787654231345677654333543232543123123eqwdasdqwe1312";
+        s = s.substring(0,100);
+        System.out.print(s);
     }
 
 }

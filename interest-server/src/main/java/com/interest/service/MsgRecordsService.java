@@ -10,7 +10,7 @@ public interface MsgRecordsService {
      * @param entity 消息实体
      * @return 添加是否成功
      */
-    boolean addMsg(MsgRecordEntity entity);
+    void addMsg(MsgRecordEntity entity);
 
     /**
      * 查询未读消息条数
