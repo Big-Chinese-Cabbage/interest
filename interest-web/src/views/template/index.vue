@@ -314,7 +314,6 @@ export default {
       }
     },
     menuSelect(e) {
-      console.log(e);
       if (e == 1) {
         this.$router.push("/page/user");
       } else if (e == 2) {

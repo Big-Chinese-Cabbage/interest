@@ -92,7 +92,7 @@ public class ArticleController {
         return new ResponseWrapper<>(pageResult);
     }
 
-    @GetMapping("/users/user/articles")
+    @GetMapping("/general/users/user/articles")
     public ResponseWrapper<PageResult> getUserArticle(@RequestParam("pageSize") int pageSize,
                                                   @RequestParam("page") int page) {
         int userId = SecurityAuthenUtil.getId();

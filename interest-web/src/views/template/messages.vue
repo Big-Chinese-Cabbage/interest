@@ -51,7 +51,6 @@ export default {
         let data = response.data.data;
         _this.messages = data.data;
         _this.totalCount = data.totalCount;
-        console.log(response);
       })
       .catch(function(error) {
         _this.$Message.error("查询失败，请稍后重试");
@@ -112,7 +111,6 @@ export default {
         let data = response.data.data;
         _this.messages = data.data;
         _this.totalCount = data.totalCount;
-        console.log(response);
       })
       .catch(function(error) {
         _this.$Message.error("查询失败，请稍后重试");

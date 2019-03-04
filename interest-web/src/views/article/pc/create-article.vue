@@ -79,7 +79,6 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.$refs.myQuillEditor);
     /*页面初始化调用方法*/
     //this.getTable();
   },

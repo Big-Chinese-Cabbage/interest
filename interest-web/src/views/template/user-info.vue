@@ -64,7 +64,7 @@ export default {
   	getUserInfo(){
   		this.axios({
 	        method: "get",
-	        url: "/users/user/info"
+	        url: "/general/users/user/info"
 	    })
 	    .then(
           function(response) {
@@ -80,7 +80,7 @@ export default {
   	updateInfo(){
   		this.axios({
   			method: "put",
-  			url: "/users/user/info",
+  			url: "/general/users/user/info",
   			data: this.userInfo
   		})
   		.then(

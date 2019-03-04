@@ -107,7 +107,7 @@ public class UserController {
         return new ResponseWrapper<>(groupId);
     }
 
-    @GetMapping("/users/user/info")
+    @GetMapping("/general/users/user/info")
     @ApiOperation("获取用户详情")
     public ResponseWrapper<UserInfoResponse> getUserInfo(){
         int userId = SecurityAuthenUtil.getId();
@@ -122,7 +122,7 @@ public class UserController {
         return new ResponseWrapper<>(userInfoResponse);
     }
 
-    @PutMapping("/users/user/info")
+    @PutMapping("/general/users/user/info")
     @ApiOperation("修改用户详情")
     public ResponseWrapper<UserInfoResponse> updateUserInfo(@RequestBody UserInfoRequest userInfoRequest){
         int userId = SecurityAuthenUtil.getId();

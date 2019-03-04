@@ -157,7 +157,6 @@ export default {
   		})
   		.then(
           function(response) {
-            console.log(response);
           }.bind(this)
         )
         .catch(
