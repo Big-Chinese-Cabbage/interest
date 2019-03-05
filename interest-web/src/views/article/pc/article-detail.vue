@@ -266,7 +266,7 @@
                                 <li v-for="(replyComment,replyIndex) in comment.childComments" class="reply-item" :key="replyComment.id">
                                     <div class="reply-info">
                                         <div class="title-info">
-                                            <a :href="$store.state.userUrlPre+comment.userid" target="_blank">
+                                            <a :href="$store.state.userUrlPre+replyComment.userid" target="_blank">
                                                 <img class="avatar" :src="replyComment.userHeadImg" :title="replyComment.userName" />
                                             </a>
                                             <div class="title-info-right">
