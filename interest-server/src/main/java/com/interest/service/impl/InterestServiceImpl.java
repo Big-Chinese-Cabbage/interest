@@ -43,7 +43,7 @@ public class InterestServiceImpl implements InterestService {
 		String pictureUrl = null;
 		try {
 			if (picture != null) {
-				String fileName = ImageUtil.saveImg(picture, pathsProperties.getImage() + path);
+				String fileName = ImageUtil.saveImgAndJPEGEncode(picture, pathsProperties.getImage() + path);
 				pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
 			}
 		} catch (IOException e) {

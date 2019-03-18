@@ -6,9 +6,11 @@ import com.interest.dao.UserDetailDao;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.entity.UserEntity;
 import com.interest.model.entity.UserQQEntity;
+import com.interest.properties.PathsProperties;
 import com.interest.properties.QQProperties;
 import com.interest.service.UserQQService;
 import com.interest.utils.DateUtil;
+import com.interest.utils.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 
 
 @Service(value = "qQAuthentication")
@@ -36,6 +40,9 @@ public class QQAuthentication implements MyAuthentication {
 
     @Autowired
     private QQProperties qqProperties;
+
+    @Autowired
+    private PathsProperties pathsProperties;
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -99,13 +106,21 @@ public class QQAuthentication implements MyAuthentication {
 
     private String insertUser(JSONObject qqUserInfo, String openid) throws JSONException {
 
-        StringBuilder qqHeadImg = new StringBuilder(qqUserInfo.getString("figureurl_qq_1"));
+        StringBuilder qqHeadImg = null;
+        if (qqUserInfo.getString("figureurl_qq_2") != null && !"".equals(qqUserInfo.getString("figureurl_qq_2"))) {
+            qqHeadImg = new StringBuilder(qqUserInfo.getString("figureurl_qq_2"));
+        } else {
+            qqHeadImg = new StringBuilder(qqUserInfo.getString("figureurl_qq_1"));
+        }
+
         if (qqHeadImg.indexOf("https") < 0) {
             qqHeadImg.insert(4, "s");
         }
 
+        String headImg = saveHeadImg(qqHeadImg.toString());
+
         UserEntity userEntity = new UserEntity();
-        userEntity.setHeadimg(qqHeadImg.toString());
+        userEntity.setHeadimg(headImg);
         userEntity.setName(qqUserInfo.getString("nickname"));
         userEntity.setQqid(openid);
         userEntity.setUsertype(0);
@@ -115,7 +130,7 @@ public class QQAuthentication implements MyAuthentication {
         UserQQEntity userQQEntity = new UserQQEntity();
         userQQEntity.setOpenid(openid);
         userQQEntity.setNickname(userEntity.getName());
-        userQQEntity.setFigureurlQq1(userEntity.getHeadimg());
+        userQQEntity.setFigureurlQq1(qqHeadImg.toString());
         userQQEntity.setGender(qqUserInfo.getString("gender"));
         userQQEntity.setUserid(userEntity.getId());
         userQQService.insertEntity(userQQEntity);
@@ -125,5 +140,19 @@ public class QQAuthentication implements MyAuthentication {
         userDetailDao.insert(userDetailEntity);
 
         return String.valueOf(userEntity.getId());
+    }
+
+    public String saveHeadImg(String url) {
+        String path = "/interest/head" + DateUtil.currentTimes();
+
+        String pictureUrl = null;
+        try {
+            String fileName = ImageUtil.saveImg(url, pathsProperties.getImage() + path, "jpg");
+            pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return pictureUrl;
     }
 }
