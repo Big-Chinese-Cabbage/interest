@@ -8,10 +8,8 @@ public class OtherTest {
     public void test001(){
         StringBuilder rulBuilder = new StringBuilder("https://thirdqq.qlogo.cn/qqapp/101512648/EAF0A6314B4851164A7F735DB6E9CDD5/40");
 
-        if (rulBuilder.indexOf("https") < 0) {
-            rulBuilder.insert(4, "s");
-
-        }
+        rulBuilder.delete(rulBuilder.length()-2,rulBuilder.length());
+        rulBuilder.append("100");
         System.out.println(rulBuilder.toString());
     }
 

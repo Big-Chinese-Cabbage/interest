@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.interest.model.entity.UserEntity;
+import com.interest.model.ordinary.UserIdHeadImg;
 import com.interest.model.request.UserInfoRequest;
 import com.interest.model.response.UserInfoResponse;
 import org.apache.ibatis.annotations.Mapper;
@@ -85,4 +86,10 @@ public interface UserDao {
     UserInfoResponse getUserInfoById(@Param("userId") int userId);
 
     void updateUserInfo(@Param("userId") int userId, @Param("name") String name, @Param("url") String url, @Param("email") String email);
+
+    List<UserIdHeadImg> allGithubUserId();
+
+    List<UserIdHeadImg> allQQUserId();
+
+    void updateHeadImg(@Param("id") Integer id,@Param("headImg") String headImg);
 }

@@ -129,4 +129,12 @@ public class UserController {
         userService.updateUserInfoByUserId(userId,userInfoRequest);
         return new ResponseWrapper<>(userInfoRequest);
     }
+
+//    @PatchMapping("/public/users/head-image/location")
+//    public ResponseWrapper<String> updateUserHeadImageToLocation(){
+//        userService.updateUserHeadImageToLocation();
+//        return new ResponseWrapper<>("success");
+//    }
+
+
 }

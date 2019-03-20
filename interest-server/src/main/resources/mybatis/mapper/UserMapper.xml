@@ -184,4 +184,19 @@
         </where>
     </update>
 
+    <select id="allGithubUserId" resultType="UserIdHeadImg">
+      SELECT id,headimg headImage FROM sys_user where githubid is not null;
+    </select>
+
+    <select id="allQQUserId" resultType="UserIdHeadImg">
+      SELECT id,headimg headImage FROM sys_user where qqid is not null;
+    </select>
+
+    <update id="updateHeadImg">
+        update sys_user set headimg = #{headImg}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
 </mapper>

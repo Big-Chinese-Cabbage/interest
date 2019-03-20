@@ -88,12 +88,12 @@ public class WhSpringBootApplicationTests {
 
         //ImageUtil.imgJPEGEncode("https://www.lovemtt.com/interest/interest/20190304/36576e98-70d9-4a19-b3b2-e68551ef5e6f.PNG", "D:/interest/file/image");
 
-        //ImageUtil.imgJPEGEncode("https://thirdqq.qlogo.cn/qqapp/101512648/3F57E5B8E59F834C811DE1EB470FD5A6/100", "D:/interest/file/image");
+        ImageUtil.imgJPEGEncode("https://thirdqq.qlogo.cn/qqapp/101512648/3F57E5B8E59F834C811DE1EB470FD5A6/100", "D:/interest/file/image");
 
-        //ImageUtil.imgJPEGEncode("https://avatars1.githubusercontent.com/u/9424535?v=4", "D:/interest/file/image");
+        ImageUtil.imgJPEGEncode("https://avatars1.githubusercontent.com/u/9424535?v=4", "D:/interest/file/image");
 
-        ImageUtil.saveImg("https://thirdqq.qlogo.cn/qqapp/101512648/3F57E5B8E59F834C811DE1EB470FD5A6/100","D:/interest/file/image","jpg");
-        ImageUtil.saveImg("https://avatars1.githubusercontent.com/u/9424535?v=4","D:/interest/file/image","png");
+        //ImageUtil.saveImg("https://thirdqq.qlogo.cn/qqapp/101512648/3F57E5B8E59F834C811DE1EB470FD5A6/100","D:/interest/file/image","jpg");
+        //ImageUtil.saveImg("https://avatars1.githubusercontent.com/u/9424535?v=4","D:/interest/file/image","png");
     }
 
 }

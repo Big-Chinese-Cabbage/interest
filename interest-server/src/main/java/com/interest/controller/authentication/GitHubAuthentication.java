@@ -134,7 +134,7 @@ public class GitHubAuthentication implements MyAuthentication {
     }
 
     public String saveHeadImg(String url) {
-        String path = "/interest/head" + DateUtil.currentTimes();
+        String path = "/interest/head/" + DateUtil.currentTimes();
 
         String pictureUrl = null;
         try {

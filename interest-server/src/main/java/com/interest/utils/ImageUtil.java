@@ -1,7 +1,5 @@
 package com.interest.utils;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -74,9 +72,9 @@ public class ImageUtil {
     /**
      * 链接url保存图片
      *
-     * @param urlForString
-     * @param path
-     * @param pictureFormat
+     * @param urlForString 连接url
+     * @param path 存储路径
+     * @param pictureFormat 图片后缀
      * @return
      * @throws IOException
      */
@@ -105,6 +103,10 @@ public class ImageUtil {
 
     public static void imgJPEGEncode(String url, String path) {
         try {
+            File file = new File(path);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
             // 开始读取文件
             Image image = ImageIO.read(new URL(url));
 
@@ -122,8 +124,10 @@ public class ImageUtil {
             String fileName = UUID.randomUUID().toString() + ".jpeg";
             FileOutputStream out = new FileOutputStream(path + File.separator + fileName);
             //将图片按JPEG压缩，保存到out中
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+            ImageIO.write(tag,"JPEG",out);
+
+//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//            encoder.encode(tag);
             //关闭文件输出流
             out.close();
         } catch (Exception ef) {
@@ -160,8 +164,9 @@ public class ImageUtil {
         String fileName = UUID.randomUUID().toString() + ".jpeg";
         FileOutputStream out = new FileOutputStream(path + File.separator + fileName);
         //将图片按JPEG压缩，保存到out中
-        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-        encoder.encode(tag);
+        ImageIO.write(tag,"JPEG",out);
+//        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//        encoder.encode(tag);
         //关闭文件输出流
         out.close();
 
@@ -191,8 +196,9 @@ public class ImageUtil {
             //创建文件输出流
             FileOutputStream out = new FileOutputStream(imgdist);
             //将图片按JPEG压缩，保存到out中
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+            ImageIO.write(tag,"JPEG",out);
+//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//            encoder.encode(tag);
             //关闭文件输出流
             out.close();
         } catch (Exception ef) {
