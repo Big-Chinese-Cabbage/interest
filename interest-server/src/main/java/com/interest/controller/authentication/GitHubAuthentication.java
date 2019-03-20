@@ -7,8 +7,10 @@ import com.interest.model.entity.UserEntity;
 import com.interest.controller.login.LoginFailureExcepiton;
 import com.interest.model.entity.UserGithubEntity;
 import com.interest.properties.GithubProperties;
+import com.interest.properties.PathsProperties;
 import com.interest.service.UserGithubService;
 import com.interest.utils.DateUtil;
+import com.interest.utils.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 
 
 @Service(value = "gitHubAuthentication")
@@ -39,6 +43,9 @@ public class GitHubAuthentication implements MyAuthentication {
     @Autowired
     private GithubProperties githubProperties;
 
+    @Autowired
+    private PathsProperties pathsProperties;
+
     private RestTemplate restTemplate = new RestTemplate();
 
     private static final String GITHUB_ACCESSS_TOKEN_URL = "https://github.com/login/oauth/access_token";
@@ -54,7 +61,7 @@ public class GitHubAuthentication implements MyAuthentication {
         requestEntity.add("client_secret", githubProperties.getClientSecret());
         requestEntity.add("code", code);
 
-        logger.info("**********client_id:"+requestEntity.get("client_id")+";client_secret:"+requestEntity.get("client_secret")+"**********");
+        logger.info("**********client_id:" + requestEntity.get("client_id") + ";client_secret:" + requestEntity.get("client_secret") + "**********");
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(GITHUB_ACCESSS_TOKEN_URL, requestEntity, String.class);
 
@@ -62,7 +69,7 @@ public class GitHubAuthentication implements MyAuthentication {
 
         String access_token = message.split("&")[0].split("=")[1];
 
-        if(access_token == null || "".equals(access_token)){
+        if (access_token == null || "".equals(access_token)) {
             throw new LoginFailureExcepiton(message);
         }
 
@@ -98,9 +105,11 @@ public class GitHubAuthentication implements MyAuthentication {
     }
 
     private String insertUser(JSONObject githubToken) throws JSONException {
+        String headImg = saveHeadImg(githubToken.getString("avatar_url"));
+
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(githubToken.getString("email"));
-        userEntity.setHeadimg(githubToken.getString("avatar_url"));
+        userEntity.setHeadimg(headImg);
 //        userEntity.setLoginName(githubToken.getString("login"));
         userEntity.setName(githubToken.getString("login"));
         userEntity.setUrl(githubToken.getString("html_url"));
@@ -122,5 +131,19 @@ public class GitHubAuthentication implements MyAuthentication {
         userDetailDao.insert(userDetailEntity);
 
         return String.valueOf(userEntity.getId());
+    }
+
+    public String saveHeadImg(String url) {
+        String path = "/interest/head/" + DateUtil.currentTimes();
+
+        String pictureUrl = null;
+        try {
+            String fileName = ImageUtil.saveImg(url, pathsProperties.getImage() + path, "png");
+            pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return pictureUrl;
     }
 }

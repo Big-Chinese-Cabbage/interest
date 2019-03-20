@@ -8,6 +8,7 @@ import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.entity.UserEntity;
 import com.interest.model.entity.UserGithubEntity;
 import com.interest.service.UserDetailService;
+import com.interest.utils.ImageUtil;
 import net.bytebuddy.asm.Advice;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,67 +19,81 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WhSpringBootApplicationTests {
 
-	@Autowired
-	private UserDetailService userDetailService;
+    @Autowired
+    private UserDetailService userDetailService;
 
-	@Autowired
-	private UserDetailDao userDetailDao;
+    @Autowired
+    private UserDetailDao userDetailDao;
 
-	@Autowired
-	private UserDao userDao;
-
-	@Test
-	public void testUserDetail(){
-		List<UserEntity> list = userDao.getALl();
-		for (UserEntity userEntity : list){
-			UserDetailEntity userDetailEntity = new UserDetailEntity();
-			userDetailEntity.setUserid(userEntity.getId());
-			userDetailDao.insert(userDetailEntity);
-		}
-
-	}
-
-
-	@Autowired
-	private RedisTemplate redisTemplate;
-
-	@Autowired
-	private PostCardDao postCardDao;
-
-
-	@Autowired
-	private UserGithubDao userGithubDao;
+    @Autowired
+    private UserDao userDao;
 
     @Test
-    public void testRedis(){
+    public void testUserDetail() {
+        List<UserEntity> list = userDao.getALl();
+        for (UserEntity userEntity : list) {
+            UserDetailEntity userDetailEntity = new UserDetailEntity();
+            userDetailEntity.setUserid(userEntity.getId());
+            userDetailDao.insert(userDetailEntity);
+        }
 
-		List<UserEntity> list = userDao.getALl();
-		for (UserEntity userEntity:list){
-			UserGithubEntity userGithubEntity = new UserGithubEntity();
-			userGithubEntity.setLogin(userEntity.getName());
-			userGithubEntity.setUserid(userEntity.getId());
-			userGithubEntity.setEmail(userEntity.getEmail());
-			userGithubEntity.setHtmlUrl(userEntity.getUrl());
-			userGithubEntity.setAvatarUrl(userEntity.getHeadimg());
-			userGithubDao.insertEntity(userGithubEntity);
-		}
     }
 
-	@Test
-	public void QQOauth2Test(){
-		try {
-			String s = "callback( {\"client_id\":\"YOUR_APPID\",\"openid\":\"YOUR_OPENID\"} );";
-			s = s.split("\\(")[1].split("\\)")[0];
-			System.out.println(new JSONObject(s).get("openid"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private PostCardDao postCardDao;
+
+
+    @Autowired
+    private UserGithubDao userGithubDao;
+
+    @Test
+    public void testRedis() {
+
+        List<UserEntity> list = userDao.getALl();
+        for (UserEntity userEntity : list) {
+            UserGithubEntity userGithubEntity = new UserGithubEntity();
+            userGithubEntity.setLogin(userEntity.getName());
+            userGithubEntity.setUserid(userEntity.getId());
+            userGithubEntity.setEmail(userEntity.getEmail());
+            userGithubEntity.setHtmlUrl(userEntity.getUrl());
+            userGithubEntity.setAvatarUrl(userEntity.getHeadimg());
+            userGithubDao.insertEntity(userGithubEntity);
+        }
+    }
+
+    @Test
+    public void QQOauth2Test() {
+        try {
+            String s = "callback( {\"client_id\":\"YOUR_APPID\",\"openid\":\"YOUR_OPENID\"} );";
+            s = s.split("\\(")[1].split("\\)")[0];
+            System.out.println(new JSONObject(s).get("openid"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void urlPictureTest() throws IOException {
+
+        //ImageUtil.imgJPEGEncode("https://www.lovemtt.com/interest/interest/20190304/36576e98-70d9-4a19-b3b2-e68551ef5e6f.PNG", "D:/interest/file/image");
+
+        ImageUtil.imgJPEGEncode("https://thirdqq.qlogo.cn/qqapp/101512648/3F57E5B8E59F834C811DE1EB470FD5A6/100", "D:/interest/file/image");
+
+        ImageUtil.imgJPEGEncode("https://avatars1.githubusercontent.com/u/9424535?v=4", "D:/interest/file/image");
+
+        //ImageUtil.saveImg("https://thirdqq.qlogo.cn/qqapp/101512648/3F57E5B8E59F834C811DE1EB470FD5A6/100","D:/interest/file/image","jpg");
+        //ImageUtil.saveImg("https://avatars1.githubusercontent.com/u/9424535?v=4","D:/interest/file/image","png");
+    }
 
 }
