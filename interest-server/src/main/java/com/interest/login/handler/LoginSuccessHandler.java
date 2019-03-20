@@ -1,4 +1,4 @@
-package com.interest.controller.login;
+package com.interest.login.handler;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.interest.controller.authentication.MyAuthenticationToken;
+import com.interest.login.authentication.MyAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

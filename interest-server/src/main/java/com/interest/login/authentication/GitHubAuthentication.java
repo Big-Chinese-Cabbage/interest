@@ -1,10 +1,10 @@
-package com.interest.controller.authentication;
+package com.interest.login.authentication;
 
 import com.interest.dao.UserDao;
 import com.interest.dao.UserDetailDao;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.entity.UserEntity;
-import com.interest.controller.login.LoginFailureExcepiton;
+import com.interest.login.exception.LoginFailureExcepiton;
 import com.interest.model.entity.UserGithubEntity;
 import com.interest.properties.GithubProperties;
 import com.interest.properties.PathsProperties;

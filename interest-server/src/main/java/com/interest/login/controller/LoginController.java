@@ -1,4 +1,4 @@
-package com.interest.controller.login;
+package com.interest.login.controller;
 
 import java.io.IOException;
 
@@ -6,8 +6,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.interest.controller.authentication.MyAuthentication;
-import com.interest.controller.authentication.MyAuthenticationToken;
+import com.interest.login.authentication.MyAuthentication;
+import com.interest.login.authentication.MyAuthenticationToken;
+import com.interest.login.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
