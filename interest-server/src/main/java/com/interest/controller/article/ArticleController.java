@@ -6,17 +6,14 @@ import com.interest.model.request.ArticleUpdateRequest;
 import com.interest.model.response.ArticleDetailResponse;
 import com.interest.model.utils.PageWrapper;
 import com.interest.model.utils.ResponseWrapper;
+import com.interest.picture.PictureService;
 import com.interest.service.ArticleService;
-import com.interest.service.InterestService;
-import com.interest.utils.DateUtil;
 import com.interest.utils.SecurityAuthenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class ArticleController {
@@ -25,7 +22,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     @Autowired
-    private InterestService interestService;
+    private PictureService pictureService;
 
     @PostMapping("/article")
     public ResponseWrapper<String> createArticle(@RequestBody ArticleCreateRequest articleCreateRequest) {
@@ -94,7 +91,7 @@ public class ArticleController {
 
     @GetMapping("/general/users/user/articles")
     public ResponseWrapper<PageResult> getUserArticle(@RequestParam("pageSize") int pageSize,
-                                                  @RequestParam("page") int page) {
+                                                      @RequestParam("page") int page) {
         int userId = SecurityAuthenUtil.getId();
         PageWrapper pageWrapper = new PageWrapper(pageSize, page);
         PageResult pageResult = articleService.getArticlesByUserId(userId, pageWrapper);
@@ -110,7 +107,8 @@ public class ArticleController {
     @PostMapping("/upload/picture")
     public ResponseWrapper<String> uploadPicture(@RequestParam("picture") MultipartFile picture) {
 
-        String pictureUrl = interestService.savePicture(picture);
+        String pictureUrl = pictureService.saveImage(picture);
+
         return new ResponseWrapper<>(pictureUrl);
     }
 

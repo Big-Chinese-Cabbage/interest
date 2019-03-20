@@ -1,27 +1,26 @@
 package com.interest.login.authentication;
 
-import com.interest.login.exception.LoginFailureExcepiton;
 import com.interest.dao.UserDao;
 import com.interest.dao.UserDetailDao;
+import com.interest.login.exception.LoginFailureExcepiton;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.entity.UserEntity;
 import com.interest.model.entity.UserQQEntity;
-import com.interest.properties.PathsProperties;
+import com.interest.picture.PictureService;
 import com.interest.properties.QQProperties;
 import com.interest.service.UserQQService;
+import com.interest.service.UserService;
 import com.interest.utils.DateUtil;
-import com.interest.utils.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
 
 
 @Service(value = "qQAuthentication")
@@ -42,7 +41,13 @@ public class QQAuthentication implements MyAuthentication {
     private QQProperties qqProperties;
 
     @Autowired
-    private PathsProperties pathsProperties;
+    private PictureService pictureService;
+
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
+    @Autowired
+    private UserService userService;
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -117,7 +122,8 @@ public class QQAuthentication implements MyAuthentication {
             qqHeadImg.insert(4, "s");
         }
 
-        String headImg = saveHeadImg(qqHeadImg.toString());
+        String headImg = qqHeadImg.toString();
+
 
         UserEntity userEntity = new UserEntity();
         userEntity.setHeadimg(headImg);
@@ -139,20 +145,12 @@ public class QQAuthentication implements MyAuthentication {
         userDetailEntity.setUserid(userEntity.getId());
         userDetailDao.insert(userDetailEntity);
 
+        // 异步将网络资源下载到本地，并且更新数据库
+        threadPoolTaskExecutor.execute(() -> {
+            userService.updateUserHeadImg(userEntity.getId(), pictureService.saveImage(headImg, "/head", "jpg"));
+            //userService.updateUserUrl(userEntity.getId());
+        });
         return String.valueOf(userEntity.getId());
     }
 
-    public String saveHeadImg(String url) {
-        String path = "/interest/head/" + DateUtil.currentTimes();
-
-        String pictureUrl = null;
-        try {
-            String fileName = ImageUtil.saveImg(url, pathsProperties.getImage() + path, "jpg");
-            pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return pictureUrl;
-    }
 }

@@ -63,4 +63,8 @@ public interface UserService {
 	void updateUserInfoByUserId(int userId, UserInfoRequest userInfoRequest);
 
     void updateUserHeadImageToLocation();
+
+	void updateUserHeadImg(int userId, String headImg);
+
+    void updateUserUrl(int id);
 }

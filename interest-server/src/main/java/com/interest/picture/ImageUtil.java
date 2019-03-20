@@ -1,4 +1,4 @@
-package com.interest.utils;
+package com.interest.picture;
 
 import org.springframework.web.multipart.MultipartFile;
 

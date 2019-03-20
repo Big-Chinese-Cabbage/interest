@@ -130,6 +130,13 @@ public class UserController {
         return new ResponseWrapper<>(userInfoRequest);
     }
 
+    @PatchMapping("/general/users/user/headImg")
+    public ResponseWrapper<String> updateUserHeadImg(@RequestParam("headImg") String headImg){
+        int userId = SecurityAuthenUtil.getId();
+        userService.updateUserHeadImg(userId,headImg);
+        return new ResponseWrapper<>(headImg);
+    }
+
 //    @PatchMapping("/public/users/head-image/location")
 //    public ResponseWrapper<String> updateUserHeadImageToLocation(){
 //        userService.updateUserHeadImageToLocation();

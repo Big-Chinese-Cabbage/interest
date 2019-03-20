@@ -1,29 +1,20 @@
 package com.interest.service.impl;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.interest.dao.InterestDao;
 import com.interest.model.entity.InterestEntity;
 import com.interest.model.response.BannerResponse;
 import com.interest.model.response.InterestResponse;
-import com.interest.properties.PathsProperties;
-import com.interest.utils.DateUtil;
-import com.interest.utils.ImageUtil;
+import com.interest.service.InterestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.interest.service.InterestService;
-import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 @Service
 public class InterestServiceImpl implements InterestService {
 
 	@Autowired
 	private InterestDao interestDao;
-
-	@Autowired
-	private PathsProperties pathsProperties;
 
 	@Override
 	public List<InterestResponse> getInsterest(String title) {
@@ -33,24 +24,6 @@ public class InterestServiceImpl implements InterestService {
 	@Override
 	public InterestEntity getInsterestById(int id) {
 		return interestDao.getInsterestById(id);
-	}
-
-	@Override
-	public String savePicture(MultipartFile picture) {
-
-		String path = "/interest/" + DateUtil.currentTimes();
-
-		String pictureUrl = null;
-		try {
-			if (picture != null) {
-				String fileName = ImageUtil.saveImgAndJPEGEncode(picture, pathsProperties.getImage() + path);
-				pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return pictureUrl;
 	}
 
 	@Override

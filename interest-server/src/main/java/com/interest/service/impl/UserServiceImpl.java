@@ -1,9 +1,5 @@
 package com.interest.service.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.interest.dao.RelationDao;
 import com.interest.dao.UserDao;
 import com.interest.model.entity.RelationEntity;
@@ -11,17 +7,18 @@ import com.interest.model.entity.UserEntity;
 import com.interest.model.ordinary.UserIdHeadImg;
 import com.interest.model.request.UserInfoRequest;
 import com.interest.model.response.UserInfoResponse;
+import com.interest.picture.PictureService;
 import com.interest.properties.PathsProperties;
 import com.interest.service.UserDetailService;
-import com.interest.utils.DateUtil;
-import com.interest.utils.ImageUtil;
+import com.interest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.interest.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service(value = "userServiceImpl")
 public class UserServiceImpl implements UserService {
@@ -37,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
+    @Autowired
+    private PictureService pictureService;
 
     @Autowired
     private PathsProperties pathsProperties;
@@ -133,34 +133,32 @@ public class UserServiceImpl implements UserService {
         List<UserIdHeadImg> qqUserId = userDao.allQQUserId();
         threadPoolTaskExecutor.execute(() -> {
             for (UserIdHeadImg userIdHeadImg : githubUserId) {
-                String headImg = saveHeadImg(userIdHeadImg.getHeadImage(),"png");
-                userDao.updateHeadImg(userIdHeadImg.getId(),headImg);
+                String headImg = pictureService.saveImage(userIdHeadImg.getHeadImage(), "head", "png");
+
+                userDao.updateHeadImg(userIdHeadImg.getId(), headImg);
             }
         });
         threadPoolTaskExecutor.execute(() -> {
             for (UserIdHeadImg userIdHeadImg : qqUserId) {
                 StringBuilder qqImg = new StringBuilder(userIdHeadImg.getHeadImage());
-                qqImg.delete(qqImg.length()-2,qqImg.length());
+                qqImg.delete(qqImg.length() - 2, qqImg.length());
                 qqImg.append("100");
 
-                String headImg = saveHeadImg(qqImg.toString(),"jpg");
-                userDao.updateHeadImg(userIdHeadImg.getId(),headImg);
+                String headImg = pictureService.saveImage(qqImg.toString(), "head", "jpg");
+                userDao.updateHeadImg(userIdHeadImg.getId(), headImg);
             }
         });
     }
 
-    public String saveHeadImg(String url,String pictureFormat) {
-        String path = "/interest/head/" + DateUtil.currentTimes();
+    @Override
+    public void updateUserHeadImg(int userId, String headImg) {
+        userDao.updateHeadImg(userId, headImg);
+    }
 
-        String pictureUrl = null;
-        try {
-            String fileName = ImageUtil.saveImg(url, pathsProperties.getImage() + path, pictureFormat);
-            pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return pictureUrl;
+    @Override
+    public void updateUserUrl(int id) {
+        String url = pathsProperties.getDomainName()+"/page/user/"+id;
+        userDao.updateUserUrlById(id,url);
     }
 
 }
