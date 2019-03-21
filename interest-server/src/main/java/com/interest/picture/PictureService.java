@@ -11,4 +11,6 @@ public interface PictureService {
     String saveImage(String url, String pictureFormat);
 
     String saveImage(String url,String path,String pictureFormat);
+
+    boolean deleteImage(String pictureUrl);
 }

@@ -33,11 +33,12 @@
     		</div>
     	</div>
       <my-upload 
+        ref="upload"
         field="picture"
         v-model="show"
         :width="200"
         :height="200"
-        url="/interest/upload/picture"
+        url="/interest/general/users/user/head-img/upload"
         :headers="headers"
         img-format="png"
         @crop-upload-success="cropUploadSuccess"
@@ -88,6 +89,7 @@ export default {
         this.headImg = jsonData.data;
         this.show = false;
         this.$Notice.success({title: '头像修改成功'});
+        this.$refs.upload.off();
       }.bind(this))
       .catch(function(error) {
         alter(error);
@@ -95,6 +97,7 @@ export default {
     },
     cropUploadFail(status, field){
       this.$Notice.error({title: '头像修改失败'});
+      this.$refs.upload.off();
     },
   	userInfoSet(e){
   		this.userInfo.headimg = e.headimg;

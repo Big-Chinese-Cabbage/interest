@@ -11,6 +11,8 @@ import com.interest.picture.PictureService;
 import com.interest.properties.PathsProperties;
 import com.interest.service.UserDetailService;
 import com.interest.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +24,8 @@ import java.util.List;
 
 @Service(value = "userServiceImpl")
 public class UserServiceImpl implements UserService {
+
+    private Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserDao userDao;
@@ -152,7 +156,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserHeadImg(int userId, String headImg) {
+        String oldHeadImg = userDao.getUserEntityById(userId).getHeadimg();
         userDao.updateHeadImg(userId, headImg);
+        threadPoolTaskExecutor.execute(()->{
+            if(pictureService.deleteImage(oldHeadImg)){
+                log.info("picture: {} delete successfully",oldHeadImg);
+            }else {
+                log.error("picture: {} delete unsuccessfully",oldHeadImg);
+            }
+
+        });
     }
 
     @Override

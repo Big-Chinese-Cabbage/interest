@@ -72,8 +72,8 @@ public class ImageUtil {
     /**
      * 链接url保存图片
      *
-     * @param urlForString 连接url
-     * @param path 存储路径
+     * @param urlForString  连接url
+     * @param path          存储路径
      * @param pictureFormat 图片后缀
      * @return
      * @throws IOException
@@ -124,10 +124,8 @@ public class ImageUtil {
             String fileName = UUID.randomUUID().toString() + ".jpeg";
             FileOutputStream out = new FileOutputStream(path + File.separator + fileName);
             //将图片按JPEG压缩，保存到out中
-            ImageIO.write(tag,"JPEG",out);
+            ImageIO.write(tag, "JPEG", out);
 
-//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-//            encoder.encode(tag);
             //关闭文件输出流
             out.close();
         } catch (Exception ef) {
@@ -164,9 +162,7 @@ public class ImageUtil {
         String fileName = UUID.randomUUID().toString() + ".jpeg";
         FileOutputStream out = new FileOutputStream(path + File.separator + fileName);
         //将图片按JPEG压缩，保存到out中
-        ImageIO.write(tag,"JPEG",out);
-//        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-//        encoder.encode(tag);
+        ImageIO.write(tag, "JPEG", out);
         //关闭文件输出流
         out.close();
 
@@ -196,9 +192,7 @@ public class ImageUtil {
             //创建文件输出流
             FileOutputStream out = new FileOutputStream(imgdist);
             //将图片按JPEG压缩，保存到out中
-            ImageIO.write(tag,"JPEG",out);
-//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-//            encoder.encode(tag);
+            ImageIO.write(tag, "JPEG", out);
             //关闭文件输出流
             out.close();
         } catch (Exception ef) {
@@ -231,6 +225,21 @@ public class ImageUtil {
         }
 
         return result;
+    }
+
+    /**
+     * 删除本地图片
+     * @param fileName 文件全路径名
+     * @return
+     */
+    public static boolean deleteImage(String fileName){
+        File file =new File(fileName);
+        if (file.isFile() && file.exists()) {
+            file.delete();
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

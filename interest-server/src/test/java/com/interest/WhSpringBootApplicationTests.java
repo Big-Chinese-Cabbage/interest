@@ -95,4 +95,18 @@ public class WhSpringBootApplicationTests {
         //ImageUtil.saveImg("https://avatars1.githubusercontent.com/u/9424535?v=4","D:/interest/file/image","png");
     }
 
+    @Test
+    public void pictureUrl(){
+        String url1 = "http://127.0.0.1:8080/interest/interest/head/20190319/bbae1a8c-7b04-4daa-83c7-1f99399ba8fd.png";
+        String url2 = "https://www.lovemtt.com/interest/interest/head/20190319/e019d05c-7811-479d-ba09-927348970479.png";
+
+        System.out.println(url1.lastIndexOf("/interest"));
+        System.out.println(url2.lastIndexOf("/interest"));
+
+        String fileName = url1.substring(url1.lastIndexOf("/interest"));
+        System.out.println(fileName);
+        fileName = url2.substring(url2.lastIndexOf("/interest"));
+        System.out.println(fileName);
+    }
+
 }

@@ -24,7 +24,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public String saveImage(MultipartFile picture, String path) {
-        path = "/interest/" + path + DateUtil.currentTimes();
+        path = "/interest" + path + "/" + DateUtil.currentTimes();
 
         String pictureUrl = null;
         try {
@@ -57,5 +57,11 @@ public class PictureServiceImpl implements PictureService {
         }
 
         return pictureUrl;
+    }
+
+    @Override
+    public boolean deleteImage(String pictureUrl) {
+        String fileName = pathsProperties.getImage()+pictureUrl.substring(pictureUrl.lastIndexOf("/interest"));
+        return ImageUtil.deleteImage(fileName);
     }
 }

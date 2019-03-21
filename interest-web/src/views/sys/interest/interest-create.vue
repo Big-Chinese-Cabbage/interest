@@ -146,9 +146,9 @@ export default {
       }
     },
     handleSuccess(res, file) {
-      this.entity.image = res.url;
-      file.url = res.url;
-      file.name = res.url;
+      this.entity.image = res.data.url;
+      file.url = res.data.url;
+      file.name = res.data.url;
     },
     handleBeforeUpload() {
       this.$refs.upload.fileList.splice(0, this.$refs.upload.fileList.length);

@@ -5,12 +5,15 @@ import com.interest.model.entity.UserEntity;
 import com.interest.model.request.UserInfoRequest;
 import com.interest.model.response.UserInfoResponse;
 import com.interest.model.utils.ResponseWrapper;
+import com.interest.picture.PictureService;
 import com.interest.service.UserService;
 import com.interest.utils.SecurityAuthenUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,6 +26,9 @@ public class UserController {
 
     @Resource(name = "userServiceImpl")
     private UserService userService;
+
+    @Autowired
+    private PictureService pictureService;
 
     @GetMapping("/public/user")
     public ResponseWrapper<UserEntity> userGet() {
@@ -109,7 +115,7 @@ public class UserController {
 
     @GetMapping("/general/users/user/info")
     @ApiOperation("获取用户详情")
-    public ResponseWrapper<UserInfoResponse> getUserInfo(){
+    public ResponseWrapper<UserInfoResponse> getUserInfo() {
         int userId = SecurityAuthenUtil.getId();
         UserInfoResponse userInfoResponse = userService.getUserInfoById(userId);
         return new ResponseWrapper<>(userInfoResponse);
@@ -117,24 +123,30 @@ public class UserController {
 
     @GetMapping("/public/users/user/info")
     @ApiOperation("通过用户id来获取用户详情")
-    public ResponseWrapper<UserInfoResponse> getUserInfoById(@RequestParam("userId") int userId){
+    public ResponseWrapper<UserInfoResponse> getUserInfoById(@RequestParam("userId") int userId) {
         UserInfoResponse userInfoResponse = userService.getUserInfoById(userId);
         return new ResponseWrapper<>(userInfoResponse);
     }
 
     @PutMapping("/general/users/user/info")
     @ApiOperation("修改用户详情")
-    public ResponseWrapper<UserInfoResponse> updateUserInfo(@RequestBody UserInfoRequest userInfoRequest){
+    public ResponseWrapper<UserInfoResponse> updateUserInfo(@RequestBody UserInfoRequest userInfoRequest) {
         int userId = SecurityAuthenUtil.getId();
-        userService.updateUserInfoByUserId(userId,userInfoRequest);
+        userService.updateUserInfoByUserId(userId, userInfoRequest);
         return new ResponseWrapper<>(userInfoRequest);
     }
 
     @PatchMapping("/general/users/user/headImg")
-    public ResponseWrapper<String> updateUserHeadImg(@RequestParam("headImg") String headImg){
+    public ResponseWrapper<String> updateUserHeadImg(@RequestParam("headImg") String headImg) {
         int userId = SecurityAuthenUtil.getId();
-        userService.updateUserHeadImg(userId,headImg);
+        userService.updateUserHeadImg(userId, headImg);
         return new ResponseWrapper<>(headImg);
+    }
+
+    @PostMapping("/general/users/user/head-img/upload")
+    public ResponseWrapper<String> uploadUserHeadImg(@RequestParam("picture") MultipartFile picture) {
+        String pictureUrl = pictureService.saveImage(picture,"/head");
+        return new ResponseWrapper<>(pictureUrl);
     }
 
 //    @PatchMapping("/public/users/head-image/location")
