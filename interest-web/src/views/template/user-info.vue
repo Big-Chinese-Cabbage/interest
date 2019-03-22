@@ -4,8 +4,9 @@
     		<div class="subhead">
     			<h1 class="title-text">个人信息</h1>
     		</div>
-    		<div class="headimg">
-    			<img :src="userInfo.headimg">
+    		<div class="headimg" @click="toggleShow()">
+    			<img :src="headImg">
+          <p class="head-btn">修改头像</p>
     		</div>
     		<div class="info">
     			<Form :model="userInfo" label-position="top">
@@ -31,12 +32,33 @@
 			    </Form>
     		</div>
     	</div>
+      <my-upload 
+        ref="upload"
+        field="picture"
+        v-model="show"
+        :width="200"
+        :height="200"
+        url="/interest/general/users/user/head-img/upload"
+        :headers="headers"
+        img-format="png"
+        @crop-upload-success="cropUploadSuccess"
+        @crop-upload-fail="cropUploadFail">
+      </my-upload>
     </div>
 </template>
 <script>
+import myUpload from 'vue-image-crop-upload';
 export default {
+  components: {
+    'my-upload': myUpload
+  },
   data() {
     return {
+      headImg:'',
+      show: false,
+      headers: {
+        Authorization:'bearer '+ localStorage.getItem("currentUser_token")
+      },
     	userInfo: {
     		headimg:null,
     		name:null,
@@ -52,6 +74,31 @@ export default {
   	this.getUserInfo();
   },
   methods: {
+    toggleShow() {
+      this.show = !this.show;
+    },
+    cropUploadSuccess(jsonData, field){
+      this.axios({
+        method: "patch",
+        url: "/general/users/user/headImg",
+        params: {
+          headImg: jsonData.data
+        }
+      })
+      .then(function(response) {
+        this.headImg = jsonData.data;
+        this.show = false;
+        this.$Notice.success({title: '头像修改成功'});
+        this.$refs.upload.off();
+      }.bind(this))
+      .catch(function(error) {
+        alter(error);
+      }.bind(this));
+    },
+    cropUploadFail(status, field){
+      this.$Notice.error({title: '头像修改失败'});
+      this.$refs.upload.off();
+    },
   	userInfoSet(e){
   		this.userInfo.headimg = e.headimg;
   		this.userInfo.name = e.name;
@@ -69,6 +116,7 @@ export default {
 	    .then(
           function(response) {
             this.userInfoSet(response.data.data);
+            this.headImg = response.data.data.headimg;
           }.bind(this)
         )
         .catch(
@@ -85,9 +133,7 @@ export default {
   		})
   		.then(
           function(response) {
-            this.$Notice.success({
-                    title: '修改成功'
-                });
+            this.$Notice.success({title: '修改成功'});
           }.bind(this)
         )
         .catch(
@@ -131,7 +177,8 @@ export default {
 .user-content .headimg {
 	float: left;
 	margin-top: 16px;
-    padding: 0 16px;
+  padding: 0 16px;
+  cursor: pointer;
 }
 .user-content .headimg img {
 	width: 100px;
@@ -141,5 +188,16 @@ export default {
 }
 .user-content .update-button {
 	width: 100%;
+}
+.head-btn {
+  padding: 5px 15px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: #47cb89;
+  text-align: center;
+  border: 1px solid #47cb89;
+}
+.head-btn:hover{
+  background: rgba(244,252,248,.5);
 }
 </style>

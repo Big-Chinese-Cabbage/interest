@@ -92,4 +92,6 @@ public interface UserDao {
     List<UserIdHeadImg> allQQUserId();
 
     void updateHeadImg(@Param("id") Integer id,@Param("headImg") String headImg);
+
+    void updateUserUrlById(@Param("id") int id,@Param("url") String url);
 }

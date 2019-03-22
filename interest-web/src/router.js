@@ -6,6 +6,10 @@ Vue.use(VueRouter);
 
 const routers = [
   {
+    path: "/image-capture",
+    component: resolve => require(["./views/template/image-capture.vue"], resolve)
+  },
+  {
     path: "*",
     component: resolve => require(["./views/error404.vue"], resolve)
   },

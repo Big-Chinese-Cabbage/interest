@@ -1,4 +1,4 @@
-package com.interest.controller.authentication;
+package com.interest.login.authentication;
 
 import java.util.Collection;
 

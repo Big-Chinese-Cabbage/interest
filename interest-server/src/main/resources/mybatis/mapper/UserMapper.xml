@@ -199,4 +199,11 @@
         </where>
     </update>
 
+    <update id="updateUserUrlById">
+        update sys_user set url = #{url}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
 </mapper>

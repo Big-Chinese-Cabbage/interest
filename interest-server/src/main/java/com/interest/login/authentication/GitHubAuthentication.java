@@ -1,29 +1,28 @@
-package com.interest.controller.authentication;
+package com.interest.login.authentication;
 
 import com.interest.dao.UserDao;
 import com.interest.dao.UserDetailDao;
+import com.interest.login.exception.LoginFailureExcepiton;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.entity.UserEntity;
-import com.interest.controller.login.LoginFailureExcepiton;
 import com.interest.model.entity.UserGithubEntity;
+import com.interest.picture.PictureService;
 import com.interest.properties.GithubProperties;
-import com.interest.properties.PathsProperties;
 import com.interest.service.UserGithubService;
+import com.interest.service.UserService;
 import com.interest.utils.DateUtil;
-import com.interest.utils.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
 
 
 @Service(value = "gitHubAuthentication")
@@ -44,7 +43,13 @@ public class GitHubAuthentication implements MyAuthentication {
     private GithubProperties githubProperties;
 
     @Autowired
-    private PathsProperties pathsProperties;
+    private PictureService pictureService;
+
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
+    @Autowired
+    private UserService userService;
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -105,7 +110,7 @@ public class GitHubAuthentication implements MyAuthentication {
     }
 
     private String insertUser(JSONObject githubToken) throws JSONException {
-        String headImg = saveHeadImg(githubToken.getString("avatar_url"));
+        String headImg = githubToken.getString("avatar_url");
 
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(githubToken.getString("email"));
@@ -130,20 +135,12 @@ public class GitHubAuthentication implements MyAuthentication {
         userDetailEntity.setUserid(userEntity.getId());
         userDetailDao.insert(userDetailEntity);
 
+        // 异步将网络资源下载到本地，并且更新数据库
+        threadPoolTaskExecutor.execute(() -> {
+            userService.updateUserHeadImg(userEntity.getId(), pictureService.saveImage(headImg, "/head", "png"));
+            //userService.updateUserUrl(userEntity.getId());
+        });
         return String.valueOf(userEntity.getId());
     }
 
-    public String saveHeadImg(String url) {
-        String path = "/interest/head/" + DateUtil.currentTimes();
-
-        String pictureUrl = null;
-        try {
-            String fileName = ImageUtil.saveImg(url, pathsProperties.getImage() + path, "png");
-            pictureUrl = pathsProperties.getDomainName() + path + "/" + fileName;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return pictureUrl;
-    }
 }

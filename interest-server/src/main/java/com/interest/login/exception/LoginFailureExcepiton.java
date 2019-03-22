@@ -1,4 +1,4 @@
-package com.interest.controller.login;
+package com.interest.login.exception;
 
 public class LoginFailureExcepiton extends RuntimeException {
 

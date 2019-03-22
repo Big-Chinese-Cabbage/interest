@@ -270,7 +270,7 @@
                                                 <img class="avatar" :src="replyComment.userHeadImg" :title="replyComment.userName" />
                                             </a>
                                             <div class="title-info-right">
-                                                <a :href="$store.state.userUrlPre+comment.userid" target="_blank">
+                                                <a :href="$store.state.userUrlPre+replyComment.userid" target="_blank">
                                                     <span class="user-name">{{replyComment.userName}}</span>
                                                 </a>
                                                 <span>回复</span>

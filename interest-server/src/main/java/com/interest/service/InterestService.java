@@ -13,8 +13,6 @@ public interface InterestService {
 
 	InterestEntity getInsterestById(int id);
 
-    String savePicture(MultipartFile picture);
-
 	void insertEntity(InterestEntity interestEntity);
 
 	void updateEntity(InterestEntity interestEntity);

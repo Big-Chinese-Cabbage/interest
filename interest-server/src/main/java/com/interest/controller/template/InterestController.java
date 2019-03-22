@@ -1,26 +1,29 @@
 package com.interest.controller.template;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.interest.model.entity.InterestEntity;
 import com.interest.model.entity.PageResult;
 import com.interest.model.response.BannerResponse;
 import com.interest.model.response.InterestResponse;
 import com.interest.model.utils.ResponseWrapper;
+import com.interest.picture.PictureService;
+import com.interest.service.InterestService;
 import com.interest.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.interest.service.InterestService;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class InterestController {
 
     @Autowired
     private InterestService interestService;
+
+    @Autowired
+    private PictureService pictureService;
 
     @GetMapping("/public/interests")
     public ResponseWrapper<List<InterestResponse>> interestGet(@RequestParam(value = "title", required = false) String title) {
@@ -38,7 +41,7 @@ public class InterestController {
         Map<String, String> resultMap = new HashMap<String, String>();
         resultMap.put("time", DateUtil.currentTimestamp());
 
-        String pictureUrl = interestService.savePicture(picture);
+        String pictureUrl = pictureService.saveImage(picture);
         resultMap.put("url", pictureUrl);
         return new ResponseWrapper<>(resultMap);
     }

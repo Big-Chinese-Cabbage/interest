@@ -10,8 +10,8 @@ public class PathsProperties {
 	/**
 	 * 域名
 	 */
-	private String domainName; 
-	
+	private String domainName;
+
 	/**
 	 * 图片的本地存储地址
 	 */
