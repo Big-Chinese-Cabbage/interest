@@ -40,6 +40,9 @@
     .content {
         overflow: hidden;
     }
+    .content img{
+        max-width: 100%;
+    }
 
     .comment-section {
         flex-direction: column;
