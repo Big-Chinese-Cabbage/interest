@@ -98,8 +98,8 @@ public class ArticleServiceImpl implements ArticleService {
         String dayStart = null;
         String dayEnd = null;
         if (dateTimestamp != null && !"".equals(dateTimestamp)) {
-            dayStart = DateUtil.daystart(dateTimestamp);
-            dayEnd = DateUtil.dayend(dateTimestamp);
+            dayStart = DateUtil.dayStart(dateTimestamp);
+            dayEnd = DateUtil.dayEnd(dateTimestamp);
         }
         List<ArticleResponse> list = articleDao.getArticleListOnManagement(searchContent, dayStart, dayEnd, del, pageWrapper);
         int size = articleDao.getArticleSizeOnManagement(searchContent, dayStart, dayEnd, del);
