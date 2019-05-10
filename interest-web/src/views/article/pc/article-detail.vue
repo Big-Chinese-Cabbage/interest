@@ -198,7 +198,7 @@
         <div class="page-header-main">
             <div class="width-80 margin-auto margin-top-2 flex-direction-column flex-justify-center flex-items-center">
                 <div class="article">
-                    <div class="ql-container">
+                    <div class="ql-container ql-snow">
                         <div class="ql-editor">
                             <div class="title line-height-40 font-size-22">{{article.title}}</div>
                             <dl class="list-user-other">
