@@ -1,6 +1,9 @@
 package com.interest.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,7 +14,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static String currentTimestamp() {
-		return String.valueOf(new Date().getTime());
+		return String.valueOf(Instant.now().toEpochMilli());
 	}
 	
 	/**
@@ -20,9 +23,7 @@ public class DateUtil {
 	 */
 	public static String currentTimes() {
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		
-		return format.format(new Date());
+		return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 	}
 	
 	/**
@@ -30,15 +31,11 @@ public class DateUtil {
 	 * @param time
 	 * @return
 	 */
-	public static String monthFirstday(String time) {
-		Calendar cale = Calendar.getInstance();
-		cale.setTime(new Date(Long.valueOf(time)));
-        cale.add(Calendar.MONTH, 0);
-        cale.set(Calendar.DAY_OF_MONTH, 1);
-        cale.set(Calendar.HOUR_OF_DAY, 0);  
-        cale.set(Calendar.MINUTE, 0);  
-        cale.set(Calendar.SECOND, 0);
-        return String.valueOf(cale.getTimeInMillis());
+	public static String firstDayOfMonth(String time) {
+		Instant instant = Instant.ofEpochMilli(Long.valueOf(time));
+		ZoneId zoneId = ZoneId.systemDefault();
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant,zoneId).with(TemporalAdjusters.firstDayOfMonth()).withHour(0).withMinute(0).withSecond(0).withNano(0);
+		return String.valueOf(localDateTime.atZone(zoneId).toInstant().toEpochMilli());
 	}
 	
 	/**
@@ -46,29 +43,39 @@ public class DateUtil {
 	 * @param time
 	 * @return
 	 */
-	public static String monthLastday(String time) {
-		Calendar cale = Calendar.getInstance();
-		cale.setTime(new Date(Long.valueOf(time)));
-		cale.add(Calendar.MONTH, 1);
-        cale.set(Calendar.DAY_OF_MONTH, 0);
-        cale.set(Calendar.HOUR_OF_DAY, 23);  
-        cale.set(Calendar.MINUTE, 59);  
-        cale.set(Calendar.SECOND, 59);
-        return String.valueOf(cale.getTimeInMillis());
+	public static String lastDayOfMonth(String time) {
+		Instant instant = Instant.ofEpochMilli(Long.valueOf(time));
+		ZoneId zoneId = ZoneId.systemDefault();
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant,zoneId).with(TemporalAdjusters.lastDayOfMonth()).withHour(0).withMinute(0).withSecond(0).withNano(0);
+		return String.valueOf(localDateTime.atZone(zoneId).toInstant().toEpochMilli());
 	}
-	
+
+	/**
+	 * 周一时间戳
+	 * @param time
+	 * @return
+	 */
+	public static String firstDayOfWeek(String time) {
+		Instant instant = Instant.ofEpochMilli(Long.valueOf(time));
+		ZoneId zoneId = ZoneId.systemDefault();
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant,zoneId).withHour(0).withMinute(0).withSecond(0).withNano(0);
+		if(localDateTime.getDayOfWeek().getValue() == 1){
+			return String.valueOf(localDateTime.atZone(zoneId).toInstant().toEpochMilli());
+		}else {
+			return String.valueOf(localDateTime.atZone(zoneId).with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).toInstant().toEpochMilli());
+		}
+	}
+
 	/**
 	 * 这天的开始
 	 * @param time
 	 * @return
 	 */
-	public static String daystart(String time) {
-		Calendar cale = Calendar.getInstance();
-		cale.setTime(new Date(Long.valueOf(time)));
-		cale.set(Calendar.HOUR_OF_DAY, 0);  
-        cale.set(Calendar.MINUTE, 0);  
-        cale.set(Calendar.SECOND, 0);
-        return String.valueOf(cale.getTimeInMillis());
+	public static String dayStart(String time) {
+		Instant instant = Instant.ofEpochMilli(Long.valueOf(time));
+		ZoneId zoneId = ZoneId.systemDefault();
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant,zoneId).withHour(0).withMinute(0).withSecond(0).withNano(0);
+		return String.valueOf(localDateTime.atZone(zoneId).toInstant().toEpochMilli());
 	}
 	
 	/**
@@ -76,13 +83,11 @@ public class DateUtil {
 	 * @param time
 	 * @return
 	 */
-	public static String dayend(String time) {
-		Calendar cale = Calendar.getInstance();
-		cale.setTime(new Date(Long.valueOf(time)));
-		cale.set(Calendar.HOUR_OF_DAY, 23);  
-        cale.set(Calendar.MINUTE, 59);  
-        cale.set(Calendar.SECOND, 59);
-        return String.valueOf(cale.getTimeInMillis());
+	public static String dayEnd(String time) {
+		Instant instant = Instant.ofEpochMilli(Long.valueOf(time));
+		ZoneId zoneId = ZoneId.systemDefault();
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant,zoneId).with(TemporalAdjusters.firstDayOfMonth()).withHour(23).withMinute(59).withSecond(59).withNano(999);
+		return String.valueOf(localDateTime.atZone(zoneId).toInstant().toEpochMilli());
 	}
 	
 }

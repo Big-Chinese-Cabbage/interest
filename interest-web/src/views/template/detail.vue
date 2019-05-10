@@ -27,7 +27,7 @@
 	        <div class="text-align-center margin-top-2">
 	        </div>
             <div style="width: 80%;margin-top: 20px">
-              <div class="ql-container">
+              <div class="ql-container ql-snow">
                   <div class="ql-editor">
                      <div v-html="insterest.content"></div>
                   </div>
