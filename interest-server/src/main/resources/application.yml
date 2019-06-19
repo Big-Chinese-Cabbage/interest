@@ -58,3 +58,6 @@ interest:
   qq:
     appid: 你在qq中注册的appid
     appkey: 你在qq中注册的appkey
+  other:
+#    上传文件的临时目录
+    temporary-path: D:/interest/file/tmp
