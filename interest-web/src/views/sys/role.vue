@@ -188,7 +188,7 @@ export default {
           render: (h, params) => {
             return h("div", [
               h("Button", {
-                props: { icon: "gear-b" },
+                props: { icon: "md-cog" },
                 style: { border: "none", background: "none" },
                 on: {
                   click: () => {
