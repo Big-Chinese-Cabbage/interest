@@ -40,9 +40,9 @@ logging:
 # 你需要存储日志的目录
   file: D:/interest/file/log/interest.log
   level:
-    org.springframework.web: DEBUG
-    org.springframework.security: DEBUG
-    com.interest: DEBUG
+#    org.springframework.web: DEBUG
+#    org.springframework.security: DEBUG
+#    com.interest: DEBUG
 
 #自定义配置
 interest:
@@ -58,3 +58,6 @@ interest:
   qq:
     appid: 你在qq中注册的appid
     appkey: 你在qq中注册的appkey
+  other:
+#    上传文件的临时目录
+    temporary-path: D:/interest/file/tmp
