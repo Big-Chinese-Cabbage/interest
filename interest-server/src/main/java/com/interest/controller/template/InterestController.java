@@ -1,7 +1,7 @@
 package com.interest.controller.template;
 
 import com.interest.model.entity.InterestEntity;
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.response.BannerResponse;
 import com.interest.model.response.InterestResponse;
 import com.interest.model.utils.ResponseWrapper;

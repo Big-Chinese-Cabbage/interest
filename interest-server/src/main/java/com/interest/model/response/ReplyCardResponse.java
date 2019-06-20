@@ -1,8 +1,9 @@
 package com.interest.model.response;
 
-import com.interest.model.entity.ReplyCardEntity;
+import lombok.Data;
 
-public class ReplyCardResponse extends ReplyCardEntity {
+@Data
+public class ReplyCardResponse {
 
     private String headimg;
 
@@ -10,27 +11,13 @@ public class ReplyCardResponse extends ReplyCardEntity {
 
     private String username;
 
-    public String getHeadimg() {
-        return headimg;
-    }
+    private Integer id;
 
-    public void setHeadimg(String headimg) {
-        this.headimg = headimg;
-    }
+    private String content;
 
-    public String getGithuburl() {
-        return githuburl;
-    }
+    private Integer postcardid;
 
-    public void setGithuburl(String githuburl) {
-        this.githuburl = githuburl;
-    }
+    private String createtime;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    private Integer userid;
 }

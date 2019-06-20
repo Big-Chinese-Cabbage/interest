@@ -1,7 +1,9 @@
 package com.interest.model.request;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+@Data
 public class ArticleCommentRequest {
 
     @ApiModelProperty("文章id")
@@ -22,51 +24,4 @@ public class ArticleCommentRequest {
     @ApiModelProperty("回复评论人的姓名（一级回复无需传值）")
     private String replierName;
 
-    public Integer getArticleid() {
-        return articleid;
-    }
-
-    public void setArticleid(Integer articleid) {
-        this.articleid = articleid;
-    }
-
-    public Integer getParentid() {
-        return parentid;
-    }
-
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Integer getReplierId() {
-        return replierId;
-    }
-
-    public void setReplierId(Integer replierId) {
-        this.replierId = replierId;
-    }
-
-    public String getReplierName() {
-        return replierName;
-    }
-
-    public void setReplierName(String replierName) {
-        this.replierName = replierName;
-    }
-
-    public Integer getArticleOwnerId() {
-        return articleOwnerId;
-    }
-
-    public void setArticleOwnerId(Integer articleOwnerId) {
-        this.articleOwnerId = articleOwnerId;
-    }
 }

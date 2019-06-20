@@ -1,6 +1,6 @@
 package com.interest.service;
 
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.request.ArticleCommentRequest;
 import com.interest.model.utils.PageWrapper;
 

@@ -1,12 +1,14 @@
 package com.interest.model.utils;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.ToString;
 
 /**
  * 返回的JSON数据结构标准
  *
  * @param <T>
  */
+@ToString
 public class ResponseWrapper<T> {
 
     @ApiModelProperty("状态码")

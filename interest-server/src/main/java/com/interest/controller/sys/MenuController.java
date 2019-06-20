@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.interest.model.entity.MenuEntity;
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.utils.ResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

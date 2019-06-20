@@ -185,11 +185,27 @@ export default {
           key: "name"
         },
         {
-          title: "邮箱",
-          key: "email"
+          title: "头像",
+          key: "headimg",
+          width: 80,
+          align: "center",
+          render: (h, params) => {
+            return h(
+              "img",
+              {
+                attrs: {
+                  src: params.row.headimg
+                },
+                style: {
+                  width: '30px',  
+                  height: '30px'
+                }
+              }
+            );
+          }
         },
         {
-          title: "Github",
+          title: "url",
           key: "url",
           width: 300,
           render: (h, params) => {
@@ -204,6 +220,10 @@ export default {
               params.row.url
             );
           }
+        },
+        {
+          title: "邮箱",
+          key: "email"
         },
         {
           title: "用户类型",

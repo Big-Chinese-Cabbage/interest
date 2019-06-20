@@ -1,6 +1,6 @@
 package com.interest.controller.sys;
 
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.entity.UserEntity;
 import com.interest.model.request.UserInfoRequest;
 import com.interest.model.response.UserInfoResponse;

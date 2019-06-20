@@ -1,7 +1,10 @@
 package com.interest.model.entity;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class MenuEntity {
 	/**
 	 * id
@@ -34,76 +37,6 @@ public class MenuEntity {
 	/**
 	 * 二级菜单
 	 */
-	List<MenuEntity> children;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public int getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
-	public List<MenuEntity> getChildren() {
-		return children;
-	}
-
-	public void setChildren(List<MenuEntity> children) {
-		this.children = children;
-	}
-
-	@Override
-	public String toString() {
-		return "MenuEntity [id=" + id + ", name=" + name + ", url=" + url + ", parentId=" + parentId + ", sort=" + sort
-				+ ", remark=" + remark + ", icon=" + icon + ", children=" + children + "]";
-	}
+	private List<MenuEntity> children;
 
 }

@@ -1,6 +1,7 @@
 package com.interest.controller.article;
 
-import com.interest.model.entity.PageResult;
+import com.interest.annotation.InterestLog;
+import com.interest.model.utils.PageResult;
 import com.interest.model.request.ArticleCreateRequest;
 import com.interest.model.request.ArticleUpdateRequest;
 import com.interest.model.response.ArticleDetailResponse;

@@ -1,16 +1,24 @@
 package com.interest.model.response;
 
-import com.interest.model.entity.EmailEntity;
+import lombok.Data;
 
-public class EmailResponse extends EmailEntity {
+@Data
+public class EmailResponse {
+
+    private Integer id;
+
+    private String title;
+
+    private String email;
+
+    private String name;
+
+    private String content;
+
+    private String createtime;
+
+    private Integer userid;
 
     private String username;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
