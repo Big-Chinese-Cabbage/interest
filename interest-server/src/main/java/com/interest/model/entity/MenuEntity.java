@@ -34,7 +34,7 @@ public class MenuEntity {
 	/**
 	 * 二级菜单
 	 */
-	List<MenuEntity> children;
+	private List<MenuEntity> children;
 
 	public int getId() {
 		return id;
