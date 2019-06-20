@@ -248,7 +248,7 @@ export default {
       }
     };
   },
-  mounted() {
+  created() {
     var code = this.$route.query.code;
     var state = this.$route.query.state;
     if (this.$store.getters._isMobile) {
@@ -462,6 +462,7 @@ export default {
             );
             this.axios.defaults.headers.common["Authorization"] =
               "bearer " + localStorage.getItem("currentUser_token");
+            this.$router.push({ path: "/qq" });
             this.$router.push({ path: "/" });
             location.reload();
           }.bind(this)

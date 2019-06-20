@@ -64,8 +64,6 @@ public class QQAuthentication implements MyAuthentication {
         String appid = qqProperties.getAppid();
         String appkey = qqProperties.getAppkey();
 
-        logger.info("**********appid:" + appid + ";appkey:" + appkey + "**********");
-
         /* 获取access_token */
         String tokenUrl = QQ_ACCESSS_TOKEN_URL + "?grant_type=authorization_code&client_id=" + appid +
                 "&client_secret=" + appkey + "&code=" + code + "&redirect_uri=http://www.lovemtt.com/qq";

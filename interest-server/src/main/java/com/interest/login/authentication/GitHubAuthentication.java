@@ -66,8 +66,6 @@ public class GitHubAuthentication implements MyAuthentication {
         requestEntity.add("client_secret", githubProperties.getClientSecret());
         requestEntity.add("code", code);
 
-        logger.info("**********client_id:" + requestEntity.get("client_id") + ";client_secret:" + requestEntity.get("client_secret") + "**********");
-
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(GITHUB_ACCESSS_TOKEN_URL, requestEntity, String.class);
 
         String message = responseEntity.getBody().trim();
