@@ -2,7 +2,7 @@ package com.interest.controller.template;
 
 import java.util.List;
 
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.entity.PostCardEntity;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.model.response.PostCardResponse;

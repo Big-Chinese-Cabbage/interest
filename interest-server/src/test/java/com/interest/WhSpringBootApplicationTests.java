@@ -56,20 +56,6 @@ public class WhSpringBootApplicationTests {
     @Autowired
     private UserGithubDao userGithubDao;
 
-    @Test
-    public void testRedis() {
-
-        List<UserEntity> list = userDao.getALl();
-        for (UserEntity userEntity : list) {
-            UserGithubEntity userGithubEntity = new UserGithubEntity();
-            userGithubEntity.setLogin(userEntity.getName());
-            userGithubEntity.setUserid(userEntity.getId());
-            userGithubEntity.setEmail(userEntity.getEmail());
-            userGithubEntity.setHtmlUrl(userEntity.getUrl());
-            userGithubEntity.setAvatarUrl(userEntity.getHeadimg());
-            userGithubDao.insertEntity(userGithubEntity);
-        }
-    }
 
     @Test
     public void QQOauth2Test() {

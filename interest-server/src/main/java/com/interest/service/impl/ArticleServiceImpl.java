@@ -3,7 +3,7 @@ package com.interest.service.impl;
 import com.interest.dao.ArticleDao;
 import com.interest.exception.ArticleException;
 import com.interest.model.entity.ArticleEntity;
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.entity.UserDetailEntity;
 import com.interest.model.request.ArticleCreateRequest;
 import com.interest.model.request.ArticleUpdateRequest;

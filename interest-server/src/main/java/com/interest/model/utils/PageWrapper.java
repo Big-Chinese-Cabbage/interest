@@ -1,5 +1,8 @@
 package com.interest.model.utils;
 
+import lombok.Data;
+
+@Data
 public class PageWrapper {
 
     private int pageSize;
@@ -11,19 +14,4 @@ public class PageWrapper {
         this.start = page * pageSize;
     }
 
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
 }

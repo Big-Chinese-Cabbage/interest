@@ -1,6 +1,6 @@
 package com.interest.controller.template;
 
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.service.MsgRecordsService;
 import com.interest.utils.SecurityAuthenUtil;

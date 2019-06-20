@@ -1,8 +1,7 @@
 package com.interest.controller.article;
 
-import com.interest.model.entity.PageResult;
+import com.interest.model.utils.PageResult;
 import com.interest.model.request.ArticleCommentRequest;
-import com.interest.model.response.ArticleCommentResponse;
 import com.interest.model.utils.PageWrapper;
 import com.interest.model.utils.ResponseWrapper;
 import com.interest.service.ArticleCommentService;
@@ -10,8 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @Api(tags = "文章评论模块")
