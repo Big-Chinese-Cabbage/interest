@@ -48,7 +48,7 @@ public class MenuController {
      */
     @GetMapping("/menus")
     public ResponseWrapper<PageResult> menusList(int pageSize, int page, String menuId) {
-        PageResult pageResult = new PageResult();
+        PageResult<MenuEntity> pageResult = new PageResult<>();
         pageResult.setData(menuService.menusList(pageSize, page * pageSize, menuId));
         pageResult.setTotalCount(menuService.menusSize(pageSize, page * pageSize, menuId));
         log.debug("The method is ending");

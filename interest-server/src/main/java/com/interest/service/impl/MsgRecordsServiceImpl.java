@@ -41,7 +41,7 @@ public class MsgRecordsServiceImpl implements MsgRecordsService {
         List<MsgRecordResponse> list = msgRecordsDao.getMsgListByUserid(userid,pageSize,start);
         int size = msgRecordsDao.getMsgSizeByUserid(userid);
 
-        PageResult pageResult = new PageResult();
+        PageResult<MsgRecordResponse> pageResult = new PageResult<>();
         pageResult.setTotalCount(size);
         pageResult.setData(list);
         return pageResult;

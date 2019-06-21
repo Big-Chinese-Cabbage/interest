@@ -1,5 +1,6 @@
 package com.interest.controller.template;
 
+import com.interest.model.response.ReplyCardResponse;
 import com.interest.model.utils.PageResult;
 import com.interest.model.entity.ReplyCardEntity;
 import com.interest.model.utils.ResponseWrapper;
@@ -21,7 +22,7 @@ public class ReplyCardController {
     @GetMapping("/public/replycards")
     public ResponseWrapper<PageResult> replycardList(@RequestParam("postcardid") int postcardid,
                                                      @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-        PageResult pageResult = new PageResult();
+        PageResult<ReplyCardResponse> pageResult = new PageResult<>();
         pageResult.setData(replyCardService.replycardList(postcardid, pageSize, page * pageSize));
         pageResult.setTotalCount(replyCardService.replycardSize(postcardid, pageSize, page * pageSize));
         return new ResponseWrapper<>(pageResult);

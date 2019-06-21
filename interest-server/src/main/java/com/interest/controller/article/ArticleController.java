@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@InterestLog
 public class ArticleController {
 
     @Autowired
@@ -81,6 +82,7 @@ public class ArticleController {
         return new ResponseWrapper<>(groupId);
     }
 
+    @InterestLog
     @GetMapping("/public/users/user/{userId}/articles")
     public ResponseWrapper<PageResult> getArticle(@PathVariable("userId") int userId,
                                                   @RequestParam("pageSize") int pageSize,
@@ -90,6 +92,7 @@ public class ArticleController {
         return new ResponseWrapper<>(pageResult);
     }
 
+    @InterestLog
     @GetMapping("/general/users/user/articles")
     public ResponseWrapper<PageResult> getUserArticle(@RequestParam("pageSize") int pageSize,
                                                       @RequestParam("page") int page) {
@@ -99,6 +102,7 @@ public class ArticleController {
         return new ResponseWrapper<>(pageResult);
     }
 
+    @InterestLog
     @GetMapping("/public/articles/article/{id}")
     public ResponseWrapper<ArticleDetailResponse> getArticleById(@PathVariable("id") int id) {
         ArticleDetailResponse articleDetailResponse = articleService.getArticleById(id);
@@ -111,6 +115,11 @@ public class ArticleController {
         String pictureUrl = pictureService.saveImage(picture);
 
         return new ResponseWrapper<>(pictureUrl);
+    }
+
+    @GetMapping("/public/test123")
+    public ResponseWrapper<List<String>> test123(@RequestBody(required = false) List<String> s){
+        return new ResponseWrapper<>(s);
     }
 
 }

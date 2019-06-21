@@ -36,7 +36,7 @@ public class RoleController {
      */
     @GetMapping("/roles")
     public ResponseWrapper<PageResult> rolesList(String loginName, int pageSize, int page) {
-        PageResult pageResult = new PageResult();
+        PageResult<RoleEntity> pageResult = new PageResult<>();
         pageResult.setData(roleService.rolesList(pageSize, page * pageSize));
         pageResult.setTotalCount(roleService.rolesSize(pageSize, page * pageSize));
         log.debug("The method is ending");

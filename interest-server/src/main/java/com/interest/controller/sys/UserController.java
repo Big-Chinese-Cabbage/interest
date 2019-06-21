@@ -48,7 +48,7 @@ public class UserController {
      */
     @GetMapping("/users")
     public ResponseWrapper<PageResult> usersList(@RequestParam(value = "name", required = false) String name, @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-        PageResult pageResult = new PageResult();
+        PageResult<UserEntity> pageResult = new PageResult<>();
         pageResult.setData(userService.usersList(name, pageSize, page * pageSize));
         pageResult.setTotalCount(userService.usersSize(name, pageSize, page * pageSize));
         log.debug("The method is ending");

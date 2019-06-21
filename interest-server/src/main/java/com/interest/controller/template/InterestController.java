@@ -64,7 +64,7 @@ public class InterestController {
 
     @GetMapping("/admin/interests")
     public ResponseWrapper<PageResult> interestList(@RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-        PageResult pageResult = new PageResult();
+        PageResult<InterestEntity> pageResult = new PageResult<>();
         pageResult.setData(interestService.interestList(pageSize, page * pageSize));
         pageResult.setTotalCount(interestService.interestSize());
         return new ResponseWrapper<>(pageResult);

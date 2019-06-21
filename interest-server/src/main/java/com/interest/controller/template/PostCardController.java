@@ -25,7 +25,7 @@ public class PostCardController {
     @GetMapping("/public/postcards")
     public ResponseWrapper<PageResult> postcardList(@RequestParam(value = "interestid", required = false) String interestid,
                                                     @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-        PageResult pageResult = new PageResult();
+        PageResult<PostCardResponse> pageResult = new PageResult<>();
         pageResult.setData(postCardService.postcardList(interestid, pageSize, page * pageSize));
         pageResult.setTotalCount(postCardService.postcardSize(interestid, pageSize, page * pageSize));
         return new ResponseWrapper<>(pageResult);

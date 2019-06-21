@@ -19,7 +19,7 @@ public class EmailController {
 
     @GetMapping("/emails")
     public ResponseWrapper<PageResult> emailsList(@RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-        PageResult pageResult = new PageResult();
+        PageResult<EmailEntity> pageResult = new PageResult<>();
         pageResult.setData(emailService.emailsList(pageSize, page * pageSize));
         pageResult.setTotalCount(emailService.emailsSize(pageSize, page * pageSize));
         return new ResponseWrapper<>(pageResult);

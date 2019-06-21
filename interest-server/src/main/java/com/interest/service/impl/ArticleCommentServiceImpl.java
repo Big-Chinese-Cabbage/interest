@@ -70,6 +70,6 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         List<ArticleCommentResponse> list = articleCommentDao.getArticleCommentByArticleId(articleId,pageWrapper);
         int size = articleCommentDao.getArticleCommentSizeByArticleId(articleId);
 
-        return new PageResult(list,size);
+        return new PageResult<>(list,size);
     }
 }
