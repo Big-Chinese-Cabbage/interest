@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.interest.annotation.InterestLog;
 import com.interest.model.entity.RelationEntity;
 import com.interest.model.utils.ResponseWrapper;
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ public class RelationController {
      * @param userId
      * @return
      */
+    @InterestLog
     @GetMapping("/relations/{userId}")
     public ResponseWrapper<List<RelationEntity>> getRelationByUserId(@PathVariable int userId) {
         log.debug("The method is ending");
@@ -42,6 +44,7 @@ public class RelationController {
      * @param relationList
      * @return
      */
+    @InterestLog
     @PostMapping("/relations")
     public ResponseWrapper<List<RelationEntity>> insertRelations(@RequestBody() List<RelationEntity> relationList) {
         relationService.insertRelations(relationList);

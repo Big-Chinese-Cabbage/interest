@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.interest.annotation.InterestLog;
 import com.interest.model.utils.PageResult;
 import com.interest.model.entity.RoleEntity;
 import com.interest.model.utils.ResponseWrapper;
@@ -34,9 +35,10 @@ public class RoleController {
      * @param page
      * @return
      */
+    @InterestLog
     @GetMapping("/roles")
     public ResponseWrapper<PageResult> rolesList(String loginName, int pageSize, int page) {
-        PageResult pageResult = new PageResult();
+        PageResult<RoleEntity> pageResult = new PageResult<>();
         pageResult.setData(roleService.rolesList(pageSize, page * pageSize));
         pageResult.setTotalCount(roleService.rolesSize(pageSize, page * pageSize));
         log.debug("The method is ending");
@@ -49,6 +51,7 @@ public class RoleController {
      * @param roleEntity
      * @return
      */
+    @InterestLog
     @PostMapping("/roles/role")
     public ResponseWrapper<RoleEntity> insertRole(@RequestBody RoleEntity roleEntity) {
         roleService.insertRole(roleEntity);
@@ -63,6 +66,7 @@ public class RoleController {
      * @param id
      * @return
      */
+    @InterestLog
     @PutMapping("/roles/{id}")
     public ResponseWrapper<RoleEntity> updateRole(@RequestBody RoleEntity roleEntity, @PathVariable int id) {
         if (roleEntity.getId() == id) {
@@ -78,6 +82,7 @@ public class RoleController {
      * @param groupId
      * @return
      */
+    @InterestLog
     @DeleteMapping("/roles")
     public ResponseWrapper<List<String>> deleteRoles(@RequestBody List<String> groupId) {
         roleService.deleteRoles(groupId);
@@ -89,6 +94,7 @@ public class RoleController {
      *
      * @return
      */
+    @InterestLog
     @GetMapping("/roles/all")
     public ResponseWrapper<List<RoleEntity>> allRoles() {
         return new ResponseWrapper<>(roleService.allRoles());

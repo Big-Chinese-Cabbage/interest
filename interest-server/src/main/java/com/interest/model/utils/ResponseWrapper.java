@@ -2,13 +2,15 @@ package com.interest.model.utils;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.ToString;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * 返回的JSON数据结构标准
  *
  * @param <T>
  */
-@ToString
 public class ResponseWrapper<T> {
 
     @ApiModelProperty("状态码")
@@ -62,5 +64,35 @@ public class ResponseWrapper<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        String returnString = "ResponseWrapper{" +
+                "status='" + status + '\'' +
+                ", message='" + message + '\'';
+        if (data instanceof List) {
+            if(((List) data).size()>5){
+                return returnString +
+                        ", dataSize=" + ((List) data).size() +
+                        '}';
+            }
+        } else if (data instanceof PageResult) {
+            if (CollectionUtils.isEmpty(((PageResult) data).getData())) {
+                return returnString +
+                        ", totalCount=" + ((PageResult) data).getTotalCount() +
+                        ", dataSize=" + 0 +
+                        '}';
+            }
+            return returnString +
+                    ", totalCount=" + ((PageResult) data).getTotalCount() +
+                    ", dataSize=" + ((PageResult) data).getData().size() +
+                    '}';
+        }
+        return "ResponseWrapper{" +
+                "status='" + status + '\'' +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

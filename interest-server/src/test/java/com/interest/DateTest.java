@@ -12,9 +12,7 @@ public class DateTest {
 
     @Test
     public void test1(){
-        long t = Instant.now().toEpochMilli();
-        System.out.println(t);
-        System.out.println(DateUtil.currentTimestamp());
+        System.out.println(DateUtil.currentLocalDataTime());
     }
 
     @Test

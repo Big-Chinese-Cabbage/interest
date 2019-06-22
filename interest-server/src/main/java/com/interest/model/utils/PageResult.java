@@ -11,10 +11,10 @@ import java.util.List;
  * @author wanghuan
  */
 @Data
-public class PageResult {
+public class PageResult<T> {
 
     @ApiModelProperty("分页数据")
-    private List<?> data;
+    private List<T> data;
 
     @ApiModelProperty("分页数据总量")
     private Integer totalCount;
@@ -22,7 +22,7 @@ public class PageResult {
     public PageResult() {
     }
 
-    public PageResult(List<?> data, Integer totalCount) {
+    public PageResult(List<T> data, Integer totalCount) {
         this.data = data;
         this.totalCount = totalCount;
     }

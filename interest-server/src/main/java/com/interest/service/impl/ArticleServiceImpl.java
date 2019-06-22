@@ -67,7 +67,7 @@ public class ArticleServiceImpl implements ArticleService {
     public PageResult getArticle(String searchContent, PageWrapper pageWrapper) {
         List<ArticleResponse> list = articleDao.getArticleList(searchContent, pageWrapper);
         int size = articleDao.getArticleSize(searchContent);
-        return new PageResult(list, size);
+        return new PageResult<>(list, size);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ArticleServiceImpl implements ArticleService {
     public PageResult getArticlesByUserId(int userId, PageWrapper pageWrapper) {
         List<ArticleResponse> list = articleDao.getArticlesListByUserId(userId, pageWrapper);
         int size = articleDao.getArticlesSizeByUserId(userId);
-        return new PageResult(list, size);
+        return new PageResult<>(list, size);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         List<ArticleResponse> list = articleDao.getArticleListOnManagement(searchContent, dayStart, dayEnd, del, pageWrapper);
         int size = articleDao.getArticleSizeOnManagement(searchContent, dayStart, dayEnd, del);
-        return new PageResult(list, size);
+        return new PageResult<>(list, size);
     }
 
     @Override

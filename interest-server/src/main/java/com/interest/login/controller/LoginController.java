@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.interest.annotation.InterestLog;
 import com.interest.login.authentication.MyAuthentication;
 import com.interest.login.authentication.MyAuthenticationToken;
 import com.interest.login.handler.LoginSuccessHandler;
@@ -28,6 +29,7 @@ public class LoginController {
 	@Resource(name = "qQAuthentication")
 	private MyAuthentication qQAuthentication;
 
+	@InterestLog
 	@PostMapping("/authentication/github")
 	public OAuth2AccessToken loginForGithHub(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code)
 			throws IOException {
@@ -35,6 +37,7 @@ public class LoginController {
 		return login(request,response,code,gitHubAuthentication);
 	}
 
+	@InterestLog
 	@PostMapping("/authentication/qq")
 	public OAuth2AccessToken loginForQQ(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code)
 			throws IOException {
