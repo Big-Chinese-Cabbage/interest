@@ -42,7 +42,7 @@ logging:
   level:
 #    org.springframework.web: DEBUG
 #    org.springframework.security: DEBUG
-#    com.interest: DEBUG
+    com.interest: DEBUG
 
 #自定义配置
 interest:
