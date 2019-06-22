@@ -1,5 +1,6 @@
 package com.interest.controller.sys;
 
+import com.interest.annotation.InterestLog;
 import com.interest.model.utils.PageResult;
 import com.interest.model.entity.UserEntity;
 import com.interest.model.request.UserInfoRequest;
@@ -30,6 +31,7 @@ public class UserController {
     @Autowired
     private PictureService pictureService;
 
+    @InterestLog
     @GetMapping("/public/user")
     public ResponseWrapper<UserEntity> userGet() {
         int userid = SecurityAuthenUtil.getIdWithoutException();
@@ -46,6 +48,7 @@ public class UserController {
      * @param page
      * @return
      */
+    @InterestLog
     @GetMapping("/users")
     public ResponseWrapper<PageResult> usersList(@RequestParam(value = "name", required = false) String name, @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
         PageResult<UserEntity> pageResult = new PageResult<>();
@@ -61,6 +64,7 @@ public class UserController {
      * @param userEntity
      * @return
      */
+    @InterestLog
     @PostMapping("/users/user")
     public ResponseWrapper<UserEntity> insertUser(@RequestBody UserEntity userEntity) {
         userService.insertUser(userEntity);
@@ -74,6 +78,7 @@ public class UserController {
      * @param userEntity
      * @return
      */
+    @InterestLog
     @PostMapping("/register")
     public ResponseWrapper<UserEntity> register(@RequestBody UserEntity userEntity) {
         userService.insertUser(userEntity);
@@ -87,6 +92,7 @@ public class UserController {
      * @param userEntity
      * @return
      */
+    @InterestLog
     @PutMapping("/user")
     public ResponseWrapper<UserEntity> updateUser(@RequestBody UserEntity userEntity) {
         userService.updateUser(userEntity);
@@ -94,6 +100,7 @@ public class UserController {
         return new ResponseWrapper<>(userEntity);
     }
 
+    @InterestLog
     @PutMapping("/users/user")
     public ResponseWrapper<UserEntity> updateUsertype(@RequestBody UserEntity userEntity) {
         userService.updateUsertype(userEntity);
@@ -107,12 +114,14 @@ public class UserController {
      * @param groupId
      * @return
      */
+    @InterestLog
     @DeleteMapping("/users")
     public ResponseWrapper<List<String>> deleteUsers(@RequestBody List<String> groupId) {
         userService.deleteUsers(groupId);
         return new ResponseWrapper<>(groupId);
     }
 
+    @InterestLog
     @GetMapping("/general/users/user/info")
     @ApiOperation("获取用户详情")
     public ResponseWrapper<UserInfoResponse> getUserInfo() {
@@ -121,6 +130,7 @@ public class UserController {
         return new ResponseWrapper<>(userInfoResponse);
     }
 
+    @InterestLog
     @GetMapping("/public/users/user/info")
     @ApiOperation("通过用户id来获取用户详情")
     public ResponseWrapper<UserInfoResponse> getUserInfoById(@RequestParam("userId") int userId) {
@@ -128,6 +138,7 @@ public class UserController {
         return new ResponseWrapper<>(userInfoResponse);
     }
 
+    @InterestLog
     @PutMapping("/general/users/user/info")
     @ApiOperation("修改用户详情")
     public ResponseWrapper<UserInfoResponse> updateUserInfo(@RequestBody UserInfoRequest userInfoRequest) {
@@ -136,6 +147,7 @@ public class UserController {
         return new ResponseWrapper<>(userInfoRequest);
     }
 
+    @InterestLog
     @PatchMapping("/general/users/user/headImg")
     public ResponseWrapper<String> updateUserHeadImg(@RequestParam("headImg") String headImg) {
         int userId = SecurityAuthenUtil.getId();
@@ -143,17 +155,11 @@ public class UserController {
         return new ResponseWrapper<>(headImg);
     }
 
+    @InterestLog
     @PostMapping("/general/users/user/head-img/upload")
     public ResponseWrapper<String> uploadUserHeadImg(@RequestParam("picture") MultipartFile picture) {
         String pictureUrl = pictureService.saveImage(picture,"/head");
         return new ResponseWrapper<>(pictureUrl);
     }
-
-//    @PatchMapping("/public/users/head-image/location")
-//    public ResponseWrapper<String> updateUserHeadImageToLocation(){
-//        userService.updateUserHeadImageToLocation();
-//        return new ResponseWrapper<>("success");
-//    }
-
 
 }

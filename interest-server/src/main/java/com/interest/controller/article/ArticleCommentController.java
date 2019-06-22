@@ -1,5 +1,6 @@
 package com.interest.controller.article;
 
+import com.interest.annotation.InterestLog;
 import com.interest.model.utils.PageResult;
 import com.interest.model.request.ArticleCommentRequest;
 import com.interest.model.utils.PageWrapper;
@@ -17,6 +18,7 @@ public class ArticleCommentController {
     @Autowired
     private ArticleCommentService articleCommentService;
 
+    @InterestLog
     @ApiOperation(value = "文章评论/回复评论")
     @PostMapping("/article/comment")
     public ResponseWrapper<String> articleComment(@RequestBody ArticleCommentRequest articleCommentRequest) {
@@ -26,6 +28,7 @@ public class ArticleCommentController {
         return new ResponseWrapper<>("评论成功");
     }
 
+    @InterestLog
     @ApiOperation("查询文章评论")
     @GetMapping("/public/article/comment")
     public ResponseWrapper<PageResult> getArticleComment(@RequestParam("articleId") int articleId,

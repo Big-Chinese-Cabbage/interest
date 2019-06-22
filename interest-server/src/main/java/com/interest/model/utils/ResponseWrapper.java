@@ -68,19 +68,16 @@ public class ResponseWrapper<T> {
 
     @Override
     public String toString() {
-        System.out.println("ResponseWrapper toString");
         String returnString = "ResponseWrapper{" +
                 "status='" + status + '\'' +
                 ", message='" + message + '\'';
         if (data instanceof List) {
-            System.out.println("data instanceof List");
             if(((List) data).size()>5){
                 return returnString +
                         ", dataSize=" + ((List) data).size() +
                         '}';
             }
         } else if (data instanceof PageResult) {
-            System.out.println("data instanceof PageResult");
             if (CollectionUtils.isEmpty(((PageResult) data).getData())) {
                 return returnString +
                         ", totalCount=" + ((PageResult) data).getTotalCount() +

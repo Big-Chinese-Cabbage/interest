@@ -25,6 +25,14 @@ public class DateUtil {
 		
 		return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 	}
+
+	/**
+	 * 当前系统时间（yyyy-MM-dd: HH:mm:ss sss）
+	 * @return
+	 */
+	public static String currentLocalDataTime(){
+		return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd: HH:mm:ss SSS"));
+	}
 	
 	/**
 	 * 月初时间戳

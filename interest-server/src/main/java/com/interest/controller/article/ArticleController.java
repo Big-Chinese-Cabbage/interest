@@ -10,7 +10,9 @@ import com.interest.model.utils.ResponseWrapper;
 import com.interest.picture.PictureService;
 import com.interest.service.ArticleService;
 import com.interest.utils.SecurityAuthenUtil;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,18 +27,21 @@ public class ArticleController {
     @Autowired
     private PictureService pictureService;
 
+    @InterestLog
     @PostMapping("/article")
     public ResponseWrapper<String> createArticle(@RequestBody ArticleCreateRequest articleCreateRequest) {
         articleService.createArticle(articleCreateRequest);
         return new ResponseWrapper<>("发布成功");
     }
 
+    @InterestLog
     @PutMapping("/article")
     public ResponseWrapper<String> updateArticle(@RequestBody ArticleUpdateRequest articleCreateRequest) {
         articleService.updateArticle(articleCreateRequest);
         return new ResponseWrapper<>("发布成功");
     }
 
+    @InterestLog
     @GetMapping("/public/articles")
     public ResponseWrapper<PageResult> getArticle(@RequestParam(value = "searchContent", required = false) String searchContent,
                                                   @RequestParam("pageSize") int pageSize,
@@ -46,6 +51,7 @@ public class ArticleController {
         return new ResponseWrapper<>(pageResult);
     }
 
+    @InterestLog
     @GetMapping("/admin/articles")
     public ResponseWrapper<PageResult> getArticles(@RequestParam(value = "searchContent", required = false) String searchContent,
                                                    @RequestParam(value = "dateTimestamp", required = false) String dateTimestamp,
@@ -57,24 +63,28 @@ public class ArticleController {
         return new ResponseWrapper<>(pageResult);
     }
 
+    @InterestLog
     @DeleteMapping("/admin/articles")
     public ResponseWrapper delArticles(@RequestBody List<String> groupId) {
         articleService.updateArticlesDelByIds(groupId, 1);
         return new ResponseWrapper<>(groupId);
     }
 
+    @InterestLog
     @DeleteMapping("/articles/article/{id}")
     public ResponseWrapper delArticleById(@PathVariable("id") int articleId) {
         articleService.updateArticlesDelById(articleId);
         return new ResponseWrapper<>(articleId);
     }
 
+    @InterestLog
     @PatchMapping("/admin/articles")
     public ResponseWrapper republishArticles(@RequestBody List<String> groupId) {
         articleService.updateArticlesDelByIds(groupId, 0);
         return new ResponseWrapper<>(groupId);
     }
 
+    @InterestLog
     @PatchMapping("/admin/articles/top")
     public ResponseWrapper changeArticlesTop(@RequestBody List<String> groupId, @RequestParam("top") int top) {
         articleService.updateArticlesTopByIds(groupId, top);
@@ -108,17 +118,13 @@ public class ArticleController {
         return new ResponseWrapper<>(articleDetailResponse);
     }
 
+    @InterestLog
     @PostMapping("/upload/picture")
     public ResponseWrapper<String> uploadPicture(@RequestParam("picture") MultipartFile picture) {
 
         String pictureUrl = pictureService.saveImage(picture);
 
         return new ResponseWrapper<>(pictureUrl);
-    }
-
-    @GetMapping("/public/test123")
-    public ResponseWrapper<List<String>> test123(@RequestBody(required = false) List<String> s){
-        return new ResponseWrapper<>(s);
     }
 
 }
